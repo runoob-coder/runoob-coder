@@ -1,13 +1,13 @@
 
 ## 👋 Hey guys, I'm 驴割肠
 
-### 🧑🏻‍💻 About Me {#About-Me}
+### 🧑🏻‍💻 About Me
 
 全干工程师｜独立开发者｜代码洁癖症重度患者｜魔术、纸牌爱好者
 
-### 🛠 Technology Stack {#Technology-Stack}
+### 🛠 Technology Stack
 
-### 🔭 GitHub Analysis {#GitHub-Analysis}
+### 🔭 GitHub Analysis
 
 <p align="left">
   <a href="https://github.com/runoob-coder">
