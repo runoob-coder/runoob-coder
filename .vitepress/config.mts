@@ -6,7 +6,13 @@ import {sidebar} from './sidebar'
 export default defineConfig({
     title: "noob-coder 🧑🏻‍💻",
     description: "菜鸟码农",
-    head: [['link', {rel: 'icon', href: '/laptop-code.svg'}]],
+    head: [
+        ['link', {rel: 'icon', type: 'image/svg+xml', href: '/laptop-code.svg'}],
+        ['meta', {name: 'theme-color', content: '#c5964b'}],
+        ['meta', {property: 'og:type', content: 'website'}],
+        ['meta', {property: 'og:site_name', content: 'noob-coder 菜鸟码农'}],
+        ['meta', {property: 'og:url', content: 'https://www.noob-coder.com/'}],
+    ],
     lang: 'zh-cn',
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
@@ -254,6 +260,10 @@ export default defineConfig({
 
         sidebar: sidebar,
 
+        editLink: {
+            pattern: 'https://github.com/runoob-coder/runoob-coder/edit/main/docs/:path',
+            text: '在 GitHub 上编辑此页面'
+        },
         socialLinks: [
             {icon: 'github', link: 'https://github.com/runoob-coder'},
             {icon: 'alipay', ariaLabel: '支付宝红包福利', link: '/alipay'},
@@ -279,10 +289,16 @@ export default defineConfig({
                 link: 'https://www.bt.cn/u/1lohGU'
             },
         ],
-
         outline: {
             level: 'deep',
             label: '目录'
+        },
+        lastUpdated: {
+            text: '最后更新于',
+            formatOptions: {
+                dateStyle: 'full',
+                timeStyle: 'medium'
+            }
         },
         footer: {
             message: '学习｜思考｜实践<br>学而不思则罔，思而不学则殆。',
@@ -291,7 +307,6 @@ export default defineConfig({
             prev: '上一页',
             next: '下一页'
         },
-
         notFound: {
             title: '页面未找到',
             quote:
@@ -299,10 +314,10 @@ export default defineConfig({
             linkLabel: '前往首页',
             linkText: '带我回首页'
         },
-
         darkModeSwitchLabel: '暗黑模式',
         lightModeSwitchTitle: '切换到浅色模式',
         darkModeSwitchTitle: '切换到深色模式',
+        skipToContentLabel: '跳转到内容',
         sidebarMenuLabel: '菜单',
         returnToTopLabel: '返回顶部',
         externalLinkIcon: true,
