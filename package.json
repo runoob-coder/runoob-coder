@@ -1,0 +1,22 @@
+{
+  "description": "noob-coder的知识宝库",
+  "type": "module",
+  "author": {
+    "name": "noob-coder",
+    "url": "www.noob-coder.com"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "swiper": "^12.0.3",
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-mathjax3": "^4.3.2",
+    "vitepress": "^1.6.4"
+  }
+}

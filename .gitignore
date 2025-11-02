@@ -1,0 +1,9 @@
+.idea
+node_modules
+/.vitepress/cache/
+/.vitepress/dist/
+.vite_opt_cache
+.DS_Store
+.vscode
+pnpm-global
+dist

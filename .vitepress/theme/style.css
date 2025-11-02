@@ -1,0 +1,41 @@
+:root {
+    --vp-c-brand-1: #c5964b;
+    --vp-c-brand-2: #B78846;
+    --vp-c-brand-3: #c5964b;
+}
+
+@media (min-width: 640px) {
+    :root {
+    }
+}
+
+@media (min-width: 960px) {
+    :root {
+    }
+}
+
+.VPSocialLink > .vpi-social-alipay {
+    fill: #226cf3 !important;
+    background-color: #226cf3 !important;
+}
+
+.VPSocialLink > .vpi-social-wechat {
+    fill: #29ad68 !important;
+    background-color: #29ad68 !important;
+}
+
+.VPSocialLink > .vpi-social-bilibili {
+    fill: #00aeec !important;
+    background-color: #00aeec !important;
+}
+
+
+.VPSocialLink > .vpi-social-juejin {
+    fill: #1E80FF !important;
+    background-color: #1E80FF !important;
+}
+
+.VPSocialLink > .vpi-social-alibabacloud {
+    fill: #ff6a00 !important;
+    background-color: #ff6a00 !important;
+}
