@@ -70,6 +70,10 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'custom-installers'
                         },
                         {
+                            text: '仓库优先级',
+                            link: 'repository-priorities'
+                        },
+                        {
                             text: '版本与约束',
                             link: 'versions'
                         }

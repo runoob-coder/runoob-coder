@@ -82,6 +82,7 @@ features:
 - [优化自动加载器](./articles/autoloader-optimization.md)
 - [Composer 平台依赖](./articles/composer-platform-dependencies.md)
 - [设置和使用自定义安装器](./articles/custom-installers.md)
+- [仓库优先级](./articles/repository-priorities.md)
 - [版本与约束](./articles/versions.md)
 
 ## 常见问题

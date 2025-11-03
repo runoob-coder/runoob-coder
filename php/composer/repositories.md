@@ -621,7 +621,7 @@ composer.json
 }
 ```
 
-## 禁用 Packagist.org
+## 禁用 Packagist.org {#disabling-packagist-org}
 
 你可以通过在 `composer.json` 中添加以下内容来禁用默认的 Packagist.org 仓库：
 
