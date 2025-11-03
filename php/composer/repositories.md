@@ -3,7 +3,7 @@ titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder 
 head:
   - - meta
     - name: keywords
-      content: Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
+      content: Packagist.org,Path,Artifact,Satis,Private Packagist,packagist,clearcache,git-bitbucket,Fossil,Mercurial,Subversion,Bitbucket,GitHub,私有仓库,VCS,PHP 上下文选项和参数,ext-curl,stream,cURL,providers-api,providers-url,provider-includes,available-package-patterns,available-packages,metadata-url,notify-batch,packages,source,dist,依赖管理器,包,package,仓库,repositories,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---
 
 # 仓库 {#repositories}
@@ -20,7 +20,7 @@ Composer 是一个依赖管理器。它在本地安装包。包本质上是一�
 
 实际上，Composer 在内部将每个版本都视为一个单独的包。虽然在使用 Composer 时这种区别并不重要，但当你想要修改它时，这很重要。
 
-除了名称和版本之外，还有有用的元数据。与安装最相关的信息是源定义，它描述了从哪里获取包内容。包数据指向包的内容。这里有两种选择：dist 和 source。
+除了名称和版本之外，还有有用的元数据。与安装最相关的信息是源定义，它描述了从哪里获取包内容。包数据指向包的内容。这里有两种选择：`dist` 和 `source`。
 
 **Dist:** dist 是包数据的打包版本。通常是发布版本，通常是稳定版本。
 
@@ -125,19 +125,13 @@ version 字段将包含版本号的规范化表示。
 
 此字段是可选的。
 
-#### metadata-url, available-packages and available-package-patterns
+#### metadata-url, available-packages 和 available-package-patterns
 
-The `metadata-url` field allows you to provide a URL template to serve all
-packages which are in the repository. It must contain the placeholder
-`%package%`.
+`metadata-url` 字段允许你提供一个 URL 模板，用于提供仓库中的所有包。它必须包含占位符 `%package%`。
 
-This field is new in Composer v2, and is prioritised over the
-`provider-includes` and `providers-url` fields if both are present.
-For compatibility with both Composer v1 and v2 you ideally want
-to provide both. New repository implementations may only need to
-support v2 however.
+这个字段是 Composer v2 中新增的，如果同时存在 `provider-includes` 和 `providers-url` 字段，该字段会被优先使用。为了兼容 Composer v1 和 v2，理想情况下你应该同时提供这两个字段。但新的仓库实现可能只需要支持 v2。
 
-An example:
+示例：
 
 ```json
 {
@@ -145,68 +139,40 @@ An example:
 }
 ```
 
-Whenever Composer looks for a package, it will replace `%package%` by the
-package name, and fetch that URL. If dev stability is allowed for the package,
-it will also load the URL again with `$packageName~dev` (e.g.
-`/p2/foo/bar~dev.json` to look for `foo/bar`'s dev versions).
+每当 Composer 查找一个包时，它会将 `%package%` 替换为包名，并获取该 URL。如果允许该包的开发版本稳定性，它还会再次加载 URL，但这次是用 `$packageName~dev`（例如 `/p2/foo/bar~dev.json` 来查找 `foo/bar` 的开发版本）。
 
-The `foo/bar.json` and `foo/bar~dev.json` files containing package versions
-MUST contain only versions for the foo/bar package, as
-`{"packages":{"foo/bar":[ ... versions here ... ]}}`.
+包含包版本的 `foo/bar.json` 和 `foo/bar~dev.json` 文件必须只包含 foo/bar 包的版本，格式为 `{"packages":{"foo/bar":[ ... versions here ... ]}}`。
 
-Caching is done via the use of If-Modified-Since header, so make sure you
-return Last-Modified headers and that they are accurate.
+缓存通过使用 [If-Modified-Since](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Headers/If-Modified-Since) 头部实现，所以请确保返回 [Last-Modified](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Headers/Last-Modified) 头部并且它们是准确的。
 
-The array of versions can also optionally be minified using
-`Composer\MetadataMinifier\MetadataMinifier::minify()` from
-[composer/metadata-minifier](https://packagist.org/packages/composer/metadata-minifier).
-If you do that, you should add a `"minified": "composer/2.0"` key
-at the top level to indicate to Composer it must expand the version
-list back into the original data. See
-https://repo.packagist.org/p2/monolog/monolog.json for an example.
+版本数组也可以选择性地使用 [composer/metadata-minifier](https://packagist.org/packages/composer/metadata-minifier) 中的 `Composer\MetadataMinifier\MetadataMinifier::minify()` 进行压缩。如果你这样做，应该在顶层添加 `"minified": "composer/2.0"` 键，以指示 Composer 必须将版本列表扩展回原始数据。示例请见 https://repo.packagist.org/p2/monolog/monolog.json。
 
-Any requested package which does not exist MUST return a 404 status code,
-which will indicate to Composer that this package does not exist in your
-repository. Make sure the 404 response is fast to avoid blocking Composer.
-Avoid redirects to alternative 404 pages.
+任何不存在的请求包必须返回 404 状态码，这将向 Composer 表明该包在你的仓库中不存在。确保 404 响应快速返回，以避免阻塞 Composer。避免重定向到其他 404 页面。
 
-If your repository only has a small number of packages, and you want to avoid
-the 404-requests, you can also specify an `"available-packages"` key in
-`packages.json` which should be an array with all the package names that your
-repository contains. Alternatively you can specify an
-`"available-package-patterns"` key which is an array of package name patterns
-(with `*` matching any string, e.g. `vendor/*` would make Composer look up
-every matching package name in this repository).
+如果你的仓库只有少量包，并且你想避免 404 请求，你也可以在 `packages.json` 中指定一个 `"available-packages"` 键，它应该是一个包含你的仓库中所有包名的数组。或者你可以指定一个 `"available-package-patterns"` 键，它是一个包名模式数组（`*` 匹配任何字符串，例如 `vendor/*` 会让 Composer 在这个仓库中查找每个匹配的包名）。
 
-This field is optional.
+这个字段是可选的。
 
 #### providers-api
 
-The `providers-api` field allows you to provide a URL template to serve all
-packages which provide a given package name, but not the package which has
-that name even if it exists. It must contain the placeholder `%package%`.
+`providers-api` 字段允许你提供一个 URL 模板，用于提供所有声明提供特定包名的包，但不包括具有该名称的实际包（即使存在）。它必须包含占位符 `%package%`。
 
-For example https://packagist.org/providers/psr/log-implementation.json lists
-some package which have a "provide" rule for psr/log-implementation.
+例如 https://packagist.org/providers/psr/log-implementation.json 列出了具有一些 "provide" 规则的包，这些包声明提供 psr/log-implementation。
 
 ```json
 {
-    "providers-api": "https://packagist.org/providers/%package%.json",
+    "providers-api": "https://packagist.org/providers/%package%.json"
 }
 ```
 
-This field is optional.
-
 #### list
 
-The `list` field allows you to return the names of packages which match a
-given filter (or all names if no filter is present). It should accept an
-optional `?filter=xx` query param, which can contain `*` as wildcards matching
-any substring.
+`list` 字段允许你返回匹配给定过滤器的包名称（如果没有过滤器则返回所有名称）。它应该接受一个可选的 `?filter=xx` 查询参数，该参数可以包含 `*` 作为通配符来匹配任何子字符串。
 
-Replace/provide rules should not be considered here.
+在这里不应考虑替换/提供规则。
 
-It must return an array of package names:
+它必须返回一个包名称数组：
+
 ```json
 {
     "packageNames": [
@@ -216,24 +182,19 @@ It must return an array of package names:
 }
 ```
 
-See <https://packagist.org/packages/list.json?filter=composer/*> for example.
+例如参见 <https://packagist.org/packages/list.json?filter=composer/*>。
 
-This field is optional.
+此字段是可选的。
 
-#### provider-includes and providers-url
+#### provider-includes 和 providers-url
 
-The `provider-includes` field allows you to list a set of files that list
-package names provided by this repository. The hash should be a sha256 of
-the files in this case.
+`provider-includes` 字段允许你列出一组文件，这些文件包含了由此仓库提供的包名称列表。在这种情况下，哈希值应该是文件的 sha256 值。
 
-The `providers-url` describes how provider files are found on the server. It
-is an absolute path from the repository root. It must contain the placeholders
-`%package%` and `%hash%`.
+`providers-url` 描述了在服务器上如何找到提供者文件。它是一个从仓库根目录开始的绝对路径。它必须包含占位符 `%package%` 和 `%hash%`。
 
-These fields are used by Composer v1, or if your repository does not have the
-`metadata-url` field set.
+这些字段被 Composer v1 使用，或者在你的仓库没有设置 `metadata-url` 字段时使用。
 
-An example:
+示例：
 
 ```json
 {
@@ -249,8 +210,7 @@ An example:
 }
 ```
 
-Those files contain lists of package names and hashes to verify the file
-integrity, for example:
+这些文件包含包名称和哈希值列表，用于验证文件完整性，例如：
 
 ```json
 {
@@ -265,14 +225,9 @@ integrity, for example:
 }
 ```
 
-The file above declares that acme/foo and acme/bar can be found in this
-repository, by loading the file referenced by `providers-url`, replacing
-`%package%` by the vendor namespaced package name and `%hash%` by the
-sha256 field. Those files themselves contain package definitions as
-described [above](#packages).
+上面的文件声明了 acme/foo 和 acme/bar 可以在这个仓库中找到，通过加载 `providers-url` 引用的文件，将 `%package%` 替换为带有供应商命名空间的包名，将 `%hash%` 替换为 sha256 字段。这些文件本身包含包定义，如[上面](#packages)所述。
 
-These fields are optional. You probably don't need them for your own custom
-repository.
+这些字段是可选的。对于你自己的自定义仓库，你可能不需要它们。
 
 #### cURL 或 stream 选项
 
@@ -564,11 +519,10 @@ composer.json
 
 ### Path
 
-In addition to the artifact repository, you can use the path one, which allows
-you to depend on a local directory, either absolute or relative. This can be
-especially useful when dealing with monolithic repositories.
+除了 `artifact` 仓库外，你还可以使用 `path` 仓库，它允许你依赖于本地目录，可以是绝对路径或相对路径。在处理单体式仓库（monolithic repositories）时，这特别有用。
 
-For instance, if you have the following directory structure in your repository:
+例如，如果你的仓库中有以下目录结构：
+
 ```text
 ...
 ├── apps
@@ -580,8 +534,7 @@ For instance, if you have the following directory structure in your repository:
 ...
 ```
 
-Then, to add the package `my/package` as a dependency, in your
-`apps/my-app/composer.json` file, you can use the following configuration:
+然后，要将 `my/package` 包作为依赖项添加到你的 `apps/my-app/composer.json` 文件中，你可以使用以下配置：
 
 ```json
 {
@@ -597,14 +550,10 @@ Then, to add the package `my/package` as a dependency, in your
 }
 ```
 
-If the package is a local VCS repository, the version may be inferred by
-the branch or tag that is currently checked out. Otherwise, the version should
-be explicitly defined in the package's `composer.json` file. If the version
-cannot be resolved by these means, it is assumed to be `dev-master`.
+如果该包是一个本地 VCS 仓库，版本可以通过当前签出的分支或标签来推断。否则，版本应该在包的 `composer.json` 文件中明确定义。如果通过这些方式无法解析版本，则假定为 `dev-master`。
 
-When the version cannot be inferred from the local VCS repository, or when you
-want to override the version, you can use the `versions` option when declaring
-the repository:
+当无法从本地VCS仓库推断版本，或者你想要覆盖版本时，可以在声明仓库时使用 `versions` 选项：
+
 
 ```json
 {
@@ -622,19 +571,12 @@ the repository:
 }
 ```
 
-The local package will be symlinked if possible, in which case the output in
-the console will read `Symlinking from ../../packages/my-package`. If symlinking
-is _not_ possible the package will be copied. In that case, the console will
-output `Mirrored from ../../packages/my-package`.
+本地包如果可能的话会被创建符号链接，在这种情况下，控制台输出将显示 `Symlinking from ../../packages/my-package`。如果无法创建符号链接，则会复制包。在这种情况下，控制台将输出 `Mirrored from ../../packages/my-package`。
 
-Instead of default fallback strategy you can force to use symlink with
-`"symlink": true` or mirroring with `"symlink": false` option. Forcing
-mirroring can be useful when deploying or generating package from a
-monolithic repository.
+除了默认的回退策略外，你可以强制使用符号链接（`"symlink": true`）或强制使用镜像复制（`"symlink": false`）选项。在部署或从单体仓库生成包时，强制镜像复制可能会很有用。
 
-> **Note:** On Windows, directory symlinks are implemented using NTFS junctions
-> because they can be created by non-admin users. Mirroring will always be used
-> on versions below Windows 7 or if `proc_open` has been disabled.
+> [!NOTE] 注意
+> 在 Windows 系统上，目录符号链接是使用 [NTFS](https://learn.microsoft.com/zh-cn/windows-server/storage/file-server/ntfs-overview) 连接点实现的，因为非管理员用户也可以创建。在 Windows 7 以下版本或 `proc_open` 被禁用时，将始终使用镜像复制。
 
 ```json
 {
@@ -650,25 +592,17 @@ monolithic repository.
 }
 ```
 
-Leading tildes are expanded to the current user's home folder, and environment
-variables are parsed in both Windows and Linux/Mac notations. For example
-`~/git/mypackage` will automatically load the mypackage clone from
-`/home/<username>/git/mypackage`, equivalent to `$HOME/git/mypackage` or
-`%USERPROFILE%/git/mypackage`.
+开头的波浪号（`~`）会展开为当前用户的主文件夹，环境变量会解析为 Windows 和 Linux/Mac 两种表示法。例如 `~/git/mypackage` 将自动从 `/home/<username>/git/mypackage` 加载 mypackage 克隆，相当于 `$HOME/git/mypackage` 或 `%USERPROFILE%/git/mypackage`。
 
-> **Note:** Repository paths can also contain wildcards like `*` and `?`.
-> For details, see the [PHP glob function](https://php.net/glob).
+> [!NOTE] 注意
+> 仓库路径也可以包含通配符如 `*` 和 `?`。详情请参见 [PHP glob 函数](https://php.net/glob)。
 
-You can configure the way the package's dist reference (which appears in
-the composer.lock file) is built.
+你可以配置包的 dist 引用（出现在 composer.lock 文件中）的构建方式。
 
-The following modes exist:
-- `none` - reference will be always null. This can help reduce lock file conflicts
-  in the lock file but reduces clarity as to when the last update happened and whether
-  the package is in the latest state.
-- `config` - reference is built based on a hash of the package's composer.json and repo config
-- `auto` (used by default) - reference is built basing on the hash like with `config`, but if
-  the package folder contains a git repository, the HEAD commit's hash is used as reference instead.
+存在以下模式：
+- `none` - 引用将始终为 null。这有助于减少 lock 文件中的冲突，但会降低关于上次更新时间和包是否处于最新状态的清晰度。
+- `config` - 引用基于包的 composer.json 和仓库配置的哈希值构建
+- `auto`（默认使用）- 引用像 `config` 模式一样基于哈希值构建，但如果包文件夹包含 git 仓库，则使用 HEAD 提交的哈希值作为引用。
 
 ```json
 {
