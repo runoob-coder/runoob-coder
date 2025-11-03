@@ -34,9 +34,9 @@ Composer:
 
 ## 系统要求 {#system-requirements}
 
-`Composer` 的最新版本需要 `PHP 7.2.5` 才能运行。长期支持版本（`2.2.x`）仍然为 `PHP 5.3.2+` 提供支持，以防您使用旧版 PHP 版本。还需要一些敏感的 PHP 设置和编译标志，但在使用安装程序时，您会被警告任何不兼容的情况。
+`Composer` 的最新版本需要 `PHP 7.2.5` 才能运行。长期支持版本（`2.2.x`）仍然为 `PHP 5.3.2+` 提供支持，以防你使用旧版 PHP 版本。还需要一些敏感的 PHP 设置和编译标志，但在使用安装程序时，你会被警告任何不兼容的情况。
 
-`Composer` 需要以下几个应用程序才能正常工作，从而使处理包依赖的过程更加高效。对于解压文件，Composer 依赖于 `7z`（或 `7zz`）、`gzip`、`tar`、`unrar`、`unzip` 和 `xz` 等工具。至于版本控制系统，Composer 与 `Fossil`、`Git`、`Mercurial`、`Perforce` 和 `Subversion` 无缝集成，从而确保应用程序的平稳运行和库仓库的管理。在使用 Composer 之前，请确保这些依赖项已正确安装在您的系统上。
+`Composer` 需要以下几个应用程序才能正常工作，从而使处理包依赖的过程更加高效。对于解压文件，Composer 依赖于 `7z`（或 `7zz`）、`gzip`、`tar`、`unrar`、`unzip` 和 `xz` 等工具。至于版本控制系统，Composer 与 `Fossil`、`Git`、`Mercurial`、`Perforce` 和 `Subversion` 无缝集成，从而确保应用程序的平稳运行和库仓库的管理。在使用 Composer 之前，请确保这些依赖项已正确安装在你的系统上。
 
 Composer 是跨平台的，我们努力使其在 `Windows`、`Linux` 和 `macOS` 上同样良好地运行。
 
@@ -44,19 +44,19 @@ Composer 是跨平台的，我们努力使其在 `Windows`、`Linux` 和 `macOS`
 
 ### 下载 Composer 可执行文件 {#downloading-the-composer-executable}
 
-`Composer` 提供了一个便捷的安装程序，您可以直接从命令行执行。如果您想了解更多关于安装程序内部工作原理的信息，可以随意 [下载此文件](https://getcomposer.org/installer) 或在 [GitHub](https://github.com/composer/getcomposer.org/blob/main/web/installer) 上查看。源代码是纯 `PHP`。
+`Composer` 提供了一个便捷的安装程序，你可以直接从命令行执行。如果你想了解更多关于安装程序内部工作原理的信息，可以随意 [下载此文件](https://getcomposer.org/installer) 或在 [GitHub](https://github.com/composer/getcomposer.org/blob/main/web/installer) 上查看。源代码是纯 `PHP`。
 
 简而言之，有两种方式安装 Composer：一是作为项目的一部分本地安装，或者作为系统范围的全局可执行文件安装。
 
 #### 本地安装 {#locally}
 
-要在本地安装 Composer，请在您的项目目录中运行安装程序。请参阅 [下载页面](https://getcomposer.org/download/) 获取相关说明。
+要在本地安装 Composer，请在你的项目目录中运行安装程序。请参阅 [下载页面](https://getcomposer.org/download/) 获取相关说明。
 
-安装程序将检查一些 PHP 设置，然后将 `composer.phar` 下载到您的工作目录。这个文件就是 `Composer` 的二进制文件。它是一个 `PHAR`（PHP 归档文件），这是一种 PHP 的归档格式，可以在命令行等环境中运行。
+安装程序将检查一些 PHP 设置，然后将 `composer.phar` 下载到你的工作目录。这个文件就是 `Composer` 的二进制文件。它是一个 `PHAR`（PHP 归档文件），这是一种 PHP 的归档格式，可以在命令行等环境中运行。
 
 现在可以运行 `php composer.phar` 来启动 `Composer`。
 
-您可以通过使用 `--install-dir` 选项将 `Composer` 安装到特定目录，还可以使用 `--filename` 选项对其进行重命名。当按照 [下载页面说明](https://getcomposer.org/download/) 运行安装程序时，请添加以下参数：
+你可以通过使用 `--install-dir` 选项将 `Composer` 安装到特定目录，还可以使用 `--filename` 选项对其进行重命名。当按照 [下载页面说明](https://getcomposer.org/download/) 运行安装程序时，请添加以下参数：
 
 ```shell
 php composer-setup.php --install-dir=bin --filename=composer

@@ -346,7 +346,7 @@ php composer.phar search monolog
 * **--only-name (-N):** 仅在包名称中搜索。
 * **--only-vendor (-O):** 仅搜索供应商/组织名称，结果只返回"vendor"。
 * **--type (-t):** 搜索特定的包类型。
-* **--format (-f):** 允许您在文本（默认）或json输出格式之间选择。请注意，在json中，只有名称和描述键是保证存在的。 其余字段（`url`、`repository`、`downloads` 和 `favers`）在 [Packagist.org](https://packagist.org/) 搜索结果中可用，其他仓库可能返回更多或更少的数据。
+* **--format (-f):** 允许你在文本（默认）或json输出格式之间选择。请注意，在json中，只有名称和描述键是保证存在的。 其余字段（`url`、`repository`、`downloads` 和 `favers`）在 [Packagist.org](https://packagist.org/) 搜索结果中可用，其他仓库可能返回更多或更少的数据。
 
 ## show / info {#show}
 

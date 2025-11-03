@@ -6,7 +6,7 @@ head:
       content: psr-4,自动加载,autoload,vendor,repositories,Packagist,composer.json,monolog/monolog,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
   - - meta
     - name: description
-      content: 在本章节的基本用法介绍中，我们将安装 monolog/monolog —— 一个日志记录库。如果您还没有安装 Composer，请参考介绍章节。
+      content: 在本章节的基本用法介绍中，我们将安装 monolog/monolog —— 一个日志记录库。如果你还没有安装 Composer，请参考介绍章节。
 ---
 
 
@@ -14,10 +14,10 @@ head:
 
 ## 介绍 {#introduction}
 
-在本章节的基本用法介绍中，我们将安装 `monolog/monolog` —— 一个日志记录库。如果您还没有安装 `Composer`，请参考 [介绍](intro.md) 章节。
+在本章节的基本用法介绍中，我们将安装 `monolog/monolog` —— 一个日志记录库。如果你还没有安装 `Composer`，请参考 [介绍](intro.md) 章节。
 
 > [!NOTE] 注意 
-> 为了简单起见，本介绍将假设您已经执行了 Composer 的 [本地](intro.md#locally) 安装。
+> 为了简单起见，本介绍将假设你已经执行了 Composer 的 [本地](intro.md#locally) 安装。
 
 ## `composer.json`: 项目设置
 
