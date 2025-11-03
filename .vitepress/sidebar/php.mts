@@ -50,6 +50,26 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                     collapsed: false,
                     items: [
                         {
+                            text: '别名',
+                            link: 'aliases'
+                        },
+                        {
+                            text: '私有托管包和存储库的身份验证',
+                            link: 'authentication-for-private-packages'
+                        },
+                        {
+                            text: '优化自动加载器',
+                            link: 'autoloader-optimization'
+                        },
+                        {
+                            text: 'Composer 平台依赖',
+                            link: 'composer-platform-dependencies'
+                        },
+                        {
+                            text: '设置和使用自定义安装器',
+                            link: 'custom-installers'
+                        },
+                        {
                             text: '版本与约束',
                             link: 'versions'
                         }

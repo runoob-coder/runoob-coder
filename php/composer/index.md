@@ -77,6 +77,11 @@ features:
 
 ## 相关文章
 
-### [版本与约束](./articles/versions.md)
+- [别名](./articles/aliases.md)
+- [私有托管包和存储库的身份验证](./articles/authentication-for-private-packages.md)
+- [优化自动加载器](./articles/autoloader-optimization.md)
+- [Composer 平台依赖](./articles/composer-platform-dependencies.md)
+- [设置和使用自定义安装器](./articles/custom-installers.md)
+- [版本与约束](./articles/versions.md)
 
 ## 常见问题
