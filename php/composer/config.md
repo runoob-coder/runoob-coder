@@ -6,7 +6,7 @@ head:
       content: 本章节将描述 composer.json 架构 中的 config 部分。
   - - meta
     - name: keywords
-      content: update-with-minimal-changes,allow-missing-requirements,bump-after-update,secure-svn-domains,platform-check,lock,htaccess-protect,archive-dir,archive-format,discard-changes,notify-on-install,use-github-api,github-expose-hostname,github-domains,apcu-autoloader,classmap-authoritative,sort-packages,optimize-autoloader,autoloader-suffix,prepend-autoloader,bin-compat,cache-read-only,cache-files-maxsize,cache-files-ttl,cache-vcs-dir,cache-repo-dir,cache-files-dir,cache-dir,data-dir,bin-dir,vendor-dir,check-platform-reqs,platform,Authorization,bearer,http-basic,capath,cafile,bitbucket-oauth,secure-http,disable-tls,gitlab-protocol,gitlab-token,gitlab-oauth,gitlab-domains,github-oauth,github-protocols,store-auths,use-parent-dir,abandoned,PKSA,GHSA,CVE,abandoned,ignore,audit,source,dist,preferred-install,use-include-path,allow-plugins,scripts,composer.json,composer.lock,process-timeout,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
+      content: forgejo-token,forgejo-domains,update-with-minimal-changes,allow-missing-requirements,bump-after-update,secure-svn-domains,platform-check,lock,htaccess-protect,archive-dir,archive-format,discard-changes,notify-on-install,use-github-api,github-expose-hostname,github-domains,apcu-autoloader,classmap-authoritative,sort-packages,optimize-autoloader,autoloader-suffix,prepend-autoloader,bin-compat,cache-read-only,cache-files-maxsize,cache-files-ttl,cache-vcs-dir,cache-repo-dir,cache-files-dir,cache-dir,data-dir,bin-dir,vendor-dir,check-platform-reqs,platform,Authorization,bearer,http-basic,capath,cafile,bitbucket-oauth,secure-http,disable-tls,gitlab-protocol,gitlab-token,gitlab-oauth,gitlab-domains,github-oauth,github-protocols,store-auths,use-parent-dir,ignore-abandoned,abandoned,PKSA,GHSA,CVE,abandoned,ignore,audit,source,dist,preferred-install,use-include-path,allow-plugins,scripts,composer.json,composer.lock,process-timeout,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---
 
 # 配置
@@ -161,6 +161,35 @@ head:
 
 自 Composer 2.8 起，可以通过 [`--abandoned`](cli.md#audit) 命令行参数覆盖该选项，优先级高于配置项和环境变量。
 
+### ignore-abandoned
+
+这是一个被报告但允许审计命令通过的已废弃包名称列表。
+
+```json
+{
+    "config": {
+        "audit": {
+            "ignore-abandoned": {
+                "acme/*": "Work schedule for removal next month.",
+                "acme/package": "The package is not in use"
+            }
+        }
+    }
+}
+```
+
+或者
+
+```json
+{
+    "config": {
+        "audit": {
+            "ignore-abandoned": ["acme/*", "acme/package"]
+        }
+    }
+}
+```
+
 ## use-parent-dir
 
 当在没有 `composer.json` 的目录下运行 Composer，如果上级目录存在 `composer.json`，Composer 默认会询问你是否使用上级目录的配置文件。
@@ -201,6 +230,18 @@ head:
 ## gitlab-protocol
 
 在为包元数据的 `source` 值创建仓库 URL 时强制使用的协议。可选值为 `git` 或 `http`（`https` 被视为 `http` 的同义词）。当处理引用私有仓库的项目时非常有用，这些项目稍后将在 GitLab CI 作业中使用 [GitLab CI_JOB_TOKEN](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html#predefined-variables-reference) 和 HTTP 基本认证进行克隆。默认情况下，Composer 会为私有仓库生成基于 SSH 的 git URL，为公共仓库生成 HTTP(S) URL。
+
+## forgejo-domains
+
+默认值为 `["codeberg.org"]`。Forgejo 服务器的域名列表。
+当你使用 `forgejo` 仓库类型时会用到此配置。
+
+## forgejo-token
+
+域名及其对应的用户名/访问令牌列表，用于身份验证。例如使用 `{"codeberg.org": {"username": "forgejo-user", "token": "access-token"}}` 作为该选项的值，将使 Composer 能够在 codeberg.org 上进行身份验证。
+
+请注意：如果包不是托管在 codeberg.org 上，还必须在 [`forgejo-domains`](config.md#forgejo-domains) 选项中指定域名。
+更多详细信息请参见[这里](articles/authentication-for-private-packages.md#forgejo-token)。
 
 ## disable-tls
 
