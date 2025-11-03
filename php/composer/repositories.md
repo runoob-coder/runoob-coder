@@ -2,6 +2,9 @@
 titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder | 菜鸟码农
 head:
   - - meta
+    - name: description
+      content: 本章将解释包和仓库的概念，介绍可用的仓库类型以及它们的工作原理。
+  - - meta
     - name: keywords
       content: Packagist.org,Path,Artifact,Satis,Private Packagist,packagist,clearcache,git-bitbucket,Fossil,Mercurial,Subversion,Bitbucket,GitHub,私有仓库,VCS,PHP 上下文选项和参数,ext-curl,stream,cURL,providers-api,providers-url,provider-includes,available-package-patterns,available-packages,metadata-url,notify-batch,packages,source,dist,依赖管理器,包,package,仓库,repositories,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---

@@ -2,6 +2,9 @@
 titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder | 菜鸟码农
 head:
   - - meta
+    - name: description
+      content: 已经有很多人在使用 Composer，其中不少人也在积极贡献。如果你想为 Composer 做贡献，请阅读 README 和 CONTRIBUTING 文档。
+  - - meta
     - name: keywords
       content: PSR-12 编码标准,packagist,Private Packagist,GitHub Discussions,irc.libera.chat,IRC频道,社区,贡献代码,CONTRIBUTING,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---

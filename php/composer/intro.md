@@ -2,6 +2,9 @@
 titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder | 菜鸟码农
 head:
   - - meta
+    - name: description
+      content: Composer 是 PHP 的依赖管理工具。它允许你声明项目所依赖的库，并且会为你管理（安装/更新）这些库。
+  - - meta
     - name: keywords
       content: Packagist,Docker,PHAR,Git,gzip,bundler,npm,vendor,依赖管理,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---

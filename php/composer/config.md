@@ -2,6 +2,9 @@
 titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder | 菜鸟码农
 head:
   - - meta
+    - name: description
+      content: 本章节将描述 composer.json 架构 中的 config 部分。
+  - - meta
     - name: keywords
       content: update-with-minimal-changes,allow-missing-requirements,bump-after-update,secure-svn-domains,platform-check,lock,htaccess-protect,archive-dir,archive-format,discard-changes,notify-on-install,use-github-api,github-expose-hostname,github-domains,apcu-autoloader,classmap-authoritative,sort-packages,optimize-autoloader,autoloader-suffix,prepend-autoloader,bin-compat,cache-read-only,cache-files-maxsize,cache-files-ttl,cache-vcs-dir,cache-repo-dir,cache-files-dir,cache-dir,data-dir,bin-dir,vendor-dir,check-platform-reqs,platform,Authorization,bearer,http-basic,capath,cafile,bitbucket-oauth,secure-http,disable-tls,gitlab-protocol,gitlab-token,gitlab-oauth,gitlab-domains,github-oauth,github-protocols,store-auths,use-parent-dir,abandoned,PKSA,GHSA,CVE,abandoned,ignore,audit,source,dist,preferred-install,use-include-path,allow-plugins,scripts,composer.json,composer.lock,process-timeout,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---

@@ -4,6 +4,9 @@ head:
   - - meta
     - name: keywords
       content: psr-4,自动加载,autoload,vendor,repositories,Packagist,composer.json,monolog/monolog,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
+  - - meta
+    - name: description
+      content: 在本章节的基本用法介绍中，我们将安装 monolog/monolog —— 一个日志记录库。如果您还没有安装 Composer，请参考介绍章节。
 ---
 
 

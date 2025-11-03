@@ -2,6 +2,9 @@
 titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder | 菜鸟码农
 head:
   - - meta
+    - name: description
+      content: 本章节将告诉你如何通过 Composer 来安装你的库。
+  - - meta
     - name: keywords
       content: gitignore,composer.lock,lock-file,VCS,git,require,Packagist,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---

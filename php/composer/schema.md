@@ -2,6 +2,9 @@
 titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder | 菜鸟码农
 head:
   - - meta
+    - name: description
+      content: 本章将解释 composer.json 中所有可用的字段。
+  - - meta
     - name: keywords
       content: non-feature-branches,comment,abandoned,archive,bin,extra,scripts,config,repositories,prefer-stable,minimum-stability,target-dir,include-path,优化自动加载器,classmap,自动加载器,PSR-0,PSR-4,autoload,suggest,provide,replace,conflict,require-dev,require,包链接,Package links,funding,support,authors,LGPL,GPL,BSD,Apache,MIT,许可证,license,time,Packagist,Packagist.org,GitHub,README.md,readme,homepage,keywords,php-ext-zend,php-ext,composer-plugin,metapackage,project,library,type,RC,beta,alpha,patch,version,description,name,properties,root-only（仅根包）,root-package,根包,composer.json,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---

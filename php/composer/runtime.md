@@ -2,6 +2,9 @@
 titleTemplate: Composer中文文档 - PHP 的依赖管理器 | PHP | noob-coder | 菜鸟码农
 head:
   - - meta
+    - name: description
+      content: 虽然 Composer 主要用于在你的项目中安装依赖项，但也有一些功能可以在运行时使用。如果你需要依赖特定版本的这些功能，你可以引入 composer-runtime-api 包。
+  - - meta
     - name: keywords
       content: vendor/autoload.php,composer_bin_dir,bin-dir,composer_autoload_path,lib-*,php-only,InstalledVersions,getInstallPath,getInstalledPackagesByType,getInstallPath,getReference,getPrettyVersion,getVersion,require-dev,vendor/package,虚拟包,已安装的版本,installed-versions,自动加载器,autoload,composer-runtime-api,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---
