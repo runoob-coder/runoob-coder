@@ -715,8 +715,8 @@ php composer.phar repo enable packagist
 - **--global (-g):** 修改全局 `$COMPOSER_HOME/config.json` 文件。
 - **--file (-f):** 修改指定文件而不是 `composer.json`。
 - **--append:** 添加一个优先级较低的仓库（默认情况下仓库会被前置，因此具有比现有仓库更高的优先级）。
-- **--before <name>:** 在名为 `<name>` 的现有仓库之前插入新仓库。
-- **--after <name>:** 在名为 `<name>` 的现有仓库之后插入新仓库。`<name>` 必须与现有仓库名称匹配。
+- **--before \<name\>:** 在名为 `<name>` 的现有仓库之前插入新仓库。
+- **--after \<name\>:** 在名为 `<name>` 的现有仓库之后插入新仓库。`<name>` 必须与现有仓库名称匹配。
 
 ## create-project
 
