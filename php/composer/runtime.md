@@ -84,7 +84,7 @@ use Composer\Semver\VersionParser;
 \Composer\InstalledVersions::getReference('vendor/package');
 ```
 
-### 获取包自身已安装的版本
+### 获取包自身已安装的版本 {#knowing-which-packages-of-a-given-type-are-installed}
 
 如果你只关心获取某个包自身的版本，例如在 acme/foo 的源码中，你希望知道当前运行的是哪个版本以便展示给用户，那么可以直接使用 `getVersion`、`getPrettyVersion` 或 `getReference` 方法。
 
