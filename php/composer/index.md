@@ -85,7 +85,7 @@ features:
 - [私有包处理](./articles/handling-private-packages.md)
 - [插件](./articles/plugins.md)
 - [仓库优先级](./articles/repository-priorities.md)
-- [解决合并冲突](./articles/resolving-merge-conflicts.md))
+- [解决合并冲突](./articles/resolving-merge-conflicts.md)
 - [脚本](./articles/scripts.md)
 - [故障排除](./articles/troubleshooting.md) 
 - [供应商二进制文件和 vendor/bin 目录](./articles/vendor-binaries.md)
