@@ -83,6 +83,7 @@ features:
 - [Composer 平台依赖](./articles/composer-platform-dependencies.md)
 - [设置和使用自定义安装器](./articles/custom-installers.md)
 - [仓库优先级](./articles/repository-priorities.md)
+- [脚本](./articles/scripts.md)
 - [供应商二进制文件和 vendor/bin 目录](./articles/vendor-binaries.md)
 - [版本与约束](./articles/versions.md)
 

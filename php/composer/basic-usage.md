@@ -45,7 +45,7 @@ head:
 
 了解更多关于 [发布包和包命名](libraries.md) 的信息。（注意，你也可以指定"平台包"作为依赖项，允许你要求特定版本的服务器软件。请参见下面的 [平台包](#platform-packages)。）
 
-### 包版本约束
+### 包版本约束 {#package-versions}
 
 在我们的示例中，我们要求 Monolog 包的版本约束为 [`2.0.*`](https://semver.madewithlove.com/?package=monolog%2Fmonolog&constraint=2.0.*)。它表示 `2.0` 开发分支中的任何版本，或者大于等于 2.0 且小于 2.1 的版本（`>=2.0 <2.1`）。
 
