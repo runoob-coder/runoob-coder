@@ -74,6 +74,10 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'handling-private-packages'
                         },
                         {
+                            text: '插件',
+                            link: 'plugins'
+                        },
+                        {
                             text: '仓库优先级',
                             link: 'repository-priorities'
                         },
