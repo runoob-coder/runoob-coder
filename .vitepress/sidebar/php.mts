@@ -70,6 +70,10 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'custom-installers'
                         },
                         {
+                            text: '私有包处理',
+                            link: 'handling-private-packages'
+                        },
+                        {
                             text: '仓库优先级',
                             link: 'repository-priorities'
                         },
