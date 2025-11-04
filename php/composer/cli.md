@@ -90,7 +90,7 @@ php composer.phar install
 
 如果当前目录中没有 `composer.lock` 文件，Composer 将在依赖解析完成后创建一个。
 
-### 选项
+### 选项 {#install}
 
 * **--prefer-install：** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
 * **--dry-run：** 如果你想在不实际安装包的情况下运行安装过程，可以使用 `--dry-run` 参数。这将模拟安装过程，并向你展示将要发生什么。

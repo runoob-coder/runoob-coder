@@ -4,6 +4,10 @@ head:
   - - meta
     - name: keywords
       content: 版本兼容性,语义化版本控制,插入符号版本范围,波浪号版本范围,通配符版本范围,连字符版本范围,双管道符,版本范围,单管道符,向后兼容性,caret,稳定性标志,stable,RC,beta,alpha,dev,--prefer-dist,--prefer-source,dev-*,分支,标签,版本约束,zip,vendor,VCS,require,HEAD分支,ref,版本控制系统,git,VCS版本,Composer版本,version,Composer,依赖管理器,PHP,libraries,dependency,noob-coder,菜鸟码农
+  - - meta
+    - name: description
+      content: 由于 Composer 大量使用像 git 这样的版本控制系统，"版本"这个术语可能会有些模糊。在版本控制系统的意义上，"版本"是一组包含特定数据的特定文件。在 git 术语中，这被称为 "ref"，或一个特定的提交，它可能由分支 HEAD 或标签表示。当你在 VCS 中签出该版本时——例如，标签 v1.1 或提交 e35fa0d —— 你是在请求一组已知的文件，并且总是会得到相同的文件。
+
 ---
 
 # 版本与约束
