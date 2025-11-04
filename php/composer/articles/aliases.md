@@ -25,7 +25,7 @@ head:
 
 这时就需要别名来解决。
 
-## 分支别名
+## 分支别名 {#branch-alias}
 
 `dev-main` 分支是你的主 VCS 仓库中的一个分支。通常情况下，有人会想要获取最新的主开发版本。因此，Composer 允许你将 `dev-main`
 分支别名为 `1.0.x-dev` 版本。这是通过在 `composer.json` 文件中的 `extra` 字段下指定 `branch-alias` 来实现的：

@@ -90,6 +90,10 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'scripts'
                         },
                         {
+                            text: '故障排除',
+                            link: 'troubleshooting'
+                        },
+                        {
                             text: '供应商二进制文件和 vendor/bin 目录',
                             link: 'vendor-binaries'
                         },

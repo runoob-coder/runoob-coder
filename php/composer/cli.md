@@ -594,7 +594,7 @@ vendor/seld/jsonlint:
     M README.mdown
 ```
 
-## self-update / selfupdate
+## self-update / selfupdate {#self-update}
 
 要将 Composer 本身更新到最新版本，请运行 `self-update` 命令。该命令会用最新版本替换你的 `composer.phar` 文件。
 
