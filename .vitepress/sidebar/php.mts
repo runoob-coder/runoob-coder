@@ -91,7 +91,44 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                     text: '常见问题',
                     base: '/php/composer/faqs/',
                     collapsed: false,
-                    items: []
+                    items: [
+                        {
+                            text: '如何将包安装到框架的自定义路径？',
+                            link: 'how-do-i-install-a-package-to-a-custom-path-for-my-framework.md'
+                        },
+                        {
+                            text: '如何以编程方式安装 Composer？',
+                            link: 'how-to-install-composer-programmatically.md'
+                        },
+                        {
+                            text: '如何安全地安装不受信任的包？以超级用户或root身份运行Composer是否安全？',
+                            link: 'how-to-install-untrusted-packages-safely.md'
+                        },
+                        {
+                            text: '如何在代理服务器后使用 Composer？',
+                            link: 'how-to-use-composer-behind-a-proxy.md'
+                        },
+                        {
+                            text: '我应该提交 vendor 目录中的依赖项吗？',
+                            link: 'should-i-commit-the-dependencies-in-my-vendor-directory.md'
+                        },
+                        {
+                            text: 'Composer 本身使用哪种版本编号系统？',
+                            link: 'which-version-numbering-system-does-composer-itself-use.md'
+                        },
+                        {
+                            text: '为什么无限制的版本约束是一个坏主意？',
+                            link: 'why-are-unbound-version-constraints-a-bad-idea.md'
+                        },
+                        {
+                            text: '为什么组合使用比较运算符和通配符的版本约束是一个坏主意？',
+                            link: 'why-are-version-constraints-combining-comparisons-and-wildcards-a-bad-idea.md'
+                        },
+                        {
+                            text: '为什么 Composer 不能递归加载仓库？',
+                            link: 'why-cant-composer-load-repositories-recursively.md'
+                        },
+                    ]
                 }
             ]
         },
