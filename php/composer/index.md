@@ -10,7 +10,7 @@ head:
 hero:
   name: "Composer"
   text: "PHP 的依赖管理器"
-  tagline: ""
+  tagline: "它允许你声明项目所依赖的库，并且会为你管理（安装/更新）这些库。"
   image:
     src: /php/composer/logo.avif
     alt: Composer
@@ -83,6 +83,8 @@ features:
 - [Composer 平台依赖](./articles/composer-platform-dependencies.md)
 - [设置和使用自定义安装器](./articles/custom-installers.md)
 - [仓库优先级](./articles/repository-priorities.md)
+- [供应商二进制文件和 vendor/bin 目录](./articles/vendor-binaries.md)
 - [版本与约束](./articles/versions.md)
 
 ## 常见问题
+

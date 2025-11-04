@@ -74,6 +74,10 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'repository-priorities'
                         },
                         {
+                            text: '供应商二进制文件和 vendor/bin 目录',
+                            link: 'vendor-binaries'
+                        },
+                        {
                             text: '版本与约束',
                             link: 'versions'
                         }
@@ -87,13 +91,23 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                 }
             ]
         },
+        {
+            text: 'PHP PSR标准规范',
+            base: '/php/php-fig/psr/',
+            link: 'index',
+        },
+        {
+            text: 'PHP 最佳实践',
+            base: '/php/php-best-practices/',
+            link: 'index',
+        }
     ]
 }
 
 export function sidebarPSR(): DefaultTheme.SidebarItem[] {
     return [
         {
-            text: 'PSR标准规范',
+            text: 'PSR 标准规范',
             base: '/php/php-fig/psr/',
             link: 'index',
             collapsed: false,
@@ -104,6 +118,16 @@ export function sidebarPSR(): DefaultTheme.SidebarItem[] {
                 },
             ]
         },
+        {
+            text: 'Composer',
+            base: '/php/composer/',
+            link: 'index',
+        },
+        {
+            text: 'PHP 最佳实践',
+            base: '/php/php-best-practices/',
+            link: 'index',
+        }
     ]
 }
 
@@ -202,5 +226,15 @@ export function sidebarPhpBestPractices(): DefaultTheme.SidebarItem[] {
 
             ]
         },
+        {
+            text: 'PHP PSR标准规范',
+            base: '/php/php-fig/psr/',
+            link: 'index',
+        },
+        {
+            text: 'Composer',
+            base: '/php/composer/',
+            link: 'index',
+        }
     ]
 }
