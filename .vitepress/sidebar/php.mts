@@ -74,6 +74,10 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'repository-priorities'
                         },
                         {
+                            text: '脚本',
+                            link: 'scripts'
+                        },
+                        {
                             text: '供应商二进制文件和 vendor/bin 目录',
                             link: 'vendor-binaries'
                         },
