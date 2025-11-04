@@ -82,6 +82,10 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'repository-priorities'
                         },
                         {
+                            text: '解决合并冲突',
+                            link: 'resolving-merge-conflicts'
+                        },
+                        {
                             text: '脚本',
                             link: 'scripts'
                         },
