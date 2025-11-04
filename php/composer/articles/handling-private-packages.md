@@ -69,7 +69,7 @@ Satis 默认查找的文件是仓库根目录下的 `satis.json`。
 
 完成这些设置后，你可以运行：
 
-```bash
+```shell
 php bin/satis build <configuration file> <build dir>
 ```
 
@@ -85,7 +85,7 @@ php bin/satis build <configuration file> <build dir>
 
 要只重建特定的包，可以在命令行中传递包名，如下所示：
 
-```bash
+```shell
 php bin/satis build satis.json web/ this/package that/other-package
 ```
 
@@ -105,7 +105,7 @@ php bin/satis build satis.json web/ this/package that/other-package
 
 如果你想只扫描单个仓库并更新其中找到的所有包，可以将 VCS 仓库 URL 作为可选参数传递：
 
-```bash
+```shell
 php bin/satis build --repository-url https://only.my/repo.git satis.json web/
 ```
 

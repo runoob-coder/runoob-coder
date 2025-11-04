@@ -156,7 +156,7 @@ class MyClass
     - pre-file-download: [`Composer\Plugin\PreFileDownloadEvent`](https://github.com/composer/composer/blob/main/src/Composer/Plugin/PreFileDownloadEvent.php)
     - post-file-download: [`Composer\Plugin\PostFileDownloadEvent`](https://github.com/composer/composer/blob/main/src/Composer/Plugin/PostFileDownloadEvent.php)
 
-## 手动运行脚本
+## 手动运行脚本 {#running-scripts-manually}
 
 如果你想手动运行事件的脚本，语法如下：
 
@@ -232,7 +232,6 @@ class MyCommand extends Command
     }
 }
 ```
-
 
 > [!NOTE] 注意
 > 在执行脚本之前，Composer 的 bin-dir 会临时被推到 PATH 环境变量的顶部，这样依赖项的二进制文件就可以直接访问。在这个例子中，无论 `phpunit` 二进制文件实际在 `vendor/bin/phpunit` 还是 `bin/phpunit` 中，它都会被找到并执行。
