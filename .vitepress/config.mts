@@ -1,5 +1,6 @@
 import {defineConfig} from 'vitepress'
 import footnote from 'markdown-it-footnote'
+import abbr from 'markdown-it-abbr'
 import {sidebar} from './sidebar'
 
 // https://vitepress.dev/reference/site-config
@@ -361,6 +362,7 @@ export default defineConfig({
         config: (md) => {
             // 使用更多的 Markdown-it 插件！
             md.use(footnote)
+                .use(abbr)
         }
     },
     lastUpdated: true,
