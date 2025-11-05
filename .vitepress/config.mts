@@ -31,6 +31,7 @@ export default defineConfig({
                         items: [
                             {text: '王道计算机教育', link: 'https://space.bilibili.com/95228778'},
                             {text: '湖科大教书匠', link: 'https://space.bilibili.com/360996402'},
+                            {text: 'Hello 算法', link: 'https://www.hello-algo.com/'},
                         ]
                     },
                 ]
