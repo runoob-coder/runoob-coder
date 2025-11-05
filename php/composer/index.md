@@ -29,7 +29,7 @@ hero:
       link: ./mirrors/tencent
     - theme: alt
       text: 阿里云镜像
-      link: ./mirrors/aliyun
+      link: https://developer.aliyun.com/composer
 features:
   - title: 介绍
     details: Composer 是 PHP 的依赖管理工具。它允许你声明项目所依赖的库，并且会为你管理（安装/更新）这些库。

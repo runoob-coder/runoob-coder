@@ -155,10 +155,6 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             text: '腾讯云',
                             link: 'tencent'
                         },
-                        {
-                            text: '阿里云',
-                            link: 'aliyun'
-                        },
                     ]
                 },
             ]
