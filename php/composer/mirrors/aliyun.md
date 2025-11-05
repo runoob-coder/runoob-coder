@@ -125,20 +125,22 @@ composer update --lock
 
 
 <script setup>
-import {ref, onUnmounted} from 'vue'
+import {ref, onUnmounted, onMounted} from 'vue'
 
-const timer = setInterval(() => {
-  fetch('https://developer.aliyun.com/composer/status.json')
-      .then(response => response.json())
-      .then(data => {
-        // 处理返回的数据
-        console.log(data)
-      })
-      .catch(error => {
-        // 处理错误
-        console.error('请求失败:', error)
-      })
-}, 1000)
+onMounted(() => {
+  const timer = setInterval(() => {
+    fetch('https://developer.aliyun.com/composer/status.json')
+        .then(response => response.json())
+        .then(data => {
+          // 处理返回的数据
+          console.log(data)
+        })
+        .catch(error => {
+          // 处理错误
+          console.error('请求失败:', error)
+        })
+  }, 1000)
+})
 
 onUnmounted(() => {
   clearInterval(timer)
