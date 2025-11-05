@@ -25,8 +25,11 @@ hero:
       text: Packagist
       link: https://packagist.org/
     - theme: alt
-      text: 腾讯云 Composer 全量镜像
-      link: https://mirrors.cloud.tencent.com/help/composer.html
+      text: 腾讯云镜像
+      link: ./mirrors/tencent
+    - theme: alt
+      text: 阿里云镜像
+      link: ./mirrors/aliyun
 features:
   - title: 介绍
     details: Composer 是 PHP 的依赖管理工具。它允许你声明项目所依赖的库，并且会为你管理（安装/更新）这些库。

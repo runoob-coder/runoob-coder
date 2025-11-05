@@ -47,7 +47,7 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                 {
                     text: '相关文章',
                     base: '/php/composer/articles/',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '别名',
@@ -106,7 +106,7 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                 {
                     text: '常见问题',
                     base: '/php/composer/faqs/',
-                    collapsed: false,
+                    collapsed: true,
                     items: [
                         {
                             text: '如何将包安装到框架的自定义路径？',
@@ -145,7 +145,22 @@ export function sidebarPHPComposer(): DefaultTheme.SidebarItem[] {
                             link: 'why-cant-composer-load-repositories-recursively.md'
                         },
                     ]
-                }
+                },
+                {
+                    text: '国内镜像',
+                    base: '/php/composer/mirrors/',
+                    collapsed: false,
+                    items: [
+                        {
+                            text: '腾讯云',
+                            link: 'tencent'
+                        },
+                        {
+                            text: '阿里云',
+                            link: 'aliyun'
+                        },
+                    ]
+                },
             ]
         },
         {
