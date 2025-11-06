@@ -7,10 +7,10 @@ head:
       content: 团队协作,Lock file errors,git 历史,Semantic Versioning 2.0.0,composer update,semver,语义化版本控制,版本约束,balbuf/composer-git-merge-driver,git 自动化解决合并冲突,git,composer validate,解决合并冲突,composer.lock,composer.json,Composer,依赖管理器,PHP,libraries,dependency,noob-coder,菜鸟码农
   - - meta
     - name: description
-      content: 在合并时优雅地解决冲突
+      content: 在合并时优雅地解决冲突。
 ---
 
-在合并时优雅地解决冲突
+在合并时优雅地解决冲突。
 
 ## 解决合并冲突
 
@@ -53,6 +53,10 @@ php composer.phar install [--dry-run]
 通过使用自定义 git 合并驱动程序，*可以*在一定程度上改进 git 的冲突解决功能。
 
 这方面的一个例子可以在 [balbuf 的 composer git 合并驱动程序](https://github.com/balbuf/composer-git-merge-driver) 中找到。
+
+#### 处理简单情况
+
+在少数情况下，只有 `content-hash` 会显示为冲突，因为版本控制系统可能能够干净地合并文件中的其余文本。这种情况通常发生在合并的两侧添加或更新了两个不同的包，且这些包没有重叠或冲突的依赖关系时。当这种情况发生时，运行 `composer update --lock` 可能就足以移除冲突标记并更新锁文件的哈希值。你也可以运行任何其他变体的 `composer update` 来移除冲突标记，并可能更新包。
 
 ### 重要注意事项
 

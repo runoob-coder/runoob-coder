@@ -6,7 +6,7 @@ head:
       content: 本章节将描述 composer.json 架构 中的 config 部分。
   - - meta
     - name: keywords
-      content: forgejo-token,forgejo-domains,update-with-minimal-changes,allow-missing-requirements,bump-after-update,secure-svn-domains,platform-check,lock,htaccess-protect,archive-dir,archive-format,discard-changes,notify-on-install,use-github-api,github-expose-hostname,github-domains,apcu-autoloader,classmap-authoritative,sort-packages,optimize-autoloader,autoloader-suffix,prepend-autoloader,bin-compat,cache-read-only,cache-files-maxsize,cache-files-ttl,cache-vcs-dir,cache-repo-dir,cache-files-dir,cache-dir,data-dir,bin-dir,vendor-dir,check-platform-reqs,platform,Authorization,bearer,http-basic,capath,cafile,bitbucket-oauth,secure-http,disable-tls,gitlab-protocol,gitlab-token,gitlab-oauth,gitlab-domains,github-oauth,github-protocols,store-auths,use-parent-dir,ignore-abandoned,abandoned,PKSA,GHSA,CVE,abandoned,ignore,audit,source,dist,preferred-install,use-include-path,allow-plugins,scripts,composer.json,composer.lock,process-timeout,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
+      content: forgejo-token,forgejo-domains,update-with-minimal-changes,allow-missing-requirements,bump-after-update,secure-svn-domains,platform-check,lock,htaccess-protect,archive-dir,archive-format,discard-changes,notify-on-install,use-github-api,github-expose-hostname,github-domains,apcu-autoloader,classmap-authoritative,sort-packages,optimize-autoloader,autoloader-suffix,prepend-autoloader,bin-compat,cache-read-only,cache-files-maxsize,cache-files-ttl,cache-vcs-dir,cache-repo-dir,cache-files-dir,cache-dir,data-dir,bin-dir,vendor-dir,check-platform-reqs,platform,Authorization,bearer,http-basic,capath,cafile,bitbucket-oauth,secure-http,disable-tls,gitlab-protocol,gitlab-token,gitlab-oauth,gitlab-domains,github-oauth,github-protocols,store-auths,use-parent-dir,ignore-severity,ignore-unreachable,block-insecure,block-abandoned,ignore-abandoned,abandoned,PKSA,GHSA,CVE,abandoned,ignore,audit,source,dist,preferred-install,use-include-path,allow-plugins,scripts,composer.json,composer.lock,process-timeout,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---
 
 # 配置
@@ -185,6 +185,61 @@ head:
     "config": {
         "audit": {
             "ignore-abandoned": ["acme/*", "acme/package"]
+        }
+    }
+}
+```
+### ignore-severity
+
+默认值为 `[]`。这是一个严重性等级列表，即使存在指定严重性的安全公告，`audit` 命令也会通过。
+
+```json
+{
+    "config": {
+        "audit": {
+            "ignore-severity": ["low"]
+        }
+    }
+}
+```
+
+### ignore-unreachable
+
+默认值为 `false`。在执行 `composer audit` 时是否应忽略无法访问的仓库。如果你在某些仓库无法访问的环境中运行该命令，这会很有帮助。
+
+```json
+{
+    "config": {
+        "audit": {
+            "ignore-unreachable": true
+        }
+    }
+}
+```
+
+### block-insecure
+
+默认值为 `true`。如果设置为 `true`，除非安全公告被忽略，否则在执行 `composer update/required/delete` 命令时不能使用受安全公告影响的包版本。
+
+```json
+{
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
+    }
+}
+```
+
+### block-abandoned
+
+默认值为 `false`。如果设置为 `true`，在执行 `composer update/require/delete` 命令时不能使用任何已废弃的包。
+
+```json
+{
+    "config": {
+        "audit": {
+            "block-abandoned": true
         }
     }
 }

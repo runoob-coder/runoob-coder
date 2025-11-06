@@ -867,7 +867,7 @@ php composer.phar audit
 * **--no-dev:** 禁用对 require-dev 包的审计。
 * **--format (-f):** 审计输出格式。必须是 "table"（默认）、"plain"、"json" 或 "summary"。
 * **--locked:** 从锁定文件审计包，无论 vendor 目录中当前有什么。
-* **--abandoned:** 对被遗弃包的处理行为。必须是 "ignore"、"report" 或 "fail"。另请参见 [config.abandoned](config.md#abandoned)。传递此标志将覆盖配置值和环境变量。
+* **--abandoned:** 对被遗弃包的处理行为。必须是 "ignore"、"report" 或 "fail"。另请参见 [config.audit.abandoned](config.md#abandoned)。传递此标志将覆盖配置值和环境变量。
 * **--ignore-severity:** 忽略特定严重级别的公告。可以传递一次或多次来忽略多个严重级别。
 
 ## help
@@ -1048,11 +1048,7 @@ Use the `composer fund` command to find out more!
 
 ### COMPOSER_PREFER_DEV_OVER_PRERELEASE
 
-If set to `1`, when resolving dependencies with both `--prefer-stable` and
-`--prefer-lowest` enabled, dev versions are treated as more stable than
-alpha/beta/RC versions in cases where no stable release exists. This is useful
-to test lowest versions while still preferring branches that may contain
-critical fixes over prerelease versions.
+如果设置为 `1`，在同时启用了 `--prefer-stable` 和 `--prefer-lowest` 的情况下解析依赖项时，若没有稳定版本存在，则会将开发版本（dev）视为比 alpha/beta/RC 版本更稳定的版本。这在测试最低版本时非常有用，因为相比于预发布版本，它仍会优先选择可能包含关键修复的分支。
 
 ### COMPOSER_MINIMAL_CHANGES
 
