@@ -709,8 +709,8 @@ php composer.phar repo add qux vcs https://example.org --after bar
 php composer.phar repo remove foo
 php composer.phar repo set-url foo https://git.example.org/acme/foo
 php composer.phar repo get-url foo
-php composer.phar repo disable packagist
-php composer.phar repo enable packagist
+php composer.phar repo disable packagist.org
+php composer.phar repo enable packagist.org
 ```
 
 ### 选项
@@ -801,6 +801,7 @@ php composer.phar create-project doctrine/orm path "2.2.*"
 
 ### 选项
 
+- **--locked:** 从锁定文件中列出许可证信息，而不管当前 `vendor` 目录中实际安装的内容。
 * **--format:** 输出格式：text、json 或 summary（默认："text"）。
 * **--no-dev:** 从输出中移除开发依赖。
 
