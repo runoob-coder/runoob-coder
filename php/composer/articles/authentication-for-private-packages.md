@@ -334,35 +334,31 @@ php composer.phar config [--global] --editor --auth
 
 ### github-oauth
 
-GitHub 目前提供两种类型的访问令牌：
+GitHub 目前提供了两种类型的访问令牌：
 
 - [细粒度令牌（Fine-grained tokens）](https://github.com/settings/personal-access-tokens)
 - [经典令牌（Tokens (classic)）](https://github.com/settings/personal-access-tokens)
 
-这些可以在 [Settings](https://github.com/settings/profile) 中找到，位于左侧菜单的最底部（[Developer options](https://github.com/settings/apps)）。
+你可以在 [Settings](https://github.com/settings/profile) 中找到这些令牌，位于左侧菜单的最底部（[Developer](https://github.com/settings/apps)选项）。要创建一个新的访问令牌，请前往你的 [GitHub 令牌设置部分](https://github.com/settings/personal-access-tokens) 并 [生成一个新令牌](https://github.com/settings/personal-access-tokens/new)。
 
-经典令牌的权限范围更广且安全性较低，而细粒度令牌可以严格限制令牌适用的仓库，以及为仓库的每个属性授予的权限。
+了解更多关于 [个人访问令牌](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) 的信息。
 
-> [!NOTE] 注意
-> 建议使用 [细粒度令牌](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#types-of-personal-access-tokens)，因为你可以更严格地控制访问内容和访问者。
+官方 [推荐](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#%E5%88%9B%E5%BB%BA-fine-grained-personal-access-token) 使用细粒度令牌，因为你可以更精确地控制哪些资源可以被访问。Composer 需要对仓库元数据和内容的只读访问权限。
 
-要创建新的访问令牌，请前往你的 [GitHub 令牌设置部分](https://github.com/settings/personal-access-tokens)
-并[生成新令牌](https://github.com/settings/personal-access-tokens/new)。
+在大多数情况下，拥有对公共仓库只读权限的细粒度令牌可能已经足够了。即使没有任何额外权限，这类令牌也能 [提高你的 API 请求频率限制](https://docs.github.com/zh/rest/using-the-rest-api/rate-limits-for-the-rest-api)。
 
-了解更多关于 [个人访问令牌](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-的信息。
+在以下情况中，你可能需要额外的权限：
 
-#### 经典令牌
+- 你在 `composer.json` 文件中使用了指向私有仓库的 `vcs` 类型的 `repositories` 条目。
+- 你正在通过 HTTPS（而非 SSH）克隆私有仓库的 `source` 或下载 `dist` 文件。
 
-对于公开仓库，在遇到速率限制时，一个 *没有* 特定权限范围的令牌就足够了（参见[权限范围文档](https://docs.github.com/zh/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#available-scopes) 中的`(no scope)`）。这类令牌授予对公开信息的只读访问权限。
+在这些情况下，请创建一个对“内容”具有只读权限的细粒度令牌。这个令牌可以绑定到你的所有仓库或组织的所有仓库，甚至可以限定为仅某些特定仓库。
 
-对于私有仓库，需要 `repo` 权限范围。请注意，令牌将被授予对所有私有仓库的广泛读/写访问权限以及更多权限——完整列表请参见[权限范围文档](https://docs.github.com/zh/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#available-scopes)。截至编写时（2021年11月），似乎无法进一步限制此类令牌的权限。
+截至 2025 年 11 月，细粒度令牌有一个限制：你只能使用它来访问单个用户 **或** 单个组织的私有仓库。你可能需要查看 [GitHub 文档](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens-%E9%99%90%E5%88%B6) 获取详细信息。如果你需要操作来自不同组织的仓库，可以检查是否可以通过目录级别的认证配置来满足需求。
 
-#### 细粒度令牌
+最后的选择是使用带有 `repo` 范围权限的“经典”令牌，它将授予对你所有私有仓库的广泛访问权限——包括写入权限和其他更多权限。完整的权限列表请参见 [OAuth 应用的范围 文档](https://docs.github.com/zh/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps)。使用这种类型的令牌时请务必小心。
 
-细粒度令牌允许你选择令牌适用的特定仓库，以及对仓库特定方面或属性的权限。
-
-对于私有托管的 composer 包，你很可能希望选择对内容的只读访问权限。
+无论使用哪种类型的令牌，我们都建议使用具有有限生命周期的令牌。这样可以在令牌泄露时减少风险暴露。
 
 #### 命令行配置 github-oauth {#command-line-github-oauth}
 
