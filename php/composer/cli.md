@@ -696,21 +696,19 @@ php composer.phar config --json extra.foo.bar '{"baz": true, "qux": []}'
 
 ## repository / repo
 
-`repo` 命令允许你在 `composer.json` 中管理仓库。它是 `composer config repositories.*` 的更强大替代方案。
+`repo` 命令允许你在 `composer.json` 中管理仓库。它比使用 `composer config repositories.*` 来操作仓库配置更加强大，推荐使用。有关可用类型和配置选项的详细信息，请参阅 [仓库](repositories.md) 文档。
 
 ### 使用
 
 ```shell
-php composer.phar repo list
-php composer.phar repo add foo vcs https://github.com/acme/foo
-php composer.phar repo add bar '{"type":"composer","url":"https://repo.example.org"}'
-php composer.phar repo add baz vcs https://example.org --before foo
-php composer.phar repo add qux vcs https://example.org --after bar
-php composer.phar repo remove foo
-php composer.phar repo set-url foo https://git.example.org/acme/foo
-php composer.phar repo get-url foo
-php composer.phar repo disable packagist.org
-php composer.phar repo enable packagist.org
+repo [options] list
+repo [options] add [repo-name] [repo-type] [url]
+repo [options] add [repo-name] [json-repo-definition]
+repo [options] remove [repo-name]
+repo [options] set-url [repo-name] [url]
+repo [options] get-url [repo-name]
+repo [options] enable packagist.org
+repo [options] disable packagist.org
 ```
 
 ### 选项
@@ -720,6 +718,22 @@ php composer.phar repo enable packagist.org
 - **--append:** 添加一个优先级较低的仓库（默认情况下仓库会被前置，因此具有比现有仓库更高的优先级）。
 - **--before \<name\>:** 在名为 `<name>` 的现有仓库之前插入新仓库。
 - **--after \<name\>:** 在名为 `<name>` 的现有仓库之后插入新仓库。`<name>` 必须与现有仓库名称匹配。
+
+### 示例
+
+```shell
+php composer.phar repo list
+php composer.phar repo add foo vcs https://github.com/acme/foo
+php composer.phar repo add bar composer https://repo.packagist.com/bar
+php composer.phar repo add zips '{"type":"artifact","url":"/path/to/dir/with/zips"}'
+php composer.phar repo add baz vcs https://example.org --before foo
+php composer.phar repo add qux vcs https://example.org --after bar
+php composer.phar repo remove foo
+php composer.phar repo set-url foo https://git.example.org/acme/foo
+php composer.phar repo get-url foo
+php composer.phar repo disable packagist.org
+php composer.phar repo enable packagist.org
+```
 
 ## create-project
 
