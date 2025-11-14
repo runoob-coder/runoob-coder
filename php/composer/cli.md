@@ -6,7 +6,7 @@ head:
       content: 你已经学会了如何使用命令行界面来执行一些操作。本章将记录所有可用的命令。要从命令行获取帮助，可以运行 composer 或 composer list 来查看完整的命令列表，然后将 --help 与其中任何一个命令结合使用可以获取更多信息。由于 Composer 使用了 symfony/console，如果命令名称没有歧义，你可以使用简短名称来调用命令。
   - - meta
     - name: keywords
-      content: symfony/console,SHELL_VERBOSITY,COMPOSER_WITH_ALL_DEPENDENCIES,COMPOSER_WITH_DEPENDENCIES,COMPOSER_IGNORE_PLATFORM_REQ,COMPOSER_MINIMAL_CHANGES,COMPOSER_PREFER_DEV_OVER_PRERELEASE,COMPOSER_PREFER_LOWEST,COMPOSER_PREFER_STABLE,COMPOSER_NO_DEV,COMPOSER_NO_AUDIT,COMPOSER_SKIP_SCRIPTS,COMPOSER_DEBUG_EVENTS,COMPOSER_DISABLE_NETWORK,COMPOSER_SELF_UPDATE_TARGET,COMPOSER_IPRESOLVE,COMPOSER_MAX_PARALLEL_PROCESSES,COMPOSER_MAX_PARALLEL_HTTP,COMPOSER_AUDIT_ABANDONED,HTTPS_PROXY_REQUEST_FULLURI,HTTP_PROXY_REQUEST_FULLURI,http_proxy,COMPOSER_RUNTIME_ENV,COMPOSER_VENDOR_DIR,COMPOSER_ROOT_VERSION,COMPOSER_PROCESS_TIMEOUT,COMPOSER_NO_INTERACTION,COMPOSER_MIRROR_PATH_REPOS,COMPOSER_MEMORY_LIMIT,COMPOSER_HTACCESS_PROTECT,config.json,COMPOSER_HOME,COMPOSER_FUND,COMPOSER_DISCARD_CHANGES,COMPOSER_DISABLE_XDEBUG_WARN,COMPOSER_CAFILE,COMPOSER_CACHE_DIR,COMPOSER_BIN_DIR,COMPOSER_AUTH,COMPOSER_ALLOW_XDEBUG,COMPOSER_ALLOW_SUPERUSER,audit,archive,diagnose,run-script,clear-cache,dump-autoload,dumpautoload,create-project,repository,repo,config,self-update,selfupdate,status,validate,prohibits,why-not,depends,why,fund,--by-suggestion,--by-package,suggests,browse,home,-patch-only,--minor-only,--major-only,outdated,show,info,--only-vendor,php-cs-fixer,global,check-platform-reqs,reinstall,--no-dev-only,--dev-only,Dependency Hell,依赖地狱,bump,--unused,rm,uninstall,remove,--sort-packages,--update-with-all-dependencies,--update-no-dev,require-dev,mirrors,--bump-after-update,--root-reqs,--interactive,--patch-only,--minimal-changes,--prefer-lowest,--prefer-stable,--with-all-dependencies,--with-dependencies,--with,--lock,--ignore-platform-req,--ignore-platform-reqs,--apcu-autoloader-prefix,APCu,--apcu-autoloader,自动加载器,类映射,--classmap-authoritative,classmap,--optimize-autoloader,--audit-format,--audit,--no-progress,--no-autoloader,--no-dev,--dev,--dry-run,--prefer-install,require,upgrade,update,completion.bash,--help,cli,install,dump-autoload,--help,composer.lock,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
+      content: COMPOSER_SECURITY_BLOCKING_ABANDONED,COMPOSER_NO_SECURITY_BLOCKING,symfony/console,SHELL_VERBOSITY,COMPOSER_WITH_ALL_DEPENDENCIES,COMPOSER_WITH_DEPENDENCIES,COMPOSER_IGNORE_PLATFORM_REQ,COMPOSER_MINIMAL_CHANGES,COMPOSER_PREFER_DEV_OVER_PRERELEASE,COMPOSER_PREFER_LOWEST,COMPOSER_PREFER_STABLE,COMPOSER_NO_DEV,COMPOSER_NO_AUDIT,COMPOSER_SKIP_SCRIPTS,COMPOSER_DEBUG_EVENTS,COMPOSER_DISABLE_NETWORK,COMPOSER_SELF_UPDATE_TARGET,COMPOSER_IPRESOLVE,COMPOSER_MAX_PARALLEL_PROCESSES,COMPOSER_MAX_PARALLEL_HTTP,COMPOSER_AUDIT_ABANDONED,HTTPS_PROXY_REQUEST_FULLURI,HTTP_PROXY_REQUEST_FULLURI,http_proxy,COMPOSER_RUNTIME_ENV,COMPOSER_VENDOR_DIR,COMPOSER_ROOT_VERSION,COMPOSER_PROCESS_TIMEOUT,COMPOSER_NO_INTERACTION,COMPOSER_MIRROR_PATH_REPOS,COMPOSER_MEMORY_LIMIT,COMPOSER_HTACCESS_PROTECT,config.json,COMPOSER_HOME,COMPOSER_FUND,COMPOSER_DISCARD_CHANGES,COMPOSER_DISABLE_XDEBUG_WARN,COMPOSER_CAFILE,COMPOSER_CACHE_DIR,COMPOSER_BIN_DIR,COMPOSER_AUTH,COMPOSER_ALLOW_XDEBUG,COMPOSER_ALLOW_SUPERUSER,audit,archive,diagnose,run-script,clear-cache,dump-autoload,dumpautoload,create-project,repository,repo,config,self-update,selfupdate,status,validate,prohibits,why-not,depends,why,fund,--by-suggestion,--by-package,suggests,browse,home,-patch-only,--minor-only,--major-only,outdated,show,info,--only-vendor,php-cs-fixer,global,check-platform-reqs,reinstall,--no-dev-only,--dev-only,Dependency Hell,依赖地狱,bump,--unused,rm,uninstall,remove,--sort-packages,--update-with-all-dependencies,--update-no-dev,require-dev,mirrors,--bump-after-update,--root-reqs,--interactive,--patch-only,--minimal-changes,--prefer-lowest,--prefer-stable,--with-all-dependencies,--with-dependencies,--with,--lock,--ignore-platform-req,--ignore-platform-reqs,--apcu-autoloader-prefix,APCu,--apcu-autoloader,自动加载器,类映射,--classmap-authoritative,classmap,--optimize-autoloader,--audit-format,--audit,--no-progress,--no-autoloader,--no-dev,--dev,--dry-run,--prefer-install,require,upgrade,update,completion.bash,--help,cli,install,dump-autoload,--help,composer.lock,Composer,PHP,libraries,dependency,noob-coder,菜鸟码农
 ---
 
 # 命令行界面 / 命令
@@ -154,6 +154,7 @@ php composer.phar update vendor/package:2.0.1 vendor/package2:3.0.*
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
+* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
 * **--lock:** 覆盖锁文件哈希值以抑制关于锁文件过期的警告，而无需更新包版本。如果包的元数据（如镜像和URL）发生了变化，这些信息会被更新。
 * **--with:** 临时添加的版本约束，例如 foo/bar:1.0.0 或 foo/bar=1.0.0
 * **--no-autoloader:** 跳过自动加载器生成。
@@ -212,6 +213,7 @@ php composer.phar require vendor/package vendor/package2
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
+* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
 * **--update-no-dev:** 使用 `--no-dev` 选项运行依赖项更新。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
 * **--update-with-dependencies (-w):** 同时更新新引入包的依赖项，但不包括作为根依赖项的包。也可以通过设置 COMPOSER_WITH_DEPENDENCIES=1 环境变量来启用。
 * **--update-with-all-dependencies (-W):** 同时更新新引入包的依赖项，包括作为根依赖项的包。也可以通过设置 COMPOSER_WITH_ALL_DEPENDENCIES=1 环境变量来启用。
@@ -246,6 +248,7 @@ php composer.phar remove vendor/package vendor/package2
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
+* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
 * **--update-no-dev:** 使用 `--no-dev` 选项运行依赖项更新。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
 * **--update-with-dependencies (-w):** 同时更新被移除包的依赖项。也可以通过设置 COMPOSER_WITH_DEPENDENCIES=1 环境变量来启用。（已弃用，现在是默认行为）
 * **--update-with-all-dependencies (-W):** 允许更新所有继承的依赖项，包括那些作为根依赖项的包。也可以通过设置 COMPOSER_WITH_ALL_DEPENDENCIES=1 环境变量来启用。
@@ -777,6 +780,7 @@ php composer.phar create-project doctrine/orm path "2.2.*"
 * **--no-install:** 禁用安装供应商包。
 * **--no-audit:** 安装完成后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
+* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
 * **--ignore-platform-reqs:** 忽略所有平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足这些要求也强制安装。另请参见 [`platform`](config.md#platform) 配置选项。
 * **--ignore-platform-req:** 忽略特定平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足该要求也强制安装。可以通过通配符忽略多个要求。
 * **--ask:** 要求用户为新项目提供目标目录。
@@ -1047,7 +1051,17 @@ Use the `composer fund` command to find out more!
 
 ### COMPOSER_NO_AUDIT
 
-如果设置为 1，相当于向 `require`、`update`、`remove` 或 `create-project` 命令传递了 `--no-audit` 选项。
+如果设置为 `1`，相当于向 `require`、`update`、`remove` 或 `create-project` 命令传递 `--no-audit` 选项。
+
+### COMPOSER_NO_SECURITY_BLOCKING
+
+如果设置为 `1`，相当于向 `require`、`update`、`remove` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全通告或已被弃用的软件包。
+
+### COMPOSER_SECURITY_BLOCKING_ABANDONED
+
+如果设置为 `1`，则在依赖解析期间启用对弃用包的阻止（相当于将 `audit.block-abandoned` 配置设置为 `true`）。如果设置为 `0`，则禁用对弃用包的阻止 。
+
+请注意，`COMPOSER_NO_SECURITY_BLOCKING=1` 具有更高优先级，会强制禁用所有安全阻止功能，包括对弃用包的阻止。
 
 ### COMPOSER_NO_DEV
 

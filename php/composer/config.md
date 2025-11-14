@@ -147,6 +147,8 @@ head:
 - `report`：将已废弃的包作为错误报告，但不会导致命令以非零代码退出。
 - `fail`：已废弃的包会导致 audit 命令失败并以非零代码退出。
 
+请注意，这仅适用于审计（audit），而不适用于对不安全包的阻止。要配置对已废弃包的阻止，请参见 [`block-abandoned`](#block-abandoned) 选项。
+
 ```json
 {
     "config": {
