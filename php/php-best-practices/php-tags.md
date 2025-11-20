@@ -1,11 +1,11 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: PHP 代码块有几种分隔方式：<?php ?>、<?= ?>、<? ?> 和 <% %>。虽然短标记更方便输入，但它们默认是禁用的，必须通过配置 PHP 服务器的 short_open_tag 选项才能启用。因此，唯一能在所有 PHP 服务器上保证可用的方法是 <?php ?>。如果你打算将 PHP 部署到无法控制配置的服务器，建议始终使用 <?php ?>。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: 浏览器,怪异模式,quirksmode,php短标志,short_open_tag,PHP 标记,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
-
 
 # PHP 标记
 

@@ -2,6 +2,7 @@
 layout: home
 title: PHP 最佳实践 中文文档
 titleTemplate: PHP | noob-coder | 菜鸟码农
+description: "一本简短实用的指南，帮助解决常见且容易混淆的 PHP 任务。"
 head:
   - - meta
     - name: keywords

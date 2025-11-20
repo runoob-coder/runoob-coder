@@ -1,9 +1,10 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 使用 spl_autoload_register() 注册你的自动加载函数
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: include_once,高效的 PHP 自动加载与命名策略,PSR-4,__autoload(),spl_autoload_register,PHP最佳实践,中文文档,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 自动加载类

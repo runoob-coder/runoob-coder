@@ -1,9 +1,10 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 传统上，PHP 使用 define() 函数定义常量。但后来 PHP 也支持用 const 关键字声明常量。那么定义常量时该用哪种方式？由于 define() 更灵活，除非你确实需要类常量，否则建议优先使用 define()。const 通常代码更易读，但灵活性较差。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: 命名空间,条件常量,类常量,const,define,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # [define()](https://www.php.net/manual/zh/function.define.php) 与 [const](https://www.php.net/manual/zh/language.constants.php)

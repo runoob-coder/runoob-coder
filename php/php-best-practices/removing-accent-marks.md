@@ -1,10 +1,12 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 大多数网络指南会建议使用 PHP 的 iconv() 函数来移除变音符号。然而 iconv() 经常在处理 UTF-8 输入时遇到问题，有时会产生令人意外的错误。
+  更好的方法是使用 PHP 的 intl 库。可以通过以下命令安装：
 aside: false
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: transliterate,Transliterator,php-intl,intl,UTF-8,iconv,重音符号,变音符号,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 移除重音符号（变音符号）

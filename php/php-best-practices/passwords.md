@@ -1,9 +1,11 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 哈希是保护用户密码在存入数据库前的标准方法。许多常见的哈希算法（如 md5、甚至 sha1）都不安全，因为黑客可以轻易破解这些算法加密的密码。
+  PHP 提供了内置的 密码哈希库，采用 bcrypt 算法，目前被认为是密码哈希的最佳选择。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: salt,盐值,password_verify,password_hash,bcrypt,密码哈希库,破解密码,sha1,md5,哈希算法,密码存储,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 密码存储

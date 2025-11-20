@@ -1,9 +1,11 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 连接 MySQL 数据库的方法有很多，PDO（PHP 数据对象） 是最新且最强大的方式。PDO 提供了统一的接口，支持多种数据库类型，采用面向对象方式，并支持新数据库的更多特性。
+  你应该使用 PDO 的 预处理语句 功能来防止 SQL 注入攻击。使用 bindValue() 方法可以确保你的 SQL 免受第一类 SQL 注入攻击。（虽然并非百分百安全，详情见“延伸阅读”。）过去需要用一些复杂的“魔术引号”函数来实现这些安全措施，而 PDO 让这些繁琐操作变得不再必要。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: mysql_connect,Unicode 字符串,utf8mb4,魔术引号,SQL 注入攻击,prepared-statements,bindValue,PHP 数据对象,预处理语句功,MySQL,数据库,PDO,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # MySQL数据库的连接与查询

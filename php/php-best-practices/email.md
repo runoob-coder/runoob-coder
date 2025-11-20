@@ -1,9 +1,10 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: PHPMailer 是一个流行且成熟的开源库，能为安全发送邮件提供简单接口。它帮你处理各种坑，让你专注于更重要的事情。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: php发送邮件,composer,mail,发送邮件,PHPMailer,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 发送邮件

@@ -1,9 +1,12 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+declaration: 配置 Web 服务器以运行 PHP 有多种方式。早期常用 Apache 的 mod_php。mod_php 会将 PHP 绑定到 Apache，但 Apache 管理 PHP 的方式很差，一旦有真实流量就会遇到严重的内存问题。
+  后来出现了两个新方案：mod_fastcgi 和 mod_fcgid。它们会保持有限数量的 PHP 进程运行，Apache 将请求发送给这些接口，由它们代为执行 PHP。由于这些库限制了 PHP 进程数量，内存占用大幅降低，性能却不受影响。
+  一些聪明的人专门为 PHP 设计了 fastcgi 的实现，称为 PHP-FPM。从 Ubuntu 12.04 起，这成为 Web 服务器的标准方案。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: Franken,Franken PHP,VirtualHost,php_admin_value,PHP FPM 池,rewrite,a2enmod,proxy_fcgi,PHP请求转发,mod_proxy_fcgi,PHP-FPM,fastcgi,内存占用,PHP进程,mod_fcgid,mod_fastcgi,mod_php,Apache,Web 服务器,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 通过 Web 服务器运行 PHP

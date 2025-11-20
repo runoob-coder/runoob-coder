@@ -1,9 +1,10 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: DateTime 类将所有旧日期函数的功能（甚至更多）封装在一个易于使用的类中，并且使时区转换变得更加简单。始终在 PHP 中使用 DateTime 类来创建、比较、更改和显示日期。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: 2038年,2038年1月19日 03:14:07,2147483647,Y2K38,diff,setTimezone,DateTimeZone,DateInterval,UTC,strtotime,date_timezone_set,gmdate,date,日期和时间,DateTime,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 处理日期和时间

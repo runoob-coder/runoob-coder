@@ -1,9 +1,13 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 缓存系统通常能提升应用性能。Memcached 是一个流行选择，支持多种语言，包括 PHP。
+  但在 PHP 脚本中访问 Memcached 服务器时，有两个名字非常相似的客户端库：Memcache 和 Memcached。它们是不同的库，名字几乎一样，都能访问 Memcached 实例。
+  实际上，Memcached 库对 Memcached 协议的实现更好，功能比 Memcache 多，开发支持也更活跃。
+  但如果你不需要从多台分布式服务器访问 Memcached 实例，建议用 APCu。APCu 由 PHP 官方支持，功能与 Memcached 类似。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: php-apcu,opcode-cache,操作码缓存,php-memcached,缓存系统,分布式缓存,APCu,Memcache,Memcached,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # PHP 与 Memcached

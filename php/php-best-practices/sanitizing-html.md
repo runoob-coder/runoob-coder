@@ -1,9 +1,10 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 对于简单过滤使用 htmlentities() 函数，对于复杂过滤使用 HTML Purifier 库。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: 过滤用户输入,htmlspecialchars,filter_var,验证邮箱地址,strip_tags,安全过滤,HTML Purifier,htmlentities,过滤HTML,HTML,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 过滤 HTML 输入和输出

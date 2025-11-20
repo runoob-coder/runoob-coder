@@ -1,9 +1,10 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: 目前 PHP 在底层不支持 Unicode。有办法确保 UTF-8 字符串被正确处理，但这并不容易，需要深入到 Web 应用的几乎所有层面，从 HTML 到 SQL 再到 PHP。我们将力求提供一个简明实用的总结。
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: mb_http_output,MySQL,ASCII,Linux,Windows,htmlentities,mb_http_output,mb_internal_encoding,mb_substr,php-mbstring,mbstring,多字节字符串函数,mb_strlen,mb_strpos,strlen,strpos,字符串运算符,SQL,HTML,Unicode,UTF-8,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # PHP 与 UTF-8
@@ -40,8 +41,6 @@ sudo apt install php-mbstring
 Linux 和 OSX 似乎能够很好地处理 UTF-8 文件名。然而 Windows 却不行。如果你尝试在 Windows 中使用 PHP 写入文件名包含非 ASCII 字符的文件，你可能会发现文件名显示为奇怪或损坏的字符（乱码）。
 
 在这方面，很难找到一个简单且跨平台的通用解决办法。在 Linux 和 OSX 中你可以使用 UTF-8 编码文件名，但在 Windows 中你必须记住使用 ISO-8859-1 编码。
-
-如果你不想麻烦地让你的脚本检查是否在 Windows 上运行，你可以始终在写入文件前对所有文件名进行 URL 编码。这通过用 ASCII 子集表示 Unicode 字符有效地绕过了 Unicode 的怪癖。
 
 如果你不想麻烦地让你的脚本检查是否在 Windows 上运行，你可以始终在写入文件前对所有文件名进行 URL 编码。这通过用 ASCII 子集表示 Unicode 字符有效地绕过了 Unicode 的兼容性问题。
 

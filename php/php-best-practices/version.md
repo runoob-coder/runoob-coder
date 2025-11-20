@@ -1,10 +1,11 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
+description: PHP 就像是 Web 世界里的百年老龟，壳上刻满了丰富、复杂且曲折的历史。在共享主机环境下，PHP 的配置可能会限制你的操作。
 aside: false
 head:
   - - meta
     - name: keywords
-      content: PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
+      content: php最新版本,PHP 版本,php7,php8,Ubuntu,PHP最佳实践,PHP标准规范,PHP Standards Recommendations,PSR,PHP,noob-coder,菜鸟码农
 ---
 
 # 我们使用的是哪个 PHP 版本？
