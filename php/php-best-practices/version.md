@@ -1,6 +1,7 @@
 ---
 titleTemplate: PHP 最佳实践 中文文档 | PHP | noob-coder | 菜鸟码农
-description: PHP 就像是 Web 世界里的百年老龟，壳上刻满了丰富、复杂且曲折的历史。在共享主机环境下，PHP 的配置可能会限制你的操作。
+description: 为了保持思路清晰，我们只关注一个 PHP 版本：`PHP 7.2.10` `ubuntu 18.04.1`。这是你在 Ubuntu 18.04 LTS 服务器上通过 apt-get
+  安装时获得的版本，也就是许多人使用的默认版本。
 aside: false
 head:
   - - meta
