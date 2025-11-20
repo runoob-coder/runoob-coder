@@ -107,11 +107,13 @@ head:
 
 ## audit
 
-安全审计相关配置选项。
+安全审计和版本阻止配置选项。可以使用 `composer audit` 生成审计报告，并且在更新或引入命令结束时会自动报告简短格式的版本。版本阻止功能会根据配置，在解析依赖关系之前丢弃被识别为不安全或已废弃的包版本，确保它们无法被安装。
 
 ### ignore
 
-用于忽略指定的安全公告 ID、远程 ID 或 CVE ID，这些安全问题会被报告但不会导致 audit 命令执行失败。
+一份在审计报告和（或）版本阻止中被忽略的咨询 ID、远程 ID 或 CVE ID 列表。
+
+#### 带原因的简单格式：
 
 ```json
 {
@@ -127,7 +129,7 @@ head:
 }
 ```
 
-或
+#### 不带原因的简单格式：
 
 ```json
 {
@@ -139,15 +141,48 @@ head:
 }
 ```
 
+#### 带应用范围的详细格式：
+
+详细格式允许你控制忽略是仅应用于审计报告、仅应用于版本阻止，还是两者都应用。`apply` 字段接受以下值：
+
+- `audit` - 仅在审计报告中忽略（咨询不会出现在审计报告中，但在更新期间仍然会阻止包）
+- `block` - 仅在版本阻止中忽略（在更新期间可以使用包，但咨询仍会出现在审计报告中）
+- `all` - 在审计报告和版本阻止中都忽略（默认行为）
+
+```json
+{
+    "config": {
+        "audit": {
+            "ignore": {
+                "CVE-1234": {
+                    "apply": "audit",
+                    "reason": "对我们不适用，所以不报告，但仍希望确保在更新中不使用此版本。"
+                },
+                "GHSA-xx": {
+                    "apply": "block",
+                    "reason": "已应用解决方法，下周才能修复，允许在更新中使用但在审计中仍报告。"
+                },
+                "PKSA-yy": {
+                    "apply": "all",
+                    "reason": "误报，所有上下文中完全忽略。"
+                }
+            }
+        }
+    }
+}
+```
+
+所有格式可以在同一配置中混合使用。
+
 ### abandoned
 
-在 Composer 2.6 中默认值为 `report`，从 Composer 2.7 起默认值为 `fail`。该选项用于定义 audit 命令是否报告已废弃的包，有三个可选值：
+自 Composer 2.7 起默认值为 `fail`（在 Composer 2.6 中添加该选项时默认值为 `report`）。定义审计报告是否以及如何报告已废弃的包。有三个可能的值：
 
-- `ignore`：audit 命令完全忽略已废弃的包。
-- `report`：将已废弃的包作为错误报告，但不会导致命令以非零代码退出。
-- `fail`：已废弃的包会导致 audit 命令失败并以非零代码退出。
+- `ignore` 表示审计报告完全不考虑已废弃的包。
+- `report` 表示已废弃的包作为错误报告，但不会导致 composer audit 命令返回非零退出代码。
+- `fail` 表示已废弃的包会导致审计命令失败并返回非零退出代码。
 
-请注意，这仅适用于审计（audit），而不适用于对不安全包的阻止。要配置对已废弃包的阻止，请参见 [`block-abandoned`](#block-abandoned) 选项。
+请注意，这仅适用于审计报告，此设置不会影响不安全包版本的阻止。要配置已废弃包的阻止，请参见 [`block-abandoned`](#block-abandoned) 选项。
 
 ```json
 {
@@ -161,26 +196,28 @@ head:
 
 自 Composer 2.7 起，可以通过 [`COMPOSER_AUDIT_ABANDONED`](cli.md#composer-audit-abandoned) 环境变量覆盖该选项。
 
-自 Composer 2.8 起，可以通过 [`--abandoned`](cli.md#audit) 命令行参数覆盖该选项，优先级高于配置项和环境变量。
+自 Composer 2.8 起，可以通过 [`--abandoned`](cli.md#audit) 命令行选项覆盖该选项，其优先级高于配置值和环境变量。
 
 ### ignore-abandoned
 
-这是一个被报告但允许审计命令通过的已废弃包名称列表。
+一份在审计报告和（或）版本阻止中被忽略的已废弃包名称列表。允许你选择即使在已废弃状态下仍想继续使用的包。
+
+#### 带原因的简单格式：
 
 ```json
 {
     "config": {
         "audit": {
             "ignore-abandoned": {
-                "acme/*": "Work schedule for removal next month.",
-                "acme/package": "The package is not in use"
+                "acme/*": "计划下个月移除。",
+                "acme/package": "传递依赖项但在我们的项目上下文中无法访问且未在使用。"
             }
         }
     }
 }
 ```
 
-或者
+#### 不带原因的简单格式：
 
 ```json
 {
@@ -191,23 +228,82 @@ head:
     }
 }
 ```
-### ignore-severity
 
-默认值为 `[]`。这是一个严重性等级列表，即使存在指定严重性的安全公告，`audit` 命令也会通过。
+#### 带应用范围的详细格式：
+
+详细格式允许你控制忽略是仅应用于审计报告、仅应用于版本阻止，还是两者都应用。`apply` 字段接受以下值：
+
+- `audit` - 仅在审计报告中忽略（包不会出现在审计报告中，但如果启用了 [`block-abandoned`](#block-abandoned)，在更新期间仍然会被阻止）
+- `block` - 仅在版本阻止中忽略（即使启用了 [`block-abandoned`](#block-abandoned)，在更新期间也可以使用包，但仍然会出现在审计报告中）
+- `all` - 在审计报告和版本阻止中都忽略（默认行为）
 
 ```json
 {
     "config": {
         "audit": {
-            "ignore-severity": ["low"]
+            "ignore-abandoned": {
+                "acme/package": {
+                    "apply": "block",
+                    "reason": "在更新期间允许使用但仍然报告为已废弃。"
+                },
+                "vendor/*": {
+                    "apply": "all",
+                    "reason": "我们在内部维护这些包。"
+                }
+            }
         }
     }
 }
 ```
 
+所有格式可以在同一配置中混合使用。
+
+### ignore-severity
+
+默认值为 `[]`。一份在审计报告和（或）版本阻止中被忽略的严重性等级列表。
+
+#### 简单格式：
+
+```json
+{
+    "config": {
+        "audit": {
+            "ignore-severity": ["low", "medium"]
+        }
+    }
+}
+```
+
+#### 带应用范围的详细格式：
+
+详细格式允许你控制忽略是仅应用于审计报告、仅应用于版本阻止，还是两者都应用。`apply` 字段接受以下值：
+
+- `audit` - 仅在审计报告中忽略（具有此严重性的咨询不会出现在审计报告中，但在更新期间仍然会阻止包）
+- `block` - 仅在版本阻止中忽略（在更新期间可以使用包，但具有此严重性的咨询仍然会出现在审计报告中）
+- `all` - 在审计报告和版本阻止中都忽略（默认行为）
+
+```json
+{
+    "config": {
+        "audit": {
+            "ignore-severity": {
+                "low": {
+                    "apply": "all"
+                },
+                "medium": {
+                    "apply": "block"
+                }
+            }
+        }
+    }
+}
+```
+
+所有格式可以在同一配置中混合使用。
+
 ### ignore-unreachable
 
-默认值为 `false`。在执行 `composer audit` 时是否应忽略无法访问的仓库。如果你在某些仓库无法访问的环境中运行该命令，这会很有帮助。
+默认值为 `false`。在执行 `composer audit` 时是否应忽略无法访问的仓库。如果你在某些仓库无法访问的环境中运行该命令，这会很有帮助。此设置不适用于版本阻止或在 `composer audit` 命令之外生成的审计报告。
 
 ```json
 {
@@ -221,7 +317,7 @@ head:
 
 ### block-insecure
 
-默认值为 `true`。如果设置为 `true`，除非安全公告被忽略，否则在执行 `composer update/required/delete` 命令时不能使用受安全公告影响的包版本。
+默认值为 `true`。如果为 `true`，任何受安全公告影响的包版本都将被阻止，在执行 composer update/require/delete 命令时无法使用，除非这些安全公告被忽略。如果启用了 [`block-abandoned`](#block-abandoned)，版本阻止还将防止使用已废弃的包。
 
 ```json
 {
@@ -235,7 +331,7 @@ head:
 
 ### block-abandoned
 
-默认值为 `false`。如果设置为 `true`，在执行 `composer update/require/delete` 命令时不能使用任何已废弃的包。
+默认值为 `false`。如果为 `true`，任何已废弃的包在执行 composer update/require/delete 命令时都无法使用。仅在未通过将 [`block-insecure`](#block-insecure) 设置为 false 来禁用版本阻止时适用。
 
 ```json
 {

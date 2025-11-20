@@ -1015,10 +1015,6 @@ Use the `composer fund` command to find out more!
 
 有关如何使用代理环境变量的更多详细信息，请参见 [代理文档](faqs/how-to-use-composer-behind-a-proxy.md)。
 
-### COMPOSER_AUDIT_ABANDONED
-
-设置为 `ignore`、`report` 或 `fail` 以覆盖 [audit.abandoned](config.md#abandoned) 配置选项。
-
 ### COMPOSER_MAX_PARALLEL_HTTP
 
 设置一个整数以配置可以并行下载的文件数量。默认值为 12，数值必须在 1 到 50 之间。如果你的代理在并发方面有问题，可能需要降低此值。增加此值通常不会带来性能提升。
@@ -1053,15 +1049,17 @@ Use the `composer fund` command to find out more!
 
 如果设置为 `1`，相当于向 `require`、`update`、`remove` 或 `create-project` 命令传递 `--no-audit` 选项。
 
+### COMPOSER_AUDIT_ABANDONED
+
+设置为 `ignore`、`report` 或 `fail` 来覆盖 [audit.abandoned](config.md#abandoned) 配置选项。
+
 ### COMPOSER_NO_SECURITY_BLOCKING
 
-如果设置为 `1`，相当于向 `require`、`update`、`remove` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全通告或已被弃用的软件包。
+如果设置为 `1`，相当于向 `require`、`update`、`remove` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全公告或已被弃用的软件包。它会覆盖配置选项 [audit.block-insecure](config.md#block-insecure)。
 
 ### COMPOSER_SECURITY_BLOCKING_ABANDONED
 
-如果设置为 `1`，则在依赖解析期间启用对弃用包的阻止（相当于将 `audit.block-abandoned` 配置设置为 `true`）。如果设置为 `0`，则禁用对弃用包的阻止 。
-
-请注意，`COMPOSER_NO_SECURITY_BLOCKING=1` 具有更高优先级，会强制禁用所有安全阻止功能，包括对弃用包的阻止。
+如果设置为 `1`，则在依赖解析期间启用对弃用包的阻止（相当于将 `audit.block-abandoned` 配置设置为 `true`）。如果设置为 `0`，则禁用对弃用包的阻止。请注意，如果安全阻止功能被普遍禁用，此设置将没有任何效果。它会覆盖配置选项 [audit.block-abandoned](config.md#block-abandoned)。
 
 ### COMPOSER_NO_DEV
 
