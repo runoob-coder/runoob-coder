@@ -32,6 +32,15 @@ export default defineConfig({
                             {text: '王道计算机教育', link: 'https://space.bilibili.com/95228778'},
                             {text: '湖科大教书匠', link: 'https://space.bilibili.com/360996402'},
                             {text: 'Hello 算法', link: 'https://www.hello-algo.com/'},
+                            {text: 'Data Structure Visualizations', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
+                            {text: 'VisuAlgo', link: 'https://visualgo.net/zh'},
+                        ]
+                    },
+                    {
+                        text: 'OJ',
+                        items: [
+                            {text: '攀拓 PAT', link: 'https://www.patest.cn/home'},
+                            {text: '杭电 HDU ACM', link: 'https://acm.hdu.edu.cn/'},
                         ]
                     },
                 ]
@@ -231,7 +240,11 @@ export default defineConfig({
                 text: '单片机',
                 activeMatch: '/embedded-system',
                 items: [
-                    {text: '学习参考', link: '/embedded-system/references'},
+                    {
+                        text: 'STC8051',
+                        link: '/embedded-system/STC8051/',
+                        activeMatch: '/embedded-system/STC8051/',
+                    },
                     {
                         text: '活死人墓',
                         items: [
