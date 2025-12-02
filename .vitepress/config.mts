@@ -65,6 +65,7 @@ export default defineConfig({
                             {text: 'Paul的在线笔记', link: 'https://tutorial.math.lamar.edu/'},
                             {text: 'LaTeX', link: '/math/tools/LaTeX'},
                             {text: 'LaTeX公式编辑器', link: 'https://www.latexlive.com/home'},
+                            {text: '数学天地 Math World', link: 'https://mathworld.net.cn/'},
                         ]
                     },
                 ]
