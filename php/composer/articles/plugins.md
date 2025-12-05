@@ -93,10 +93,10 @@ class TemplateInstallerPlugin implements PluginInterface
 ```php
 public static function getSubscribedEvents()
 {
-    return array(
+    return [
         'post-autoload-dump' => 'methodToBeCalled',
         // ^ 事件名称 ^            ^ 方法名称 ^
-    );
+    ];
 }
 ```
 
@@ -105,10 +105,10 @@ public static function getSubscribedEvents()
 ```php
 public static function getSubscribedEvents()
 {
-    return array(
+    return [
         // 将在优先级为 0 的事件之前调用
-        'post-autoload-dump' => array('methodToBeCalled', 1)
-    );
+        'post-autoload-dump' => ['methodToBeCalled', 1]
+    ];
 }
 ```
 
@@ -117,12 +117,12 @@ public static function getSubscribedEvents()
 ```php
 public static function getSubscribedEvents()
 {
-    return array(
-        'post-autoload-dump' => array(
-            array('methodToBeCalled'      ), // 优先级默认为 0
-            array('someOtherMethodName', 1), // 这个先触发
-        )
-    );
+    return [
+        'post-autoload-dump' => [
+            ['methodToBeCalled'      ], // 优先级默认为 0
+            ['someOtherMethodName', 1], // 这个先触发
+        ]
+    ];
 }
 ```
 
@@ -161,11 +161,11 @@ class AwsPlugin implements PluginInterface, EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            PluginEvents::PRE_FILE_DOWNLOAD => array(
-                array('onPreFileDownload', 0)
-            ),
-        );
+        return [
+            PluginEvents::PRE_FILE_DOWNLOAD => [
+                ['onPreFileDownload', 0]
+            ],
+        ];
     }
 
     public function onPreFileDownload(PreFileDownloadEvent $event)
@@ -203,9 +203,9 @@ class Plugin implements PluginInterface, Capable
 
     public function getCapabilities()
     {
-        return array(
+        return [
             'Composer\Plugin\Capability\CommandProvider' => 'My\Composer\CommandProvider',
-        );
+        ];
     }
 }
 ```
@@ -228,7 +228,7 @@ class CommandProvider implements CommandProviderCapability
 {
     public function getCommands()
     {
-        return array(new Command);
+        return [new Command];
     }
 }
 
