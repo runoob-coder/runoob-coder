@@ -45,3 +45,15 @@ wget https://raw.githubusercontent.com/composer/getcomposer.org/f3108f64b4e1c1ce
 ```
 
 你可以将提交哈希替换为 https://github.com/composer/getcomposer.org/commits/main 上的最新提交哈希。
+
+
+## 使用 GitHub CLI 工具 (`gh`)
+
+你可以使用 `gh` CLI 工具下载并验证 `composer.phar`，如下所示：
+
+```shell
+gh release --repo composer/composer download --pattern composer.phar
+gh attestation verify --repo composer/composer composer.phar
+```
+
+之后可以直接使用 `composer.phar` 或将其移动到所需位置。

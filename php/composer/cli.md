@@ -101,6 +101,7 @@ php composer.phar install
 * **--no-progress：** 移除进度显示，因为某些终端或脚本无法处理退格字符。
 * **--audit：** 安装完成后运行安全审计。
 * **--audit-format：** 安全审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
+* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。仅在不存在锁文件（lock file）时适用 - 对于从锁文件安装的情况，Composer 永远不会阻止易受攻击的软件包。
 * **--optimize-autoloader (-o):** 将 PSR-0/4 自动加载转换为类映射（classmap）以获得更快的自动加载速度。**这一点特别推荐用于生产环境**，但由于运行时需要一些时间，所以目前默认情况下不执行此操作。
 * **--classmap-authoritative (-a):** 仅从类映射（classmap）中自动加载类。隐式启用 `--optimize-autoloader` 选项。
 * **--apcu-autoloader:** 使用 [APCu](https://www.php.net/manual/zh/book.apcu.php) 来缓存找到/未找到的类。
@@ -753,16 +754,12 @@ php composer.phar repo enable packagist.org
 如果目录当前不存在，则会在安装过程中创建。
 
 ```shell
-php composer.phar create-project doctrine/orm path "2.2.*"
+php composer.phar create-project composer/hello-world my-project
 ```
 
 也可以在包含现有 `composer.json` 文件的目录中不带参数运行该命令来引导项目。
 
 默认情况下，该命令会在 [packagist.org](https://packagist.org/) 上检查包。
-
-```shell
-php composer.phar create-project doctrine/orm path "2.2.*"
-```
 
 ### 选项
 
@@ -1059,7 +1056,7 @@ Use the `composer fund` command to find out more!
 
 ### COMPOSER_NO_SECURITY_BLOCKING
 
-如果设置为 `1`，相当于向 `require`、`update`、`remove` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全公告或已被弃用的软件包。它会覆盖配置选项 [audit.block-insecure](config.md#block-insecure)。
+如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全公告或已被弃用的软件包。它会覆盖配置选项 [audit.block-insecure](config.md#block-insecure)。
 
 ### COMPOSER_SECURITY_BLOCKING_ABANDONED
 
