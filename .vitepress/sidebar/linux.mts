@@ -30,6 +30,7 @@ export function sidebarLinuxServer(): DefaultTheme.SidebarItem[] {
                         {text: 'Nginx配置优化', link: 'config'},
                         {text: 'Brotli压缩', link: 'brotli'},
                         {text: 'Nginx常用命令', link: 'command-line'},
+                        {text: '服务项目配置', link: 'server-config'},
                         {
                             base: '//',
                             text: 'Nginx管理员指南', link: 'docs.nginx.com/nginx/admin-guide/',
@@ -80,6 +81,7 @@ export function sidebarLinuxServer(): DefaultTheme.SidebarItem[] {
                     collapsed: true,
                     items: [
                         {text: '安装与使用', link: 'index'},
+                        {text: '实操', link: 'practical-operation'},
                         {
                             base: '//',
                             text: 'Github仓库', link: 'github.com/acmesh-official/acme.sh',

@@ -1,4 +1,4 @@
-官方原文链接： https://github.com/acmesh-official/acme.sh/wiki/中文说明
+官方原文链接： https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E
 
 # acme.sh安装与使用
 
