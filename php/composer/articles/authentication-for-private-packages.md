@@ -3,7 +3,7 @@ titleTemplate: 相关文章 | Composer中文文档 - PHP 的依赖管理器 | PH
 head:
   - - meta
     - name: keywords
-      content: codeberg.org,forgejo-domains,Forgejo,passphrase,local_pk,local_cert,SSL 上下文选项,BitBucket REST API,github.com,Tokens (classic),经典令牌,细粒度令牌,Fine-grained tokens,gitlab-domains,COMPOSER_AUTH,command-line,命令行配置,client-tls-certificates,客户端 TLS 证书,auth.json,forgejo-token,客户端 TLS 证书,bitbucket-oauth,github-oauth,gitlab-token,gitlab-oauth,inline-custom-headers,内联自定义 Headers,自定义 Headers,HTTP Bearer,inline-http-basic,内联 http-basic,http-basic,身份验证原理,私有包服务器,Composer,依赖管理器,PHP,libraries,dependency,noob-coder,菜鸟码农
+      content: codeberg.org,forgejo-domains,Forgejo,passphrase,local_pk,local_cert,SSL 上下文选项,Bitbucket REST API,github.com,Tokens (classic),经典令牌,细粒度令牌,Fine-grained tokens,gitlab-domains,COMPOSER_AUTH,command-line,命令行配置,client-tls-certificates,客户端 TLS 证书,auth.json,forgejo-token,客户端 TLS 证书,bitbucket-oauth,github-oauth,gitlab-token,gitlab-oauth,inline-custom-headers,内联自定义 Headers,自定义 Headers,HTTP Bearer,inline-http-basic,内联 http-basic,http-basic,身份验证原理,私有包服务器,Composer,依赖管理器,PHP,libraries,dependency,noob-coder,菜鸟码农
   - - meta
     - name: description
       content: 你的私有包服务器或版本控制系统可能通过一种或多种身份验证选项进行保护。为了让你的项目能够访问这些包和存储库，你需要告诉 Composer 如何与托管它们的服务器进行身份验证。
@@ -387,7 +387,7 @@ php composer.phar config [--global] --editor --auth
 
 ### bitbucket-oauth {#bitbucket-oauth}
 
-BitBucket 驱动程序使用 OAuth 通过 BitBucket REST API 访问你的私有仓库，你需要创建一个 OAuth 消费者来使用该驱动程序，请参考 [Atlassian 文档](https://support.atlassian.com/bitbucket-cloud/docs/use-oauth-on-bitbucket-cloud/)。你需要填写回调 URL 来满足 BitBucket 的要求，但该地址不需要指向任何地方，Composer 也不会使用它。
+Bitbucket 驱动程序使用 OAuth 通过 Bitbucket REST API 访问你的私有仓库，你需要创建一个 OAuth 消费者来使用该驱动程序，请参考 [Atlassian 文档](https://support.atlassian.com/bitbucket-cloud/docs/use-oauth-on-bitbucket-cloud/)。你需要填写回调 URL 来满足 Bitbucket 的要求，但该地址不需要指向任何地方，Composer 也不会使用它。
 
 #### 命令行配置 bitbucket-oauth {#command-line-bitbucket-oauth}
 

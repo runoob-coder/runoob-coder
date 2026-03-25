@@ -93,6 +93,7 @@ php composer.phar install
 ### 选项 {#install}
 
 * **--prefer-install：** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
+* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--dry-run：** 如果你想在不实际安装包的情况下运行安装过程，可以使用 `--dry-run` 参数。这将模拟安装过程，并向你展示将要发生什么。
 * **--download-only：** 仅下载，不安装包。
 * **--dev：** 安装 `require-dev` 中列出的包（这是默认行为）。
@@ -104,6 +105,7 @@ php composer.phar install
 * **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。仅在不存在锁文件（lock file）时适用 - 对于从锁文件安装的情况，Composer 永远不会阻止易受攻击的软件包。
 * **--optimize-autoloader (-o):** 将 PSR-0/4 自动加载转换为类映射（classmap）以获得更快的自动加载速度。**这一点特别推荐用于生产环境**，但由于运行时需要一些时间，所以目前默认情况下不执行此操作。
 * **--classmap-authoritative (-a):** 仅从类映射（classmap）中自动加载类。隐式启用 `--optimize-autoloader` 选项。
+* **--strict-psr-autoloader:** 如果当前项目中存在 PSR-4 或 PSR-0 映射错误（不包括依赖项），则返回失败的退出码 (6)。需要配合 `--optimize-autoloader` 使用才能生效。
 * **--apcu-autoloader:** 使用 [APCu](https://www.php.net/manual/zh/book.apcu.php) 来缓存找到/未找到的类。
 * **--apcu-autoloader-prefix:** 为 [APCu](https://www.php.net/manual/zh/book.apcu.php) 自动加载器缓存使用自定义前缀。隐式启用 `--apcu-autoloader` 选项。
 * **--ignore-platform-reqs:** 忽略所有平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足这些要求也强制安装。另请参见 [`platform`](config.md#platform) 配置选项。
@@ -149,6 +151,7 @@ php composer.phar update vendor/package:2.0.1 vendor/package2:3.0.*
 ### 选项
 
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
+* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--dry-run:** 模拟命令执行而不实际执行任何操作。
 * **--dev:** 安装 `require-dev` 中列出的包（这是默认行为）。
 * **--no-dev:** 跳过安装 `require-dev` 中列出的包。自动加载器生成将跳过 `autoload-dev` 规则。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
@@ -164,6 +167,7 @@ php composer.phar update vendor/package:2.0.1 vendor/package2:3.0.*
 * **--with-all-dependencies (-W):** 同时更新参数列表中包的依赖项，包括作为根依赖的包。也可以通过设置 COMPOSER_WITH_ALL_DEPENDENCIES=1 环境变量来启用。
 * **--optimize-autoloader (-o):** 将 PSR-0/4 自动加载转换为类映射（classmap）以获得更快的自动加载速度。**这一点特别推荐用于生产环境**，但由于运行时需要一些时间，所以目前默认情况下不执行此操作。
 * **--classmap-authoritative (-a):** 仅从类映射（classmap）中自动加载类。隐式启用 `--optimize-autoloader` 选项。
+* **--strict-psr-autoloader:** 如果当前项目中存在 PSR-4 或 PSR-0 映射错误（不包括依赖项），则返回失败的退出码 (6)。需要配合 `--optimize-autoloader` 使用才能生效。
 * **--apcu-autoloader:** 使用 APCu 来缓存找到/未找到的类。
 * **--apcu-autoloader-prefix:** 为 APCu 自动加载器缓存使用自定义前缀。隐式启用 `--apcu-autoloader` 选项。
 * **--ignore-platform-reqs:** 忽略所有平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足这些要求也强制安装。另请参见 [`platform`](config.md#platform) 配置选项。
@@ -209,6 +213,7 @@ php composer.phar require vendor/package vendor/package2
 * **--dev:** 将包添加到 `require-dev` 中。
 * **--dry-run:** 模拟命令执行而不实际执行任何操作。
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
+* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--no-progress:** 移除进度显示，因为某些终端或脚本无法处理退格字符。
 * **--no-update:** 禁用依赖项的自动更新（隐含 --no-install）。
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
@@ -290,6 +295,7 @@ php composer.phar reinstall "acme/*"
 ### 选项
 
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
+* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--no-autoloader:** 跳过自动加载器生成。
 * **--no-progress:** 移除进度显示，因为某些终端或脚本无法处理退格字符。
 * **--optimize-autoloader (-o):** 将 PSR-0/4 自动加载转换为类映射（classmap）以获得更快的自动加载速度。**这一点特别推荐用于生产环境**，但由于运行时需要一些时间，所以目前默认情况下不执行此操作。
@@ -765,6 +771,7 @@ php composer.phar create-project composer/hello-world my-project
 
 * **--stability (-s):** 包的最低稳定性。默认为 `stable`。
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
+* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--repository:** 提供一个自定义仓库来搜索包，这将替代 packagist。可以是一个指向 `composer` 仓库的 HTTP URL，一个本地 `packages.json` 文件的路径，或一个类似于 [repositories](schema.md#repositories) 键接受的 JSON 字符串。你可以多次使用此选项来配置多个仓库。
 * **--add-repository:** 在 composer.json 中添加自定义仓库。如果存在锁文件，它将被删除并运行更新而不是安装。
 * **--dev:** 安装 `require-dev` 中列出的包。
@@ -780,6 +787,7 @@ php composer.phar create-project composer/hello-world my-project
 * **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
 * **--ignore-platform-reqs:** 忽略所有平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足这些要求也强制安装。另请参见 [`platform`](config.md#platform) 配置选项。
 * **--ignore-platform-req:** 忽略特定平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足该要求也强制安装。可以通过通配符忽略多个要求。
+* **--require:** 在安装项目后，将额外的包添加到 composer.json。如果存在锁文件（lock file），它将被删除并运行 update 而不是 install。可以多次指定以添加多个包。如果要指定版本约束，应使用 `foo/bar:1.0.0` 格式。
 * **--ask:** 要求用户为新项目提供目标目录。
 
 ## dump-autoload / dumpautoload
@@ -1077,6 +1085,10 @@ Use the `composer fund` command to find out more!
 ### COMPOSER_PREFER_DEV_OVER_PRERELEASE
 
 如果设置为 `1`，在同时启用了 `--prefer-stable` 和 `--prefer-lowest` 的情况下解析依赖项时，若没有稳定版本存在，则会将开发版本（dev）视为比 alpha/beta/RC 版本更稳定的版本。这在测试最低版本时非常有用，因为相比于预发布版本，它仍会优先选择可能包含关键修复的分支。
+
+### COMPOSER_SOURCE_FALLBACK
+
+如果设置为 `0`，Composer 在首选下载源失败时不会回退到替代下载源。等同于传递 `--no-source-fallback`。另请参阅 [config.source-fallback](config.md#source-fallback)。
 
 ### COMPOSER_MINIMAL_CHANGES
 

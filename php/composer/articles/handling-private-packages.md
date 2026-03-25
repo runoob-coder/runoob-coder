@@ -3,7 +3,7 @@ titleTemplate: 相关文章 | Composer中文文档 - PHP 的依赖管理器 | PH
 head:
   - - meta
     - name: keywords
-      content: notify-batch,archive-format,archive-dir,config,providers,require-dependencies,require-dev-dependencies,解析依赖关系,twig-template,Twig模板,output-html,dist,sha1,校验和,checksum,blacklist,whitelist,absolute-directory,output-dir,skip-dev,prefix-url,客户端证书,HTTPS,SSL/TLS,认证,ssl 上下文选项,ssh2 上下文选项,options,仓库,VCS,package.json,CLI,SSH,GitHub,GitLab,BitBucket,Subversion,Mercurial,Git,--no-interaction,bin/satis,satis.json,Docker,开源,Satis,托管和安装私有Composer包,Packagist.org,Private Packagist,Composer,依赖管理器,PHP,libraries,dependency,noob-coder,菜鸟码农
+      content: notify-batch,archive-format,archive-dir,config,providers,require-dependencies,require-dev-dependencies,解析依赖关系,twig-template,Twig模板,output-html,dist,sha1,校验和,checksum,blacklist,whitelist,absolute-directory,output-dir,skip-dev,prefix-url,客户端证书,HTTPS,SSL/TLS,认证,ssl 上下文选项,ssh2 上下文选项,options,仓库,VCS,package.json,CLI,SSH,GitHub,GitLab,Bitbucket,Subversion,Mercurial,Git,--no-interaction,bin/satis,satis.json,Docker,开源,Satis,托管和安装私有Composer包,Packagist.org,Private Packagist,Composer,依赖管理器,PHP,libraries,dependency,noob-coder,菜鸟码农
   - - meta
     - name: description
       content: 托管和安装私有Composer包
@@ -192,7 +192,7 @@ php bin/satis build --repository-url https://only.my/repo.git satis.json web/
 
 #### 下载 {#downloads}
 
-当 GitHub、GitLab 或 BitBucket 仓库在本地 satis 上镜像时，构建过程将包含这些平台提供的下载位置。这意味着仓库和你的设置依赖于这些服务的可用性。
+当 GitHub、GitLab 或 Bitbucket 仓库在本地 satis 上镜像时，构建过程将包含这些平台提供的下载位置。这意味着仓库和你的设置依赖于这些服务的可用性。
 
 同时，这也意味着所有托管在其他地方（在其他服务上或例如 Subversion 中）的代码将没有可用的下载，因此安装通常需要更长的时间。
 
@@ -221,7 +221,7 @@ php bin/satis build --repository-url https://only.my/repo.git satis.json web/
 * `blacklist`：可选，如果设置为包名列表，satis 将不会转储这些包的 dist 文件
 * `checksum`：可选，默认为 `true`，禁用时（`false`）satis 将不会为 dist 文件提供 sha1 校验和
 
-一旦启用，所有下载（包括来自 GitHub 和 BitBucket 的下载）将被替换为本地版本。
+一旦启用，所有下载（包括来自 GitHub 和 Bitbucket 的下载）将被替换为本地版本。
 
 #### prefix-url
 

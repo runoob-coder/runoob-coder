@@ -105,6 +105,34 @@ head:
 > [!NOTE] 注意
 > 匹配模式的顺序很重要，越具体的模式应放在越前面。当全局和包配置中混用字符串和对象写法时，字符串会被转换为 `*` 包模式。
 
+## source-fallback
+
+默认值为 `true`。当设置为 `true` 时，Composer 会在下载失败时自动回退到替代安装源（例如从 dist 切换到 source，或反之）。设置为 `false` 可禁用此行为，在首选源不可用时立即失败。
+
+```json
+{
+  "config": {
+    "source-fallback": false
+  }
+}
+```
+
+也可以在命令行中指定：
+
+```bash
+composer install --no-source-fallback
+composer update --source-fallback
+```
+
+或通过 `COMPOSER_SOURCE_FALLBACK` 环境变量设置：
+
+```bash
+COMPOSER_SOURCE_FALLBACK=0 composer install
+```
+
+> **注意：** 当禁用此选项且下载失败时，Composer 会立即抛出错误，而不会尝试其他源。请确保您的首选安装源（[preferred-install](##preferred-install)）已正确配置。
+
+
 ## audit
 
 安全审计和版本阻止配置选项。可以使用 `composer audit` 生成审计报告，并且在更新或引入命令结束时会自动报告简短格式的版本。版本阻止功能会根据配置，在解析依赖关系之前丢弃被识别为不安全或已废弃的包版本，确保它们无法被安装。
