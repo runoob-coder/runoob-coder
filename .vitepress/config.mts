@@ -194,34 +194,9 @@ export default defineConfig({
                         ]
                     },
                     {
-                        text: '服务器环境',
-                        items: [
-                            {text: '前期准备', link: '/linux/server/preparation'},
-                            {
-                                text: 'Nginx',
-                                link: '/linux/server/nginx/compile-and-install',
-                                activeMatch: '/linux/server/nginx/'
-                            },
-                            {
-                                text: 'PHP',
-                                link: '/linux/server/php/compile-and-install',
-                                activeMatch: '/linux/server/php/'
-                            },
-                            {
-                                text: 'Supervisor',
-                                link: '/linux/server/supervisor/install',
-                                activeMatch: '/linux/server/supervisor/'
-                            },
-                            {
-                                text: 'SSL证书',
-                                link: '/linux/server/ssl/acmesh',
-                                activeMatch: '/linux/server/ssl/'
-                            },
-                            {
-                                text: '宝塔面板一键部署 🚀',
-                                link: 'https://www.bt.cn/u/1lohGU',
-                            },
-                        ]
+                        text: '个人服务器环境搭建',
+                        link: '/linux/server/',
+                        activeMatch: '/linux/server/',
                     },
                     {
                         text: '包管理',
