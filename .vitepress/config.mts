@@ -32,7 +32,10 @@ export default defineConfig({
                             {text: '王道计算机教育', link: 'https://space.bilibili.com/95228778'},
                             {text: '湖科大教书匠', link: 'https://space.bilibili.com/360996402'},
                             {text: 'Hello 算法', link: 'https://www.hello-algo.com/'},
-                            {text: 'Data Structure Visualizations', link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'},
+                            {
+                                text: 'Data Structure Visualizations',
+                                link: 'https://www.cs.usfca.edu/~galles/visualization/Algorithms.html'
+                            },
                             {text: 'VisuAlgo', link: 'https://visualgo.net/zh'},
                         ]
                     },
@@ -338,12 +341,7 @@ export default defineConfig({
         },
     },
     markdown: {
-        languages: [
-            {
-                name: 'neon',
-                scopeName: 'source.vue-yaml'
-            }
-        ],
+        languageAlias: {'conf': 'ini', 'neon': 'ini'},
         image: {
             // 图片懒加载
             lazyLoading: true
