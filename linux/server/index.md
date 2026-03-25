@@ -2,7 +2,7 @@
 
 如果觉得此环境搭建部署麻烦，推荐新手/懒人使用[**宝塔面板一键部署 🚀**](https://www.bt.cn/u/1lohGU)。
 
-![宝塔,安全高效的服务器运维面板](https://www.bt.cn/static/new/images/bt_video.gif)
+![宝塔,安全高效的服务器运维面板](https://www.bt.cn/static/astro/images/home/banner-1/bt_video.gif)
 
 # 前期准备
 
