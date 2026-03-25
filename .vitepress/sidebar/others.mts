@@ -1,4 +1,4 @@
-import DefaultTheme from "vitepress/theme";
+import {DefaultTheme} from "vitepress/theme";
 
 export function sidebarSecGuide(): DefaultTheme.SidebarItem[] {
     return [
