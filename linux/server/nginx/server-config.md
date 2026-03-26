@@ -27,6 +27,78 @@ http {
 
 ## 静态网页
 
+::: code-group
+```conf [ /www/vhost/web.conf ]
+server
+{
+    listen 80;
+    # listen 443 ssl;
+    server_name test.example.com;
+    index index.php index.html index.htm default.php default.htm default.html;
+    root /www/wwwroot/web;
+    
+    # 字符集设置
+    charset utf-8;
+
+    # Gzip 压缩优化
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    location / {
+
+        # 文件尝试顺序：精确匹配 -> HTML 文件 -> 目录 -> 404
+        try_files $uri $uri.html $uri/ =404;
+
+         # 自定义错误页面
+        error_page 404 /404.html;
+        error_page 403 /404.html;
+        
+        # 静态资源缓存 - 带哈希文件名的资源永久缓存
+        location ~* ^/assets/ {
+            expires 1y;
+            add_header Cache-Control "public, immutable";
+            access_log off;
+        }
+    }
+
+    # 禁止访问的文件或目录
+    location ~ ^/(\.user.ini|\.htaccess|\.git|\.env|\.svn|\.project|LICENSE|README.md)
+    {
+        return 404;
+    }
+    
+    # 禁止访问备份文件和隐藏文件
+    location ~ /\.(htaccess|htpasswd|ini|log|sh|sql|conf|bak)$
+    {
+        deny all;
+    }
+
+    # 图片资源缓存
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires      30d;
+        access_log off;
+        error_log off;
+    }
+
+    # CSS 和 JavaScript 缓存
+    location ~ .*\.(js|css)?$
+    {
+        expires      12h;
+        access_log off;
+        access_log off;
+    }
+    
+    # ssl证书配置
+    # 参考后续配置
+
+    # 日志配置
+    access_log  /www/wwwlogs/web/access_log.log;
+    error_log  /www/wwwlogs/web/error.log;
+}
+```
+:::
+
 ## PHP-FPM
 
 ## 反向代理
@@ -47,6 +119,9 @@ server {
     # 监听端口
     listen 80;
     server_name hyperf.example.com;
+    
+    # 字符集设置
+    charset utf-8;
 
     location / {
         # 将客户端的 Host 和 IP 信息一并转发到对应节点  
@@ -60,6 +135,9 @@ server {
         # 执行代理访问真实服务器
         proxy_pass http://hyperf;
     }
+   
+    # ssl证书配置
+    # 参考后续配置
    
     access_log  /www/wwwlogs/hyperf/access_log.log;
     error_log  /www/wwwlogs/hyperf/error.log;
@@ -84,6 +162,9 @@ server {
     // [!code focus][!code ++]
     listen  443 ssl;
     server_name hyperf.example.com;
+    
+    # 字符集设置
+    charset utf-8;
 
     // [!code focus][!code ++]
     # ssl证书配置
