@@ -343,6 +343,28 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 }
 ```
 
+### filtered
+
+默认值为 `fail`。定义审计报告应如何报告已过滤的包。有三个可能的值:
+
+- `ignore` 表示审计报告完全不考虑已过滤的包。
+- `report` 表示会报告已过滤的包，但不会导致 `composer audit` 命令返回非零退出代码。
+- `fail` 表示已过滤的包会导致审计命令失败并返回非零退出代码。
+
+请注意，这仅适用于审计报告，不适用于更新时的版本阻止。
+
+```json
+{
+    "config": {
+        "audit": {
+            "filtered": "report"
+        }
+    }
+}
+```
+
+可以通过 [`--filtered`](cli.md#audit) 命令行选项覆盖。
+
 ### block-insecure
 
 默认值为 `true`。如果为 `true`，任何受安全公告影响的包版本都将被阻止，在执行 composer update/require/delete 命令时无法使用，除非这些安全公告被忽略。如果启用了 [`block-abandoned`](#block-abandoned)，版本阻止还将防止使用已废弃的包。
@@ -369,6 +391,96 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
         }
     }
 }
+```
+
+## filter
+
+默认值为 `true`。过滤列表配置选项。控制审计报告和版本阻止中过滤列表的使用方式。
+可以设置为 `true` 以启用默认配置，`false` 以完全禁用，或使用对象进行配置。
+
+### ignore-unreachable
+
+默认值为 `false`。是否忽略无法访问或返回非 200 状态码的过滤列表源。
+
+### unfiltered-packages
+
+免于过滤的包列表。支持三种格式：
+
+#### 简单格式（完全豁免）
+
+```json
+{
+    "config": {
+        "filter": {
+            "unfiltered-packages": ["vendor/package", "acme/*"]
+        }
+    }
+}
+```
+
+#### 包名 => 约束映射
+
+```json
+{
+    "config": {
+        "filter": {
+            "unfiltered-packages": [{"vendor/package": "^2.0"}]
+        }
+    }
+}
+```
+
+#### 带有应用范围的详细格式
+
+`apply` 字段接受以下值：
+- `audit` - 仅从审计报告中豁免
+- `block` - 仅从版本阻止中豁免
+- `all` - 两者都豁免（默认值）
+
+如果 apply 设置为 `audit` 或 `block`，则包将仅从指定的范围中豁免。所有其他范围如果存在匹配的过滤器，仍将对包进行过滤。
+
+```json
+{
+    "config": {
+        "filter": {
+            "unfiltered-packages": [
+                {
+                    "package": "vendor/package",
+                    "constraint": "^2.0",
+                    "reason": "已评估并接受风险",
+                    "apply": "audit"
+                }
+            ]
+        }
+    }
+}
+```
+
+### sources
+
+默认情况下，列表数据从提供过滤列表数据的已配置 Composer 仓库中获取。你可以配置额外的源来获取过滤列表数据。键为源名称，值为包含 `type` 键和类型特定配置的对象。
+
+目前仅支持 `type: "url"`，这需要额外的 `"url"` 键。配置的 URL 将在任何 `composer audit` 命令中接收你已安装包名的完整列表，以及在 `composer update` 命令中接收考虑的包名的完整列表。
+
+```json
+{
+    "config": {
+        "filter": {
+            "sources": {
+                "my-source": {
+                    "type": "url",
+                    "url": "https://example.org/filter-list.json"
+                }
+            }
+        }
+    }
+}
+```
+
+你也可以使用命令行配置源。
+
+```shell
+php composer.phar config [--global] filter.source.my-source url https://example.org/filter-list.json
 ```
 
 ## use-parent-dir

@@ -255,6 +255,121 @@ version 字段将包含版本号的规范化表示。
 }
 ```
 
+#### filter
+
+Composer 仓库可以通过在其 `packages.json` 响应中包含 `filter` 对象来向客户端通告过滤列表支持。这告诉 Composer 该仓库提供过滤列表数据，并描述了可用的列表。
+
+```json
+{
+    "metadata-url": "/p2/%package%.json",
+    "filter": {
+        "metadata": true,
+        "lists": ["aikido-malware", "other-malware"],
+        "default-lists": ["aikido-malware"]
+    }
+}
+```
+
+- **`metadata`** (required, boolean) — Set to `true` to indicate that per-package metadata files
+  (served via `metadata-url`) contain filter list data. Composer will fetch the metadata for each
+  relevant package and look for a `filter` key containing list entries.
+- **`lists`** (required, array of strings) — The names of all filter lists this repository provides.
+  Clients can use this to know which lists are available.
+- **`default-lists`** (required, array of strings) — The subset of lists that should be active by
+  default. When a user configures `"lists": ["defaults"]` (the default behaviour) in their
+  `repositories` entry for this repository, Composer expands `"defaults"` to these list names.
+
+- **`metadata`**（必需，布尔值）— 设置为 `true` 表示每个包的元数据文件（通过 `metadata-url` 提供）包含过滤列表数据。Composer 将获取每个相关包的元数据，并查找包含列表条目的 `filter` 键。
+- **`lists`**（必需，字符串数组）— 此仓库提供的所有过滤列表的名称。客户端可以使用它来了解哪些列表可用。
+- **`default-lists`**（必需，字符串数组）— 默认应激活的列子集。当用户在此仓库的 `repositories` 条目中配置 `"lists": ["defaults"]`（默认行为）时，Composer 会将 `"defaults"` 展开为这些列表名称。
+
+每个包的元数据文件应包含一个 `filter` 键，其值是一个将列表名称映射到过滤条目数组的对象：
+
+```json
+{
+    "packages": {
+        "vendor/package": [{ ... }]
+    },
+    "filter": {
+        "aikido-malware": [
+            {
+                "constraint": ">=1.0.0,<1.2.0",
+                "url": "https://example.org/filters/123",
+                "reason": "恶意软件",
+                "id": "PKFE-xxxx-xxxx-xxxx"
+            }
+        ]
+    }
+}
+```
+
+在 composer.json 文件中，仓库定义中的 `filter` 键控制如何使用来自相应仓库的过滤列表进行审计报告和版本阻止。可以将其设置为 `false` 以完全禁用来自此仓库的过滤列表，或使用对象进行配置。
+
+```json
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://example.org",
+            "filter": false
+        }
+    ]
+}
+```
+
+当设置为对象时，可以使用以下可选键：
+
+##### lists
+
+控制此仓库中哪些过滤列表处于活动状态。默认为 `["defaults"]`，表示使用仓库通告的所有默认列表。
+
+数组中的每个项可以是：
+
+- 普通字符串 — 命名的列表同时包含在审计和阻止中。
+- 以 `!` 为前缀的字符串 — 命名的列表同时从审计和阻止中排除。
+- 字符串 `"defaults"` — 展开为仓库在其 `packages.json` 响应中通告的所有默认列表。
+- 具有 `name`（必需）、可选的 `only` 字段（接受 `"block"`、`"audit"` 或 `"all"`（默认值）以将列表限制为单个操作）和可选的 `reason` 字符串的对象。
+
+```json
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://example.org",
+            "filter": {
+                "lists": [
+                    "defaults",
+                    "!untrusted-list",
+                    {"name": "audit-only-list", "only": "audit"},
+                    {"name": "block-only-list", "only": "block", "reason": "公司策略"}
+                ]
+            }
+        }
+    ]
+}
+```
+
+##### unfiltered-packages
+
+免于此仓库过滤的包列表。接受与全局 [`config.filter.unfiltered-packages`](config.md#unfiltered-packages) 相同的格式。
+
+```json
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://example.org",
+            "filter": {
+                "unfiltered-packages": [
+                    "vendor/package",
+                    {"package": "acme/other", "constraint": "^2.0", "only": "audit"}
+                ]
+            }
+        }
+    ]
+}
+```
+
 ### VCS
 
 VCS 是版本控制系统（Version Control System）的缩写。这包括像 git、svn、fossil 或 hg 这样的版本控制系统。Composer 有一种仓库类型，可以从这些系统中安装包。

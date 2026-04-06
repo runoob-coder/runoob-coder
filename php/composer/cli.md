@@ -875,12 +875,16 @@ php composer.phar archive vendor/package 2.0.21 --format=zip
 
 该命令还会检测被遗弃的包。
 
-`audit` 命令会确定是否存在易受攻击或被遗弃的包，并根据检查结果返回以下退出代码：
+`audit` 命令会确定是否存在易受攻击、被遗弃或已过滤的包，并根据检查结果返回以下退出代码：
 
 * `0` 无问题；
 * `1` 存在易受攻击的包；
 * `2` 存在被遗弃的包；
-* `3` 既存在易受攻击的包，也存在被遗弃的包。
+* `3` 既存在易受攻击的包，也存在被遗弃的包；
+* `4` 存在已过滤的包；
+* `5` 存在易受攻击和已过滤的包；
+* `6` 存在被遗弃和已过滤的包；
+* `7` 存在易受攻击、被遗弃和已过滤的包。
 
 ```shell
 php composer.phar audit
@@ -893,6 +897,7 @@ php composer.phar audit
 * **--locked:** 从锁定文件审计包，无论 vendor 目录中当前有什么。
 * **--abandoned:** 对被遗弃包的处理行为。必须是 "ignore"、"report" 或 "fail"。另请参见 [config.audit.abandoned](config.md#abandoned)。传递此标志将覆盖配置值和环境变量。
 * **--ignore-severity:** 忽略特定严重级别的公告。可以传递一次或多次来忽略多个严重级别。
+* **--filtered:** 对已过滤包的处理行为。必须是 "ignore"、"report" 或 "fail"。另请参见 [config.audit.filtered](config.md#filtered)。传递此标志将覆盖配置值。
 
 ## help
 
@@ -1061,6 +1066,10 @@ Use the `composer fund` command to find out more!
 ### COMPOSER_AUDIT_ABANDONED
 
 设置为 `ignore`、`report` 或 `fail` 来覆盖 [audit.abandoned](config.md#abandoned) 配置选项。
+
+### COMPOSER_FILTER
+
+设置为 `0` 以在更新和审计时禁用过滤器，或设置为 `1` 以启用它们。将其设置为 `1` 将使用 composer.json 中的过滤器配置。如果你想覆盖配置值，请改用 `composer config filter 1`。
 
 ### COMPOSER_NO_SECURITY_BLOCKING
 
