@@ -1,3 +1,14 @@
+---
+titleTemplate: 个人服务器环境搭建 | noob-coder | 菜鸟码农
+head:
+  - - meta
+    - name: description
+      content: 此仅为个人项目常用环境配置，仅供个人学习参考。如果觉得此环境搭建部署麻烦，推荐新手/懒人使用 宝塔面板一键部署 🚀。
+  - - meta
+    - name: keywords
+      content: 服务器优化,www,dnf,yum,Linux,服务器环境搭建,宝塔面板一键部署,服务器运维面板,宝塔,nginx,Apache,mysql,redis,ssl,supervisor,git,composer,php,noob-coder,菜鸟码农
+---
+
 此仅为个人项目常用环境配置，仅供个人学习参考。
 
 如果觉得此环境搭建部署麻烦，推荐新手/懒人使用[**宝塔面板一键部署 🚀**](https://www.bt.cn/u/1lohGU)。
@@ -12,7 +23,6 @@
 yum upgrade -y
 dnf upgrade-minimal --security -y
 ```
-
 
 ## 创建www用户
 

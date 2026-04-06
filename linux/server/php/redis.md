@@ -1,4 +1,15 @@
-# 编译安装swoole扩展
+---
+titleTemplate: PHP | 个人服务器环境搭建 | noob-coder | 菜鸟码农
+head:
+  - - meta
+    - name: description
+      content: 扩展名称：ext-redis；支持 Zend Thread Safety (ZTS)；支持非线程安全模式 (NTS)；支持的操作系统：无限制
+  - - meta
+    - name: keywords
+      content: phpredis,lz4,liblz4,libzstd,Zstd,liblzf,序列化,lzf压缩,msgpack,igbinary,redis,非线程安全,NTS,ZTS,ext-redis,pecl,现代php,PHP开发工具,phpize,php-config,gcc,make.m4,libtool,automake,autoconf,zip,Packagist,php扩展,php安装工具,PIE,服务器优化,www,dnf,yum,Linux,服务器环境搭建,宝塔面板一键部署,服务器运维面板,宝塔,nginx,Apache,mysql,redis,ssl,supervisor,git,composer,php,noob-coder,菜鸟码农
+---
+
+# 编译安装 redis 扩展
 
 扩展名称：ext-redis
 

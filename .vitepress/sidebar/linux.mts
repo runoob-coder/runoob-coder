@@ -67,7 +67,7 @@ export function sidebarLinuxServer(): DefaultTheme.SidebarItem[] {
                         },
                     ]
                 },
-                {text: 'FrankenPHP', base: '//', link: 'https://frankenphp.dev/',},
+                {text: 'FrankenPHP', base: '//', link: 'frankenphp.dev/',},
             ]
         },
         {

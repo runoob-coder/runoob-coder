@@ -1,4 +1,15 @@
-# 源码编译安装nginx
+---
+titleTemplate: Nginx | 个人服务器环境搭建 | noob-coder | 菜鸟码农
+head:
+  - - meta
+    - name: description
+      content: 
+  - - meta
+    - name: keywords
+      content: http,threads,服务器优化,www,dnf,yum,Linux,服务器环境搭建,宝塔面板一键部署,服务器运维面板,宝塔,nginx,Apache,mysql,redis,ssl,supervisor,git,composer,php,noob-coder,菜鸟码农
+---
+
+# 源码编译安装Nginx
 
 ## 官网资料
 
@@ -113,7 +124,7 @@ ps aux | grep nginx   # 查看进程
 
 ## 设置环境变量
 
-如果你编译配置的安装路径不在系统默认的PATH中，则需要设置环境变量。如下所示：
+如果你编译配置的安装路径不在系统默认的 PATH 中，则需要设置环境变量。如下所示：
 
 ```bash
 echo "export PATH=$PATH:/usr/local/nginx/sbin" >> /etc/profile

@@ -1,3 +1,14 @@
+---
+titleTemplate: PHP | 个人服务器环境搭建 | noob-coder | 菜鸟码农
+head:
+  - - meta
+    - name: description
+      content: Swoole 扩展是按照 PHP 标准扩展构建的。使用 phpize 来生成编译检测脚本，./configure 来做编译配置检测，make 进行编译，make install 进行安装。
+  - - meta
+    - name: keywords
+      content: swoole,pecl,现代php,PHP开发工具,phpize,php-config,gcc,make.m4,libtool,automake,autoconf,zip,Packagist,php扩展,php安装工具,PIE,服务器优化,www,dnf,yum,Linux,服务器环境搭建,宝塔面板一键部署,服务器运维面板,宝塔,nginx,Apache,mysql,redis,ssl,supervisor,git,composer,php,noob-coder,菜鸟码农
+---
+
 # 编译安装swoole扩展
 
 官网文档：https://wiki.swoole.com/zh-cn/#/environment

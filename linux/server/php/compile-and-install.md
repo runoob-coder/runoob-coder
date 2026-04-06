@@ -1,3 +1,14 @@
+---
+titleTemplate: PHP | 个人服务器环境搭建 | noob-coder | 菜鸟码农
+head:
+  - - meta
+    - name: description
+      content: PHP（Hypertext Preprocessor，超文本预处理器的字母缩写）是一种被广泛应用的开放源代码的多用途脚本语言，它可嵌入到 HTML中，尤其适合 web 开发。
+  - - meta
+    - name: keywords
+      content: openssl,bcmath,pdo-mysql,mysqlnd,opcache,源码编译安装,pecl,现代php,PHP开发工具,phpize,php-config,Packagist,php扩展,php安装工具,PIE,服务器优化,www,dnf,yum,Linux,服务器环境搭建,宝塔面板一键部署,服务器运维面板,宝塔,nginx,Apache,mysql,redis,ssl,supervisor,git,composer,php,noob-coder,菜鸟码农
+---
+
 # 源码编译安装php
 
 ## 编译安装
@@ -107,7 +118,7 @@ Package 'xxx', required by 'virtual:world', not found
 
 然后再次运行 `./configure` 命令进行编译配置。
 
-当出现`Thank you for using PHP.`时表明已完成编译配置。
+当出现 `Thank you for using PHP.` 时表明已完成编译配置。
 
 :::
 
@@ -234,6 +245,8 @@ Loaded Configuration File:         "/etc/php/php85/php.ini"
 Scan for additional .ini files in: "/etc/php/php85/conf.d"
 Additional .ini files parsed:      (none)
 ```
+
+以上配置请根据实际安装路径进行调整。
 
 ## 配置 PHP-FPM
 

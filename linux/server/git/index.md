@@ -1,4 +1,15 @@
-# 安装git
+---
+titleTemplate: Git | 个人服务器环境搭建 | noob-coder | 菜鸟码农
+head:
+  - - meta
+    - name: description
+      content: 项目仓库使用git管理，需要安装git。部署公钥允许以只读的方式访问仓库，主要用于仓库在生产服务器的部署上，免去 HTTP 方式每次操作都要输入密码和普通 SSH 方式担心不小心修改仓库代码的麻烦。
+  - - meta
+    - name: keywords
+      content: deploy,GPG keys,GitLab,GitHub,id_ed25519,ssh-keygen,SSH密钥对,服务器优化,www,dnf,yum,Linux,服务器环境搭建,宝塔面板一键部署,服务器运维面板,宝塔,nginx,Apache,mysql,redis,ssl,supervisor,git,composer,php,noob-coder,菜鸟码农
+---
+
+# 安装Git
 
 项目仓库使用git管理，需要安装git。
 
@@ -12,10 +23,9 @@ yum install git -y
 请不要使用 root 用户进行配置，请使用普通用户（如 `deploy`）进行配置。
 :::
 
-部署公钥允许以只读的方式访问仓库，主要用于仓库在生产服务器的部署上，免去 HTTP 方式每次操作都要输入密码和普通 SSH
-方式担心不小心修改仓库代码的麻烦。
+部署公钥允许以只读的方式访问仓库，主要用于仓库在生产服务器的部署上，免去 HTTP 方式每次操作都要输入密码和普通 SSH 方式担心不小心修改仓库代码的麻烦。
 
-部署公钥配置后的机器，只支持 clone 与 pull 等只读操作。
+部署公钥配置后的机器，只支持 `clone` 与 `pull` 等只读操作。
 
 ### 生成 SSH 密钥对
 
