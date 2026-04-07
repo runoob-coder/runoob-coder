@@ -48,6 +48,7 @@ export function sidebarCookmoonMCU(): DefaultTheme.SidebarItem[] {
             items: [
                 {text: '2005-04-09：这种基础也行？', link: '2005-04-09：这种基础也行？'},
                 {text: '2005-04-13：什么是电', link: '2005-04-13：什么是电'},
+                {text: '2005-04-16：发电与放电', link: '2005-04-16：发电与放电'},
             ]
         },
         {
