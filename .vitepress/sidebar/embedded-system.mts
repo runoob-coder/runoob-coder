@@ -50,6 +50,7 @@ export function sidebarCookmoonMCU(): DefaultTheme.SidebarItem[] {
                 {text: '2005-04-13：什么是电', link: '2005-04-13：什么是电'},
                 {text: '2005-04-16：发电与放电', link: '2005-04-16：发电与放电'},
                 {text: '2005-04-19：认识电池', link: '2005-04-19：认识电池'},
+                {text: '2005-04-20：电工材料', link: '2005-04-20：电工材料'},
             ]
         },
         {
