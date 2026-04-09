@@ -56,6 +56,29 @@ export function sidebarCookmoonMCU(): DefaultTheme.SidebarItem[] {
             ]
         },
         {
+            text: '第2章 初试欧姆定律',
+            base: '/embedded-system/cookmoon/mcu/2/',
+            link: '初试欧姆定律',
+            collapsed: false,
+            items: [
+                {text: '2005-04-29：认识电阻器（一）', link: '2005-04-29：认识电阻器（一）'},
+                {text: '2005-04-30：认识电阻器（二）', link: '2005-04-30：认识电阻器（二）'},
+                {text: '2005-05-02：用开关搭电路', link: '2005-05-02：用开关搭电路'},
+                {text: '2005-05-03：开关与电阻', link: '2005-05-03：开关与电阻'},
+                {text: '2005-05-04：数字与模拟', link: '2005-05-04：数字与模拟'},
+                {text: '2005-05-05：二进制数', link: '2005-05-05：二进制数'},
+            ]
+        },
+        {
+            text: '第3章 晶体二极管',
+            base: '/embedded-system/cookmoon/mcu/3/',
+            link: '晶体二极管',
+            collapsed: false,
+            items: [
+
+            ]
+        },
+        {
             text: 'IBM-PC机汇编语言实战精解',
             link: '/embedded-system/cookmoon/asm/'
         }
