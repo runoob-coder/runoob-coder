@@ -225,6 +225,10 @@ export default defineConfig({
                         activeMatch: '/embedded-system/STC8051/',
                     },
                     {
+                        text: 'FreeRTOS™',
+                        link: 'https://www.freertos.org/zh-cn-cmn-s',
+                    },
+                    {
                         text: '活死人墓',
                         items: [
                             {
