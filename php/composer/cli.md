@@ -748,6 +748,33 @@ php composer.phar repo disable packagist.org
 php composer.phar repo enable packagist.org
 ```
 
+## policy
+
+`policy` 命令允许你管理 `composer.json` 中 `config.policy` 下的自定义策略列表及其来源。来源指向 Composer 提供策略适用的包列表的远程 URL。向尚不存在的列表添加来源将自动创建该列表条目。
+
+内置列表（`advisories`、`malware`、`abandoned`）不接受来源并会被拒绝。要更改它们的设置，请使用 `composer config policy.<list>.<field>` — 参见 [policy](config.md#policy) 配置文档。
+
+### 使用
+
+```shell
+policy [options] add-source [list-name] [source-type] [url]
+policy [options] add-source [list-name] [json-source-definition]
+```
+
+目前仅支持 `url` 作为 `source-type`，且 URL 必须以 `https://` 开头。
+
+### 选项
+
+- **--global (-g):** 修改全局 `$COMPOSER_HOME/config.json` 文件。
+- **--file (-f):** 修改指定文件而不是 composer.json。
+
+### 示例
+
+```shell
+php composer.phar policy add-source my-list url https://example.org/list.json
+php composer.phar policy add-source my-list '{"type":"url","url":"https://example.org/list.json"}'
+```
+
 ## create-project
 
 你可以使用 Composer 从现有的包创建新项目。这相当于执行 `git clone/svn checkout` 然后对 `vendor` 目录执行 `composer install`。
@@ -1069,30 +1096,44 @@ Use the `composer fund` command to find out more!
 
 ### COMPOSER_AUDIT_ABANDONED
 
-设置为 `ignore`、`report` 或 `fail` 来覆盖 [audit.abandoned](config.md#abandoned) 配置选项。
-
-### COMPOSER_FILTER <Badge type="danger" text="已弃用"/>
-
-设置为 `0` 以在更新和审计时禁用过滤器，或设置为 `1` 以启用它们。将其设置为 `1` 将使用 composer.json 中的过滤器配置。如果你想覆盖配置值，请改用 `composer config filter 1`。
+设置为 `ignore`、`report` 或 `fail` 以覆盖 [policy.abandoned.audit](config.md#audit) 配置选项。当 composer.json 中 `policy.abandoned` 设置为 `false` 时，此设置无效。
 
 ### COMPOSER_POLICY
 
-设置为 `0` 以在更新和审计时禁用策略，或设置为 `1` 以启用它们。将其设置为 `1` 将使用 composer.json 中的策略配置。如果你想覆盖配置值，请改用 `composer config policy 1`。
+主策略开关。设置为 `0` 以在更新和审计时禁用所有策略执行，或设置为 `1` 以启用它。将其设置为 `1` 将使用 composer.json 中的策略配置。如果你想覆盖配置值，请改用 `composer config policy 1`。
+
+当设置为 `0` 时，下面所有针对列表的覆盖都将被忽略 — 整个策略配置被短路为禁用状态。
 
 ### COMPOSER_NO_BLOCKING
 
-如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-blocking` 选项。这将禁用此命令执行期间的所有策略阻止。它会覆盖每个已配置策略的阻止配置选项，例如 [policy.advisories.block](config.md#block)。
+如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-blocking` 选项。这将禁用此命令执行期间的所有策略阻止。它会覆盖每个已配置策略的 `block` 配置选项，例如 [policy.advisories.block](config.md#block)。
 
 
 ### COMPOSER_NO_SECURITY_BLOCKING <Badge type="danger" text="已弃用"/>
 
 已弃用，请使用 [COMPOSER_NO_BLOCKING](#composer-no-blocking) 代替。
 
-如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全公告或已被弃用的软件包。它会覆盖配置选项 [audit.block-insecure](config.md#block-insecure)。
+如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全公告或已被弃用的包。它会覆盖配置选项 [policy.advisories.block](config.md#block)。
 
-### COMPOSER_SECURITY_BLOCKING_ABANDONED
+### COMPOSER_POLICY_ADVISORIES_BLOCK
 
-如果设置为 `1`，则在依赖解析期间启用对弃用包的阻止（相当于将 `audit.block-abandoned` 配置设置为 `true`）。如果设置为 `0`，则禁用对弃用包的阻止。请注意，如果安全阻止功能被普遍禁用，此设置将没有任何效果。它会覆盖配置选项 [audit.block-abandoned](config.md#block-abandoned)。
+如果设置为 `1`，则在依赖解析期间启用对具有安全公告的包的阻止（相当于将 `policy.advisories.block` 设置为 `true`）。如果设置为 `0`，则禁用阻止。
+
+### COMPOSER_POLICY_MALWARE_BLOCK
+
+如果设置为 `1`，则在依赖解析期间启用对被标记为恶意软件的包的阻止（相当于将 `policy.malware.block` 设置为 `true`）。如果设置为 `0`，则禁用阻止。
+
+### COMPOSER_POLICY_ABANDONED_BLOCK
+
+如果设置为 `1`，则在依赖解析期间启用对已弃用包的阻止（相当于将 `policy.abandoned.block` 设置为 `true`）。如果设置为 `0`，则禁用阻止。
+
+当两者都设置时，优先于遗留的 [COMPOSER_SECURITY_BLOCKING_ABANDONED](#composer-security-blocking-abandoned)。
+
+### COMPOSER_SECURITY_BLOCKING_ABANDONED <Badge type="danger" text="已弃用"/>
+
+已弃用，请改用 [COMPOSER_POLICY_ABANDONED_BLOCK](#composer-policy-abandoned-block)。
+
+如果设置为 `1`，则在依赖解析期间启用对已弃用包的阻止（相当于将 `audit.block-abandoned` 配置设置为 `true`）。如果设置为 `0`，则禁用对已弃用包的阻止。它会覆盖配置选项 [audit.block-abandoned](config.md#block-abandoned)。
 
 ### COMPOSER_NO_DEV
 
