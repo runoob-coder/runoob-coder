@@ -149,6 +149,12 @@ COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 ```
 
+> [!NOTE] 注意
+> 使用此方法时，您需要在镜像中手动安装其他运行时依赖；
+> 
+> 参见 https://github.com/composer/composer/blob/main/README.md#binary-dependencies。
+
+
 更多使用信息请阅读 [镜像说明](https://hub.docker.com/r/composer/composer)。
 
 > [!NOTE] 注意
