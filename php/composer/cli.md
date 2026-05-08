@@ -158,7 +158,8 @@ php composer.phar update vendor/package:2.0.1 vendor/package2:3.0.*
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
-* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--lock:** 覆盖锁文件哈希值以抑制关于锁文件过期的警告，而无需更新包版本。如果包的元数据（如镜像和URL）发生了变化，这些信息会被更新。
 * **--with:** 临时添加的版本约束，例如 foo/bar:1.0.0 或 foo/bar=1.0.0
 * **--no-autoloader:** 跳过自动加载器生成。
@@ -219,7 +220,8 @@ php composer.phar require vendor/package vendor/package2
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
-* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--update-no-dev:** 使用 `--no-dev` 选项运行依赖项更新。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
 * **--update-with-dependencies (-w):** 同时更新新引入包的依赖项，但不包括作为根依赖项的包。也可以通过设置 COMPOSER_WITH_DEPENDENCIES=1 环境变量来启用。
 * **--update-with-all-dependencies (-W):** 同时更新新引入包的依赖项，包括作为根依赖项的包。也可以通过设置 COMPOSER_WITH_ALL_DEPENDENCIES=1 环境变量来启用。
@@ -254,7 +256,8 @@ php composer.phar remove vendor/package vendor/package2
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
-* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--update-no-dev:** 使用 `--no-dev` 选项运行依赖项更新。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
 * **--update-with-dependencies (-w):** 同时更新被移除包的依赖项。也可以通过设置 COMPOSER_WITH_DEPENDENCIES=1 环境变量来启用。（已弃用，现在是默认行为）
 * **--update-with-all-dependencies (-W):** 允许更新所有继承的依赖项，包括那些作为根依赖项的包。也可以通过设置 COMPOSER_WITH_ALL_DEPENDENCIES=1 环境变量来启用。
@@ -784,7 +787,8 @@ php composer.phar create-project composer/hello-world my-project
 * **--no-install:** 禁用安装供应商包。
 * **--no-audit:** 安装完成后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
-* **--no-security-blocking:** 允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
+* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--ignore-platform-reqs:** 忽略所有平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足这些要求也强制安装。另请参见 [`platform`](config.md#platform) 配置选项。
 * **--ignore-platform-req:** 忽略特定平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足该要求也强制安装。可以通过通配符忽略多个要求。
 * **--require:** 在安装项目后，将额外的包添加到 composer.json。如果存在锁文件（lock file），它将被删除并运行 update 而不是 install。可以多次指定以添加多个包。如果要指定版本约束，应使用 `foo/bar:1.0.0` 格式。
@@ -1067,11 +1071,22 @@ Use the `composer fund` command to find out more!
 
 设置为 `ignore`、`report` 或 `fail` 来覆盖 [audit.abandoned](config.md#abandoned) 配置选项。
 
-### COMPOSER_FILTER
+### COMPOSER_FILTER <Badge type="danger" text="已弃用"/>
 
 设置为 `0` 以在更新和审计时禁用过滤器，或设置为 `1` 以启用它们。将其设置为 `1` 将使用 composer.json 中的过滤器配置。如果你想覆盖配置值，请改用 `composer config filter 1`。
 
-### COMPOSER_NO_SECURITY_BLOCKING
+### COMPOSER_POLICY
+
+设置为 `0` 以在更新和审计时禁用策略，或设置为 `1` 以启用它们。将其设置为 `1` 将使用 composer.json 中的策略配置。如果你想覆盖配置值，请改用 `composer config policy 1`。
+
+### COMPOSER_NO_BLOCKING
+
+如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-blocking` 选项。这将禁用此命令执行期间的所有策略阻止。它会覆盖每个已配置策略的阻止配置选项，例如 [policy.advisories.block](config.md#block)。
+
+
+### COMPOSER_NO_SECURITY_BLOCKING <Badge type="danger" text="已弃用"/>
+
+已弃用，请使用 [COMPOSER_NO_BLOCKING](#composer-no-blocking) 代替。
 
 如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-security-blocking` 选项。这允许安装存在安全公告或已被弃用的软件包。它会覆盖配置选项 [audit.block-insecure](config.md#block-insecure)。
 

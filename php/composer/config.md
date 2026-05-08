@@ -133,11 +133,414 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 > **注意：** 当禁用此选项且下载失败时，Composer 会立即抛出错误，而不会尝试其他源。请确保您的首选安装源（[preferred-install](##preferred-install)）已正确配置。
 
 
-## audit
+## policy
+
+统一的安全和包策略配置。控制安全公告、恶意软件检测、已弃用包和自定义策略列表。可以使用 `composer audit` 生成审计报告；阻止功能可以防止在 `composer update`、`require` 或 `remove` 期间安装不安全或其他被标记的包版本，对于恶意软件检测，还可以在 `composer install` 期间进行阻止。
+
+设置为 `false` 以禁用所有策略执行：
+
+```json
+{
+    "config": {
+        "policy": false
+    }
+}
+```
+
+### advisories
+
+受安全公告影响的包的配置。
+
+#### block
+
+默认为 `true`。当设置为 `true` 时，具有活跃安全公告的包版本将被阻止，除非忽略该公告或包，否则无法在 `update`/`require`/`remove` 期间安装。
+
+```json
+{
+    "config": {
+        "policy": {
+            "advisories": {
+                "block": false
+            }
+        }
+    }
+}
+```
+
+#### audit
+
+默认为 `fail`。`composer audit` 如何处理具有安全公告的包。
+
+- `ignore` — 不报告公告
+- `report` — 报告公告但不会导致非零退出码
+- `fail` — 公告会导致 `composer audit` 以非零退出码退出
+
+```json
+{
+    "config": {
+        "policy": {
+            "advisories": {
+                "audit": "report"
+            }
+        }
+    }
+}
+```
+
+#### ignore-id
+
+要忽略的公告 ID 列表（`CVE`、`GHSA`、`PKSA` 等）。每个条目可以选择性地包含原因和作用域（`on-block`/`on-audit`）以限制忽略适用的范围。
+
+##### 简单列表：
+
+```json
+{
+    "config": {
+        "policy": {
+            "advisories": {
+                "ignore-id": ["CVE-1234", "GHSA-xx"]
+            }
+        }
+    }
+}
+```
+
+##### 带原因：
+
+```json
+{
+    "config": {
+        "policy": {
+            "advisories": {
+                "ignore-id": {
+                    "CVE-1234": "不受影响。",
+                    "GHSA-xx": "已应用补丁。"
+                }
+            }
+        }
+    }
+}
+```
+
+##### 带作用域：
+
+`on-block: false` 表示公告不再阻止更新，但仍会在审计中报告。
+`on-audit: false` 表示公告仍然阻止更新，但不再在审计中报告。
+
+```json
+{
+    "config": {
+        "policy": {
+            "advisories": {
+                "ignore-id": {
+                    "CVE-1234": {"on-block": false, "reason": "已应用补丁，仍需要阻止。"},
+                    "GHSA-xx":  {"on-audit": false, "reason": "误报，仍需报告。"}
+                }
+            }
+        }
+    }
+}
+```
+
+#### ignore
+
+要忽略安全公告的包名称列表。支持通配符和可选的版本约束。有关所有支持的语法变体，请参见 [ignore 格式](#ignore-format)。
+
+#### ignore-severity
+
+要忽略的公告严重级别列表：`low`（低）、`medium`（中）、`high`（高）、`critical`（严重）。
+
+##### 简单列表：
+
+```json
+{
+    "config": {
+        "policy": {
+            "advisories": {
+                "ignore-severity": ["low", "medium"]
+            }
+        }
+    }
+}
+```
+
+##### 带作用域：
+
+```json
+{
+    "config": {
+        "policy": {
+            "advisories": {
+                "ignore-severity": {
+                    "low":    {"on-block": false},
+                    "medium": {"on-audit": false, "reason": "通过 WAF 处理"}
+                }
+            }
+        }
+    }
+}
+```
+
+### abandoned
+
+已弃用包的配置。
+
+#### block
+
+默认为 `false`。当设置为 `true` 时，已弃用的包无法在 `update`/`require`/`remove` 期间安装。
+
+```json
+{
+    "config": {
+        "policy": {
+            "abandoned": {
+                "block": true
+            }
+        }
+    }
+}
+```
+
+#### audit
+
+默认为 `fail`。`composer audit` 如何处理已弃用的包。
+
+- `ignore` — 不报告已弃用的包
+- `report` — 报告已弃用的包但不会导致非零退出码
+- `fail` — 已弃用的包会导致 `composer audit` 以非零退出码退出
+
+```json
+{
+    "config": {
+        "policy": {
+            "abandoned": {
+                "audit": "report"
+            }
+        }
+    }
+}
+```
+
+可以通过 [`COMPOSER_AUDIT_ABANDONED`](cli.md#composer-audit-abandoned) 环境变量或 [`--abandoned`](cli.md#audit) CLI 选项覆盖。
+
+#### ignore
+
+要忽略弃用检查的包名称（或模式）列表，无论其弃用状态如何。有关所有支持的语法变体，请参见 [ignore 格式](#ignore-format)。
+
+```json
+{
+    "config": {
+        "policy": {
+            "abandoned": {
+                "ignore": {
+                    "acme/*": "计划在下个季度替换。",
+                    "vendor/legacy": {"on-block": false, "reason": "允许更新但仍需报告。"}
+                }
+            }
+        }
+    }
+}
+```
+
+### malware
+
+被标记为包含恶意软件的包的配置。
+
+#### block
+
+默认为 `true`。当设置为 `true` 时，被标记为恶意软件的包将被阻止。
+
+#### block-scope
+
+默认为 `all`。控制哪些命令触发阻止：
+
+- `all` — 在 `update`/`require`/`remove` 和 `install` 期间都阻止
+- `update` — 仅在 `update`/`require`/`remove` 期间阻止
+- `install` — 仅在 `install` 期间阻止
+
+```json
+{
+    "config": {
+        "policy": {
+            "malware": {
+                "block-scope": "update"
+            }
+        }
+    }
+}
+```
+
+#### audit
+
+默认为 `fail`。与 [advisories.audit](#audit) 相同的值。
+
+#### ignore
+
+要从恶意软件检查中排除的包名称。有关所有支持的语法变体，请参见 [ignore 格式](#ignore-format)。
+
+#### ignore-source
+
+要从恶意软件检查中排除的来源名称列表。
+
+```json
+{
+    "config": {
+        "policy": {
+            "malware": {
+                "ignore-source": ["aikido"]
+            }
+        }
+    }
+}
+```
+
+### ignore-unreachable
+
+默认为 `["update", "install"]`。当操作被忽略时，不可访问或返回非 200 响应的仓库和策略源将被静默忽略而不是导致错误。在并非所有包仓库都可访问的环境中很有用。
+
+设置为 `true` 以在所有操作中忽略不可访问的仓库和策略源，设置为 `false` 以在任何操作中都不忽略它们。
+可能的值为：`audit`、`install` 和 `update`。
+
+```json
+{
+    "config": {
+        "policy": {
+            "ignore-unreachable": ["install", "update", "audit"]
+        }
+    }
+}
+```
+
+### 自定义列表
+
+除了内置的 `advisories`、`malware` 和 `abandoned` 列表外，您还可以定义命名的自定义策略列表。自定义列表从一个或多个 URL 源接收数据（由包仓库配置或在此处显式设置）。
+
+```json
+{
+    "config": {
+        "policy": {
+            "my-list": {
+                "block": true,
+                "audit": "fail",
+                "sources": [
+                    {"type": "url", "url": "https://example.org/policy-list.json"}
+                ],
+                "ignore": {
+                    "vendor/package": "已评估并接受。"
+                }
+            }
+        }
+    }
+}
+```
+
+自定义列表名称不得与保留名称 `advisories`、`malware` 或 `abandoned` 冲突，并且不得以 `ignore` 开头（此级别唯一允许的以 `ignore` 为前缀的键是文档化的 `ignore-unreachable` 设置）。
+
+以下名称保留供将来内置列表使用，不能用作自定义列表名称：`package`、`packages`、`license`、`licence`、`licenses`、`licences`、`support`、`maintenance`、`security`、`minimum-release-age`。Composer 会在架构验证时（`composer validate`）和配置加载时拒绝任何冲突的键。
+
+
+### ignore 格式 {#ignore-format }
+
+每个列表上的 `ignore` 键接受带有可选版本约束和每条规则作用域的包名称模式。所有格式可以在同一映射中混合使用。
+
+##### 简单列表（忽略所有版本）：
+
+```json
+{
+    "config": {
+        "policy": {
+            "<list>": {
+                "ignore": ["vendor/package", "acme/*"]
+            }
+        }
+    }
+}
+```
+
+##### 带原因：
+
+```json
+{
+    "config": {
+        "policy": {
+            "<list>": {
+                "ignore": {
+                    "vendor/package": "已评估，无风险。"
+                }
+            }
+        }
+    }
+}
+```
+
+##### 带版本约束：
+
+```json
+{
+    "config": {
+        "policy": {
+            "<list>": {
+                "ignore": {
+                    "vendor/package": {"constraint": "^2.0", "reason": "只有 v2 受影响。"}
+                }
+            }
+        }
+    }
+}
+```
+
+##### 带作用域：
+
+`on-block: false` 仅对审计忽略（包在更新期间仍被阻止，因为 on-block 忽略已禁用）。
+`on-audit: false` 仅对阻止忽略（包仍在审计中报告）。
+
+```json
+{
+    "config": {
+        "policy": {
+            "<list>": {
+                "ignore": {
+                    "vendor/package": {"on-audit": false, "reason": "已应用解决方法；继续报告。"}
+                }
+            }
+        }
+    }
+}
+```
+
+##### 同一包的多个规则：
+
+```json
+{
+    "config": {
+        "policy": {
+            "<list>": {
+                "ignore": {
+                    "vendor/package": [
+                        {"constraint": "^1.0", "on-audit": false},
+                        {"constraint": "^2.0", "reason": "v2 已打补丁。"}
+                    ]
+                }
+            }
+        }
+    }
+}
+```
+
+## audit <Badge type="danger" text="已弃用"/>
+
+> [!DANGER] 已弃用。
+> 请改用 [`config.policy`](#policy)。所有 `config.audit` 键仍为了向后兼容而支持，但将在未来的主要版本中移除。
 
 安全审计和版本阻止配置选项。可以使用 `composer audit` 生成审计报告，并且在更新或引入命令结束时会自动报告简短格式的版本。版本阻止功能会根据配置，在解析依赖关系之前丢弃被识别为不安全或已废弃的包版本，确保它们无法被安装。
 
-### ignore
+### ignore <Badge type="danger" text="已弃用"/>
+
+> [!DANGER] 已弃用。
+> 请改用 [`config.policy.advisories.ignore-id`](#ignore-id) 来配置公告 ID（CVE、GHSA、PKSA），使用 [`config.policy.advisories.ignore`](#ignore) 来配置包名称。
+> 
+> 注意：新格式使用 `on-block`/`on-audit` 布尔值代替 `"apply": "audit|block|all"`。
+
 
 一个在审计报告和（或）版本阻止中被忽略的咨询ID、远程ID、CVE ID 或包名（不推荐）的列表。
 
@@ -202,7 +605,10 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 所有格式可以在同一配置中混合使用。
 
-### abandoned
+### abandoned <Badge type="danger" text="已弃用"/>
+
+> [!DANGER] 已弃用。
+> 请使用 [`config.policy.abandoned.audit`](#audit-1) 代替。
 
 自 Composer 2.7 起默认值为 `fail`（在 Composer 2.6 中添加该选项时默认值为 `report`）。定义审计报告是否以及如何报告已废弃的包。有三个可能的值：
 
@@ -226,7 +632,12 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 自 Composer 2.8 起，可以通过 [`--abandoned`](cli.md#audit) 命令行选项覆盖该选项，其优先级高于配置值和环境变量。
 
-### ignore-abandoned
+### ignore-abandoned <Badge type="danger" text="已弃用"/>
+
+> [!DANGER] 已弃用。
+> 请改用 [`config.policy.abandoned.ignore`](#ignore-2)。
+> 
+> 注意：新格式使用 `on-block`/`on-audit` 布尔值代替 `"apply": "audit|block|all"`。
 
 一份在审计报告和（或）版本阻止中被忽略的已废弃包名称列表。允许你选择即使在已废弃状态下仍想继续使用的包。
 
@@ -286,7 +697,12 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 所有格式可以在同一配置中混合使用。
 
-### ignore-severity
+### ignore-severity <Badge type="danger" text="已弃用"/>
+
+> [!DANGER] 已弃用。
+> 请改用 [`config.policy.advisories.ignore-severity`](#ignore-severity)。
+> 
+> 注意：新格式使用 `on-block`/`on-audit` 布尔值代替 `"apply": "audit|block|all"`。
 
 默认值为 `[]`。一份在审计报告和（或）版本阻止中被忽略的严重性等级列表。
 
@@ -329,7 +745,10 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 所有格式可以在同一配置中混合使用。
 
-### ignore-unreachable
+### ignore-unreachable <Badge type="danger" text="已弃用"/>
+
+> [!DANGER] 已弃用。
+> 请改用 [`config.policy.ignore-unreachable`](#ignore-unreachable)。
 
 默认值为 `false`。在执行 `composer audit` 时是否应忽略无法访问的仓库。如果你在某些仓库无法访问的环境中运行该命令，这会很有帮助。此设置不适用于版本阻止或在 `composer audit` 命令之外生成的审计报告。
 
@@ -343,29 +762,10 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 }
 ```
 
-### filtered
+### block-insecure <Badge type="danger" text="已弃用"/>
 
-默认值为 `fail`。定义审计报告应如何报告已过滤的包。有三个可能的值:
-
-- `ignore` 表示审计报告完全不考虑已过滤的包。
-- `report` 表示会报告已过滤的包，但不会导致 `composer audit` 命令返回非零退出代码。
-- `fail` 表示已过滤的包会导致审计命令失败并返回非零退出代码。
-
-请注意，这仅适用于审计报告，不适用于更新时的版本阻止。
-
-```json
-{
-    "config": {
-        "audit": {
-            "filtered": "report"
-        }
-    }
-}
-```
-
-可以通过 [`--filtered`](cli.md#audit) 命令行选项覆盖。
-
-### block-insecure
+> [!DANGER] 已弃用。
+> 请改用 [`config.policy.advisories.block`](#block)。
 
 默认值为 `true`。如果为 `true`，任何受安全公告影响的包版本都将被阻止，在执行 composer update/require/delete 命令时无法使用，除非这些安全公告被忽略。如果启用了 [`block-abandoned`](#block-abandoned)，版本阻止还将防止使用已废弃的包。
 
@@ -379,7 +779,10 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 }
 ```
 
-### block-abandoned
+### block-abandoned <Badge type="danger" text="已弃用"/>
+
+> [!DANGER] 已弃用。
+> 请改用 [`config.policy.abandoned.block`](#block-1)。
 
 默认值为 `false`。如果为 `true`，任何已废弃的包在执行 composer update/require/delete 命令时都无法使用。仅在未通过将 [`block-insecure`](#block-insecure) 设置为 false 来禁用版本阻止时适用。
 
@@ -391,96 +794,6 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
         }
     }
 }
-```
-
-## filter
-
-默认值为 `true`。过滤列表配置选项。控制审计报告和版本阻止中过滤列表的使用方式。
-可以设置为 `true` 以启用默认配置，`false` 以完全禁用，或使用对象进行配置。
-
-### ignore-unreachable
-
-默认值为 `false`。是否忽略无法访问或返回非 200 状态码的过滤列表源。
-
-### unfiltered-packages
-
-免于过滤的包列表。支持三种格式：
-
-#### 简单格式（完全豁免）
-
-```json
-{
-    "config": {
-        "filter": {
-            "unfiltered-packages": ["vendor/package", "acme/*"]
-        }
-    }
-}
-```
-
-#### 包名 => 约束映射
-
-```json
-{
-    "config": {
-        "filter": {
-            "unfiltered-packages": [{"vendor/package": "^2.0"}]
-        }
-    }
-}
-```
-
-#### 带有应用范围的详细格式
-
-`apply` 字段接受以下值：
-- `audit` - 仅从审计报告中豁免
-- `block` - 仅从版本阻止中豁免
-- `all` - 两者都豁免（默认值）
-
-如果 apply 设置为 `audit` 或 `block`，则包将仅从指定的范围中豁免。所有其他范围如果存在匹配的过滤器，仍将对包进行过滤。
-
-```json
-{
-    "config": {
-        "filter": {
-            "unfiltered-packages": [
-                {
-                    "package": "vendor/package",
-                    "constraint": "^2.0",
-                    "reason": "已评估并接受风险",
-                    "apply": "audit"
-                }
-            ]
-        }
-    }
-}
-```
-
-### sources
-
-默认情况下，列表数据从提供过滤列表数据的已配置 Composer 仓库中获取。你可以配置额外的源来获取过滤列表数据。键为源名称，值为包含 `type` 键和类型特定配置的对象。
-
-目前仅支持 `type: "url"`，这需要额外的 `"url"` 键。配置的 URL 将在任何 `composer audit` 命令中接收你已安装包名的完整列表，以及在 `composer update` 命令中接收考虑的包名的完整列表。
-
-```json
-{
-    "config": {
-        "filter": {
-            "sources": {
-                "my-source": {
-                    "type": "url",
-                    "url": "https://example.org/filter-list.json"
-                }
-            }
-        }
-    }
-}
-```
-
-你也可以使用命令行配置源。
-
-```shell
-php composer.phar config [--global] filter.source.my-source url https://example.org/filter-list.json
 ```
 
 ## use-parent-dir
