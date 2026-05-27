@@ -389,6 +389,8 @@ php composer.phar config [--global] --editor --auth
 
 Bitbucket 驱动程序使用 OAuth 通过 Bitbucket REST API 访问你的私有仓库，你需要创建一个 OAuth 消费者来使用该驱动程序，请参考 [Atlassian 文档](https://support.atlassian.com/bitbucket-cloud/docs/use-oauth-on-bitbucket-cloud/)。你需要填写回调 URL 来满足 Bitbucket 的要求，但该地址不需要指向任何地方，Composer 也不会使用它。
 
+创建的消费者需要至少具有"Repository > Read"（仓库 > 读取）权限。
+
 #### 命令行配置 bitbucket-oauth {#command-line-bitbucket-oauth}
 
 ```shell

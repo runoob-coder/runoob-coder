@@ -729,8 +729,8 @@ repo [options] disable packagist.org
 - **--global (-g):** 修改全局 `$COMPOSER_HOME/config.json` 文件。
 - **--file (-f):** 修改指定文件而不是 `composer.json`。
 - **--append:** 添加一个优先级较低的仓库（默认情况下仓库会被前置，因此具有比现有仓库更高的优先级）。
-- **--before \<name\>:** 在名为 `<name>` 的现有仓库之前插入新仓库。
-- **--after \<name\>:** 在名为 `<name>` 的现有仓库之后插入新仓库。`<name>` 必须与现有仓库名称匹配。
+- **--before [name]:** 在名为 `[name]` 的现有仓库之前插入新仓库。
+- **--after [name]:** 在名为 `[name]` 的现有仓库之后插入新仓库。`[name]` 必须与现有仓库名称匹配。
 
 ### 示例
 
@@ -916,6 +916,7 @@ php composer.phar archive vendor/package 2.0.21 --format=zip
 * `5` 存在易受攻击和已过滤的包；
 * `6` 存在被遗弃和已过滤的包；
 * `7` 存在易受攻击、被遗弃和已过滤的包。
+* `8` 由于缺少必需的包而导致失败。
 
 ```shell
 php composer.phar audit
@@ -928,7 +929,7 @@ php composer.phar audit
 * **--locked:** 从锁定文件审计包，无论 vendor 目录中当前有什么。
 * **--abandoned:** 对被遗弃包的处理行为。必须是 "ignore"、"report" 或 "fail"。另请参见 [config.audit.abandoned](config.md#abandoned)。传递此标志将覆盖配置值和环境变量。
 * **--ignore-severity:** 忽略特定严重级别的公告。可以传递一次或多次来忽略多个严重级别。
-* **--filtered:** 对已过滤包的处理行为。必须是 "ignore"、"report" 或 "fail"。另请参见 [config.audit.filtered](config.md#filtered)。传递此标志将覆盖配置值。
+* **--filtered:** 对匹配 `malware` 和自定义过滤列表的包的行为。必须是 "ignore"、"report" 或 "fail"。在此命令执行期间，覆盖每个列表的 `audit` 设置（`config.policy.malware.audit` 和每个自定义列表的 `audit`）。
 
 ## help
 

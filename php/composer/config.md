@@ -147,6 +147,11 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 }
 ```
 
+> **从 `config.audit` 迁移？** 请参阅
+> [`config.audit` 与 `config.policy` 的交互方式](#how-configaudit-interacts-with-configpolicy)
+> 了解在迁移期间，旧版键如何仍然作为后备选项被采纳。
+
+
 ### advisories
 
 受安全公告影响的包的配置。
@@ -434,6 +439,8 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 }
 ```
 
+源 URL 必须使用 `https://`。`http://` 和其他协议在模式验证时（`composer validate`）和配置加载时都会被拒绝。
+
 自定义列表名称不得与保留名称 `advisories`、`malware` 或 `abandoned` 冲突，并且不得以 `ignore` 开头（此级别唯一允许的以 `ignore` 为前缀的键是文档化的 `ignore-unreachable` 设置）。
 
 以下名称保留供将来内置列表使用，不能用作自定义列表名称：`package`、`packages`、`license`、`licence`、`licenses`、`licences`、`support`、`maintenance`、`security`、`minimum-release-age`。Composer 会在架构验证时（`composer validate`）和配置加载时拒绝任何冲突的键。
@@ -533,6 +540,15 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 > 请改用 [`config.policy`](#policy)。所有 `config.audit` 键仍为了向后兼容而支持，但将在未来的主要版本中移除。
 
 安全审计和版本阻止配置选项。可以使用 `composer audit` 生成审计报告，并且在更新或引入命令结束时会自动报告简短格式的版本。版本阻止功能会根据配置，在解析依赖关系之前丢弃被识别为不安全或已废弃的包版本，确保它们无法被安装。
+
+### `config.audit` 与 `config.policy` 的交互方式 {#how-configaudit-interacts-with-configpolicy}
+
+旧版的 `config.audit` 键仅在相应的 [`config.policy`](#policy) 块**不存在**时作为后备选项读取。每个内置列表的后备机制是全有或全无的：
+
+- 如果设置了 [`config.policy.advisories`](#advisories)（任何值，包括 `false`），则所有与安全公告相关的 `audit.*` 键（[`audit.block-insecure`](#block-insecure)、[`audit.ignore`](#ignore-3)、[`audit.ignore-severity`](#ignore-severity-1)）将被**完全忽略**——只读取 [`policy.advisories.block`](#block)、[`policy.advisories.ignore`](#ignore) 和 [`policy.advisories.ignore-severity`](#ignore-severity)。不支持混合搭配使用，例如设置 `policy.advisories.block` 同时期望 `audit.ignore-severity` 仍然生效——需要将所有安全公告相关的设置一起迁移。
+- 如果设置了 [`config.policy.abandoned`](#abandoned)（任何值，包括 `false`），则所有与废弃包相关的 `audit.*` 键（[`audit.block-abandoned`](#block-abandoned)、[`audit.abandoned`](#abandoned-1)、[`audit.ignore-abandoned`](#ignore-abandoned)）将被**完全忽略**——只读取 [`policy.abandoned.block`](#block-1)、[`policy.abandoned.audit`](#audit-1) 和 [`policy.abandoned.ignore`](#ignore-1)。
+- 这两个内置列表是独立的：允许配置 `policy.advisories` 同时将废弃包设置保留在 `audit.*` 下，反之亦然。
+- 设置 [`policy.ignore-unreachable`](#ignore-unreachable) 将取代旧版的 [`audit.ignore-unreachable`](#ignore-unreachable-1) 键。
 
 ### ignore <Badge type="danger" text="已弃用"/>
 
