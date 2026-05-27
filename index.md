@@ -18,6 +18,9 @@ hero:
     - theme: alt
       text: Issues ❓
       link: https://github.com/issues?q=author%3Arunoob-coder
+    - theme: brand
+      text: 请我喝咖啡 ☕️
+      link: https://ko-fi.com/noob_coder
 
 features:
   - title: 408圣经

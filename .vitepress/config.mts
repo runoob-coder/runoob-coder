@@ -264,7 +264,7 @@ export default defineConfig({
         },
         socialLinks: [
             {icon: 'github', link: 'https://github.com/runoob-coder'},
-            {icon: 'alipay', ariaLabel: '支付宝红包福利', link: '/alipay'},
+            {icon: 'kofi', ariaLabel: '请我喝咖啡', link: 'https://ko-fi.com/noob_coder'},
             // {icon: 'bilibili', link: 'https://space.bilibili.com/1787631752'},
             // {icon: 'juejin', link: 'https://juejin.cn/user/4020229690108109'},
             {
