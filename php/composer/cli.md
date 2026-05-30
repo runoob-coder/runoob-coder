@@ -93,7 +93,6 @@ php composer.phar install
 ### 选项 {#install}
 
 * **--prefer-install：** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
-* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--dry-run：** 如果你想在不实际安装包的情况下运行安装过程，可以使用 `--dry-run` 参数。这将模拟安装过程，并向你展示将要发生什么。
 * **--download-only：** 仅下载，不安装包。
 * **--dev：** 安装 `require-dev` 中列出的包（这是默认行为）。
@@ -151,7 +150,6 @@ php composer.phar update vendor/package:2.0.1 vendor/package2:3.0.*
 ### 选项
 
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
-* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--dry-run:** 模拟命令执行而不实际执行任何操作。
 * **--dev:** 安装 `require-dev` 中列出的包（这是默认行为）。
 * **--no-dev:** 跳过安装 `require-dev` 中列出的包。自动加载器生成将跳过 `autoload-dev` 规则。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
@@ -159,7 +157,7 @@ php composer.phar update vendor/package:2.0.1 vendor/package2:3.0.*
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
 * **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
-* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
+* **--no-blocking：** 在此命令执行期间禁用所有基于策略的依赖阻止功能。另请参阅 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--lock:** 覆盖锁文件哈希值以抑制关于锁文件过期的警告，而无需更新包版本。如果包的元数据（如镜像和URL）发生了变化，这些信息会被更新。
 * **--with:** 临时添加的版本约束，例如 foo/bar:1.0.0 或 foo/bar=1.0.0
 * **--no-autoloader:** 跳过自动加载器生成。
@@ -214,14 +212,13 @@ php composer.phar require vendor/package vendor/package2
 * **--dev:** 将包添加到 `require-dev` 中。
 * **--dry-run:** 模拟命令执行而不实际执行任何操作。
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
-* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--no-progress:** 移除进度显示，因为某些终端或脚本无法处理退格字符。
 * **--no-update:** 禁用依赖项的自动更新（隐含 --no-install）。
 * **--no-install:** 在更新 composer.lock 文件后不运行安装步骤。
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
 * **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
-* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
+* **--no-blocking：** 在此命令执行期间禁用所有基于策略的依赖阻止功能。另请参阅 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--update-no-dev:** 使用 `--no-dev` 选项运行依赖项更新。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
 * **--update-with-dependencies (-w):** 同时更新新引入包的依赖项，但不包括作为根依赖项的包。也可以通过设置 COMPOSER_WITH_DEPENDENCIES=1 环境变量来启用。
 * **--update-with-all-dependencies (-W):** 同时更新新引入包的依赖项，包括作为根依赖项的包。也可以通过设置 COMPOSER_WITH_ALL_DEPENDENCIES=1 环境变量来启用。
@@ -257,7 +254,7 @@ php composer.phar remove vendor/package vendor/package2
 * **--no-audit:** 在更新 composer.lock 文件后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
 * **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
-* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
+* **--no-blocking：** 在此命令执行期间禁用所有基于策略的依赖阻止功能。另请参阅 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--update-no-dev:** 使用 `--no-dev` 选项运行依赖项更新。另请参见 [COMPOSER_NO_DEV](#composer-no-dev)。
 * **--update-with-dependencies (-w):** 同时更新被移除包的依赖项。也可以通过设置 COMPOSER_WITH_DEPENDENCIES=1 环境变量来启用。（已弃用，现在是默认行为）
 * **--update-with-all-dependencies (-W):** 允许更新所有继承的依赖项，包括那些作为根依赖项的包。也可以通过设置 COMPOSER_WITH_ALL_DEPENDENCIES=1 环境变量来启用。
@@ -298,7 +295,6 @@ php composer.phar reinstall "acme/*"
 ### 选项
 
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
-* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--no-autoloader:** 跳过自动加载器生成。
 * **--no-progress:** 移除进度显示，因为某些终端或脚本无法处理退格字符。
 * **--optimize-autoloader (-o):** 将 PSR-0/4 自动加载转换为类映射（classmap）以获得更快的自动加载速度。**这一点特别推荐用于生产环境**，但由于运行时需要一些时间，所以目前默认情况下不执行此操作。
@@ -750,15 +746,19 @@ php composer.phar repo enable packagist.org
 
 ## policy
 
-`policy` 命令允许你管理 `composer.json` 中 `config.policy` 下的自定义策略列表及其来源。来源指向 Composer 提供策略适用的包列表的远程 URL。向尚不存在的列表添加来源将自动创建该列表条目。
+`policy` 命令允许你在 `composer.json` 的 `config.policy` 配置下管理自定义依赖策略及其源。
+源指向一个远程 URL，该 URL 提供策略适用的包版本集合。为尚不存在的依赖策略添加源时，
+将自动创建该策略。
 
-内置列表（`advisories`、`malware`、`abandoned`）不接受来源并会被拒绝。要更改它们的设置，请使用 `composer config policy.<list>.<field>` — 参见 [policy](config.md#policy) 配置文档。
+内置依赖策略（`advisories`、`malware`、`abandoned`）不接受源并会被拒绝。
+要更改它们的设置，请使用 `composer config policy.<policy>.<field>` ——
+请参阅 [policy](config.md#policy) 配置文档。
 
 ### 使用
 
 ```shell
-policy [options] add-source [list-name] [source-type] [url]
-policy [options] add-source [list-name] [json-source-definition]
+policy [options] add-source [policy-name] [source-type] [url]
+policy [options] add-source [policy-name] [json-source-definition]
 ```
 
 目前仅支持 `url` 作为 `source-type`，且 URL 必须以 `https://` 开头。
@@ -801,7 +801,6 @@ php composer.phar create-project composer/hello-world my-project
 
 * **--stability (-s):** 包的最低稳定性。默认为 `stable`。
 * **--prefer-install:** 下载包有两种方式：`source`（源码）和 `dist`（发行版）。Composer 默认使用 `dist`。如果你传递 `--prefer-install=source`（或 `--prefer-source`），Composer 将从 `source` 安装（如果有源码）。这在你想对项目进行 bug 修复并直接获取依赖项的本地 git 克隆时非常有用。要获得 Composer 对包的开发版本自动使用 `source` 的传统行为，请使用 `--prefer-install=auto`。另请参见 [config.preferred-install](config.md#preferred-install)。传递此标志将覆盖配置值。
-* **--source-fallback / --no-source-fallback:** 覆盖 [config.source-fallback](config.md#source-fallback) 设置。禁用时，Composer 在首选下载源失败时不会回退到替代下载源（例如从 dist 切换到 source，或反之）。另请参阅 [COMPOSER_SOURCE_FALLBACK](#composer-source-fallback)。
 * **--repository:** 提供一个自定义仓库来搜索包，这将替代 packagist。可以是一个指向 `composer` 仓库的 HTTP URL，一个本地 `packages.json` 文件的路径，或一个类似于 [repositories](schema.md#repositories) 键接受的 JSON 字符串。你可以多次使用此选项来配置多个仓库。
 * **--add-repository:** 在 composer.json 中添加自定义仓库。如果存在锁文件，它将被删除并运行更新而不是安装。
 * **--dev:** 安装 `require-dev` 中列出的包。
@@ -815,7 +814,7 @@ php composer.phar create-project composer/hello-world my-project
 * **--no-audit:** 安装完成后不运行审计步骤。另请参见 [COMPOSER_NO_AUDIT](#composer-no-audit)。
 * **--audit-format:** 审计输出格式。必须是 "table"、"plain"、"json" 或 "summary"（默认）。
 * **--no-security-blocking:** 已弃用，请使用 `--no-blocking` 代替。允许安装存在安全通告或已被弃用的软件包。另请参见 [COMPOSER_NO_SECURITY_BLOCKING](#composer-no-security-blocking)。
-* **--no-blocking:** 禁用此命令执行期间的所有策略阻止。另请参见 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
+* **--no-blocking：** 在此命令执行期间禁用所有基于策略的依赖阻止功能。另请参阅 [COMPOSER_NO_BLOCKING](#composer-no-blocking)。
 * **--ignore-platform-reqs:** 忽略所有平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足这些要求也强制安装。另请参见 [`platform`](config.md#platform) 配置选项。
 * **--ignore-platform-req:** 忽略特定平台要求（`php`、`hhvm`、`lib-*` 和 `ext-*`），即使本地机器不满足该要求也强制安装。可以通过通配符忽略多个要求。
 * **--require:** 在安装项目后，将额外的包添加到 composer.json。如果存在锁文件（lock file），它将被删除并运行 update 而不是 install。可以多次指定以添加多个包。如果要指定版本约束，应使用 `foo/bar:1.0.0` 格式。
@@ -902,21 +901,12 @@ php composer.phar archive vendor/package 2.0.21 --format=zip
 
 ## audit
 
-此命令用于审计已安装的包是否存在潜在的安全问题。它默认使用 [Packagist.org API](https://packagist.org/apidoc#list-security-advisories) 检查并列出安全漏洞公告，或者如果在 `composer.json` 的 `repositories` 部分中指定了其他仓库，则使用这些仓库。
+此命令用于根据已定义的依赖策略（如安全公告）审计您已安装的包。默认情况下，它通过 [Packagist.org API](https://packagist.org/apidoc#list-security-advisories) 检查并列出安全漏洞公告，如果在 `composer.json` 的 `repositories` 部分指定了其他仓库，则也会使用这些仓库。该命令还会检测已废弃的包、被标记为恶意软件的包，或符合其他依赖策略的包。
 
-该命令还会检测被遗弃的包。
-
-`audit` 命令会确定是否存在易受攻击、被遗弃或已过滤的包，并根据检查结果返回以下退出代码：
+audit 命令会判断是否存在有漏洞的、已废弃的、恶意的包，或符合其他依赖策略的包，并根据检测结果返回以下退出码：
 
 * `0` 无问题；
-* `1` 存在易受攻击的包；
-* `2` 存在被遗弃的包；
-* `3` 既存在易受攻击的包，也存在被遗弃的包；
-* `4` 存在已过滤的包；
-* `5` 存在易受攻击和已过滤的包；
-* `6` 存在被遗弃和已过滤的包；
-* `7` 存在易受攻击、被遗弃和已过滤的包。
-* `8` 由于缺少必需的包而导致失败。
+* `1` 发现符合依赖策略的包，或因缺少必需的包而失败。
 
 ```shell
 php composer.phar audit
@@ -929,7 +919,6 @@ php composer.phar audit
 * **--locked:** 从锁定文件审计包，无论 vendor 目录中当前有什么。
 * **--abandoned:** 对被遗弃包的处理行为。必须是 "ignore"、"report" 或 "fail"。另请参见 [config.audit.abandoned](config.md#abandoned)。传递此标志将覆盖配置值和环境变量。
 * **--ignore-severity:** 忽略特定严重级别的公告。可以传递一次或多次来忽略多个严重级别。
-* **--filtered:** 对匹配 `malware` 和自定义过滤列表的包的行为。必须是 "ignore"、"report" 或 "fail"。在此命令执行期间，覆盖每个列表的 `audit` 设置（`config.policy.malware.audit` 和每个自定义列表的 `audit`）。
 
 ## help
 
@@ -1101,14 +1090,13 @@ Use the `composer fund` command to find out more!
 
 ### COMPOSER_POLICY
 
-主策略开关。设置为 `0` 以在更新和审计时禁用所有策略执行，或设置为 `1` 以启用它。将其设置为 `1` 将使用 composer.json 中的策略配置。如果你想覆盖配置值，请改用 `composer config policy 1`。
+主依赖策略开关。设置为 `0` 以在更新、安装和审计期间禁用所有依赖策略执行，或设置为 `1` 以启用它。将其设置为 `1` 将使用 composer.json 中的策略配置。如果您想更改配置值，请改用 `composer config policy 1`。
 
-当设置为 `0` 时，下面所有针对列表的覆盖都将被忽略 — 整个策略配置被短路为禁用状态。
+当设置为 `0` 时，所有策略特定的覆盖设置都将被忽略 —— 整个依赖策略配置将被短路为禁用状态。
 
 ### COMPOSER_NO_BLOCKING
 
-如果设置为 `1`，相当于向 `require`、`update`、`remove`、`install` 或 `create-project` 命令传递 `--no-blocking` 选项。这将禁用此命令执行期间的所有策略阻止。它会覆盖每个已配置策略的 `block` 配置选项，例如 [policy.advisories.block](config.md#block)。
-
+如果设置为 `1`，则等效于向 `require`、`update`、`remove`、`install` 或 `create-project`命令传递 `--no-blocking` 选项。这将禁用所有基于策略的依赖阻止功能。它会覆盖每个已配置依赖策略的 `block` 配置选项，例如 [policy.advisories.block](config.md#block)。
 
 ### COMPOSER_NO_SECURITY_BLOCKING <Badge type="danger" text="已弃用"/>
 
@@ -1128,7 +1116,7 @@ Use the `composer fund` command to find out more!
 
 如果设置为 `1`，则在依赖解析期间启用对已弃用包的阻止（相当于将 `policy.abandoned.block` 设置为 `true`）。如果设置为 `0`，则禁用阻止。
 
-当两者都设置时，优先于遗留的 [COMPOSER_SECURITY_BLOCKING_ABANDONED](#composer-security-blocking-abandoned)。
+当设置为不同值时，该值的优先级高于遗留变量 [COMPOSER_SECURITY_BLOCKING_ABANDONED](#composer-security-blocking-abandoned) 的值。
 
 ### COMPOSER_SECURITY_BLOCKING_ABANDONED <Badge type="danger" text="已弃用"/>
 
@@ -1151,10 +1139,6 @@ Use the `composer fund` command to find out more!
 ### COMPOSER_PREFER_DEV_OVER_PRERELEASE
 
 如果设置为 `1`，在同时启用了 `--prefer-stable` 和 `--prefer-lowest` 的情况下解析依赖项时，若没有稳定版本存在，则会将开发版本（dev）视为比 alpha/beta/RC 版本更稳定的版本。这在测试最低版本时非常有用，因为相比于预发布版本，它仍会优先选择可能包含关键修复的分支。
-
-### COMPOSER_SOURCE_FALLBACK
-
-如果设置为 `0`，Composer 在首选下载源失败时不会回退到替代下载源。等同于传递 `--no-source-fallback`。另请参阅 [config.source-fallback](config.md#source-fallback)。
 
 ### COMPOSER_MINIMAL_CHANGES
 

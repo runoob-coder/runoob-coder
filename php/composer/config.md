@@ -105,39 +105,50 @@ head:
 > [!NOTE] 注意
 > 匹配模式的顺序很重要，越具体的模式应放在越前面。当全局和包配置中混用字符串和对象写法时，字符串会被转换为 `*` 包模式。
 
+> [!TIP] 提示
+> 如果你想对某些包使用源码签出以便进行本地修改，但仅限于你自己的机器（而非 CI 环境），建议将 `preferred-install`
+> 配置为全局选项，而不是提交到项目中。例如：
+>
+> ```
+> composer config --global preferred-install.my-vendor/* source
+> ```
+>
+> 这样 CI 环境仍然默认从 `dist` 安装，而你的开发机器则始终从源码拉取这些包。这避免了依赖源码安装失败后再回退到 dist 的情况，也避免了 CI 先尝试 clone 操作，从而使输出更简洁、CI 运行更快。
+
 ## source-fallback
 
-默认值为 `true`。当设置为 `true` 时，Composer 会在下载失败时自动回退到替代安装源（例如从 dist 切换到 source，或反之）。设置为 `false` 可禁用此行为，在首选源不可用时立即失败。
+> [!DANGER] 已弃用！
+> 此选项已被弃用，并将在 Composer 2.11 版本中移除。
+> 
+> 除非确实需要，否则不要设置此选项。
+> 
+> 它作为一个临时的选择加入机制存在，因为我们出于安全原因禁用了 dist → source 的回退功能（静默地从分发版本切换到较不受信任或可能被操纵的源码签出存在安全隐患）。
+> 
+> 如果您有合法的使用场景需要重新启用 dist → source 回退，并且不希望我们在 2.11 版本中移除此功能，请在 https://github.com/composer/composer/issues 提交 issue 告知我们。
+
+默认值为 `false`。当设置为 `true` 时，如果 **dist** 安装失败，将回退到 **source** 签出。此选项仅控制 dist → source 的回退方向；从失败的源码签出回退到分发版本始终是允许的，不受此设置影响。
 
 ```json
 {
   "config": {
-    "source-fallback": false
+    "source-fallback": true
   }
 }
 ```
 
-也可以在命令行中指定：
-
-```bash
-composer install --no-source-fallback
-composer update --source-fallback
-```
-
-或通过 `COMPOSER_SOURCE_FALLBACK` 环境变量设置：
-
-```bash
-COMPOSER_SOURCE_FALLBACK=0 composer install
-```
-
-> **注意：** 当禁用此选项且下载失败时，Composer 会立即抛出错误，而不会尝试其他源。请确保您的首选安装源（[preferred-install](##preferred-install)）已正确配置。
-
+> [!NOTE] 注意
+> 当此选项为默认值（`false`）且 dist 下载失败时，Composer 会立即抛出错误，而不会尝试源码签出。
+> 
+> 请确保您的首选安装源（[`preferred-install`](#preferred-install)）已正确配置。
 
 ## policy
 
-统一的安全和包策略配置。控制安全公告、恶意软件检测、已弃用包和自定义策略列表。可以使用 `composer audit` 生成审计报告；阻止功能可以防止在 `composer update`、`require` 或 `remove` 期间安装不安全或其他被标记的包版本，对于恶意软件检测，还可以在 `composer install` 期间进行阻止。
+统一的依赖策略配置。控制 Composer 对具有安全公告、标记为恶意软件、已弃用的包以及自定义依赖策略的行为。
+可以使用 `composer audit` 生成审计报告；阻止功能可以防止在 `composer update`、`require` 或 `remove`
+期间安装不安全或以其他方式被标记的包版本，恶意软件也会在 `composer install` 期间被阻止。
 
-设置为 `false` 以禁用所有策略执行：
+设置为 `false` 以禁用所有依赖策略执行：
+
 
 ```json
 {
@@ -148,7 +159,7 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 ```
 
 > **从 `config.audit` 迁移？** 请参阅
-> [`config.audit` 与 `config.policy` 的交互方式](#how-configaudit-interacts-with-configpolicy)
+> [`config.audit` 与 `config.policy` 的交互方式](#how-config-audit-interacts-with-config-policy)
 > 了解在迁移期间，旧版键如何仍然作为后备选项被采纳。
 
 
@@ -249,7 +260,7 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 #### ignore
 
-要忽略安全公告的包名称列表。支持通配符和可选的版本约束。有关所有支持的语法变体，请参见 [ignore 格式](#ignore-format)。
+用于安全漏洞处理时要忽略的包名列表。支持通配符和可选的版本约束。有关所有支持的语法变体，请参阅[ignore 格式](#ignore-format)。
 
 #### ignore-severity
 
@@ -349,11 +360,11 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 ### malware
 
-被标记为包含恶意软件的包的配置。
+用于标记包含恶意软件的包版本的配置。
 
 #### block
 
-默认为 `true`。当设置为 `true` 时，被标记为恶意软件的包将被阻止。
+默认为 `true`。当设置为 `true` 时，被标记为恶意软件的包版本将被阻止。
 
 #### block-scope
 
@@ -401,10 +412,9 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 ### ignore-unreachable
 
-默认为 `["update", "install"]`。当操作被忽略时，不可访问或返回非 200 响应的仓库和策略源将被静默忽略而不是导致错误。在并非所有包仓库都可访问的环境中很有用。
+默认为 `["update", "install"]`。当操作在此列表中时，具有无法访问的 URL 源或返回非 200 响应的存储库和策略将被静默忽略，而不是导致错误。在并非所有包存储库都可访问的环境中很有用。
 
-设置为 `true` 以在所有操作中忽略不可访问的仓库和策略源，设置为 `false` 以在任何操作中都不忽略它们。
-可能的值为：`audit`、`install` 和 `update`。
+设置为 `true` 可在所有操作中忽略无法访问的存储库和自定义依赖策略源，设置为 `false` 则在任何操作中都不忽略它们。可能的值为：`audit`、`install` 和 `update`。
 
 ```json
 {
@@ -416,39 +426,39 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 }
 ```
 
-### 自定义列表
+### 自定义依赖策略
 
-除了内置的 `advisories`、`malware` 和 `abandoned` 列表外，您还可以定义命名的自定义策略列表。自定义列表从一个或多个 URL 源接收数据（由包仓库配置或在此处显式设置）。
+除了内置的 `advisories`、`malware` 和 `abandoned` 依赖策略外，你还可以定义命名的自定义依赖策略。自定义依赖策略需要自己的一组包版本，由一个或多个源提供（由包存储库报告或在此处显式设置）。
 
 ```json
 {
-    "config": {
-        "policy": {
-            "my-list": {
-                "block": true,
-                "audit": "fail",
-                "sources": [
-                    {"type": "url", "url": "https://example.org/policy-list.json"}
-                ],
-                "ignore": {
-                    "vendor/package": "已评估并接受。"
-                }
-            }
+  "config": {
+    "policy": {
+      "my-policy": {
+        "block": true,
+        "audit": "fail",
+        "sources": [
+          {"type": "url", "url": "https://example.org/my-bad-packages-list.json"}
+        ],
+        "ignore": {
+          "vendor/package": "Assessed and accepted."
         }
+      }
     }
+  }
 }
 ```
 
 源 URL 必须使用 `https://`。`http://` 和其他协议在模式验证时（`composer validate`）和配置加载时都会被拒绝。
 
-自定义列表名称不得与保留名称 `advisories`、`malware` 或 `abandoned` 冲突，并且不得以 `ignore` 开头（此级别唯一允许的以 `ignore` 为前缀的键是文档化的 `ignore-unreachable` 设置）。
+自定义依赖策略名称不得与保留名称 `advisories`、`malware` 或 `abandoned` 冲突，并且不得以 `ignore` 开头（此级别唯一允许的以 `ignore` 为前缀的键是文档化的 `ignore-unreachable` 设置）。
 
-以下名称保留供将来内置列表使用，不能用作自定义列表名称：`package`、`packages`、`license`、`licence`、`licenses`、`licences`、`support`、`maintenance`、`security`、`minimum-release-age`。Composer 会在架构验证时（`composer validate`）和配置加载时拒绝任何冲突的键。
+以下名称保留供将来内置依赖策略使用，不能用作自定义依赖策略名称：`package`、`packages`、`license`、`licence`、`licenses`、`licences`、`support`、`maintenance`、`security`、`minimum-release-age`。Composer 会在架构验证时（`composer validate`）和配置加载时拒绝任何冲突的键。
 
 
 ### ignore 格式 {#ignore-format }
 
-每个列表上的 `ignore` 键接受带有可选版本约束和每条规则作用域的包名称模式。所有格式可以在同一映射中混合使用。
+每个依赖策略上的 `ignore` 键接受带有可选版本约束和每条规则作用域的包名称模式。所有格式可以在同一映射中混合使用。
 
 ##### 简单列表（忽略所有版本）：
 
@@ -456,7 +466,7 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 {
     "config": {
         "policy": {
-            "<list>": {
+            "<policy>": {
                 "ignore": ["vendor/package", "acme/*"]
             }
         }
@@ -470,7 +480,7 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 {
     "config": {
         "policy": {
-            "<list>": {
+            "<policy>": {
                 "ignore": {
                     "vendor/package": "已评估，无风险。"
                 }
@@ -486,7 +496,7 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 {
     "config": {
         "policy": {
-            "<list>": {
+            "<policy>": {
                 "ignore": {
                     "vendor/package": {"constraint": "^2.0", "reason": "只有 v2 受影响。"}
                 }
@@ -541,13 +551,13 @@ COMPOSER_SOURCE_FALLBACK=0 composer install
 
 安全审计和版本阻止配置选项。可以使用 `composer audit` 生成审计报告，并且在更新或引入命令结束时会自动报告简短格式的版本。版本阻止功能会根据配置，在解析依赖关系之前丢弃被识别为不安全或已废弃的包版本，确保它们无法被安装。
 
-### `config.audit` 与 `config.policy` 的交互方式 {#how-configaudit-interacts-with-configpolicy}
+### `config.audit` 与 `config.policy` 的交互方式 {#how-config-audit-interacts-with-config-policy}
 
-旧版的 `config.audit` 键仅在相应的 [`config.policy`](#policy) 块**不存在**时作为后备选项读取。每个内置列表的后备机制是全有或全无的：
+旧的 `config.audit` 键仅在相应的 [`config.policy`](#policy) 部分**不存在**时作为回退读取。回退是针对每个内置依赖策略的全有或全无方式：
 
 - 如果设置了 [`config.policy.advisories`](#advisories)（任何值，包括 `false`），则所有与安全公告相关的 `audit.*` 键（[`audit.block-insecure`](#block-insecure)、[`audit.ignore`](#ignore-3)、[`audit.ignore-severity`](#ignore-severity-1)）将被**完全忽略**——只读取 [`policy.advisories.block`](#block)、[`policy.advisories.ignore`](#ignore) 和 [`policy.advisories.ignore-severity`](#ignore-severity)。不支持混合搭配使用，例如设置 `policy.advisories.block` 同时期望 `audit.ignore-severity` 仍然生效——需要将所有安全公告相关的设置一起迁移。
 - 如果设置了 [`config.policy.abandoned`](#abandoned)（任何值，包括 `false`），则所有与废弃包相关的 `audit.*` 键（[`audit.block-abandoned`](#block-abandoned)、[`audit.abandoned`](#abandoned-1)、[`audit.ignore-abandoned`](#ignore-abandoned)）将被**完全忽略**——只读取 [`policy.abandoned.block`](#block-1)、[`policy.abandoned.audit`](#audit-1) 和 [`policy.abandoned.ignore`](#ignore-1)。
-- 这两个内置列表是独立的：允许配置 `policy.advisories` 同时将废弃包设置保留在 `audit.*` 下，反之亦然。
+- 这两个内置依赖策略是独立的：允许配置 `policy.advisories` 同时将废弃包设置保留在 `audit.*` 下，反之亦然。
 - 设置 [`policy.ignore-unreachable`](#ignore-unreachable) 将取代旧版的 [`audit.ignore-unreachable`](#ignore-unreachable-1) 键。
 
 ### ignore <Badge type="danger" text="已弃用"/>
