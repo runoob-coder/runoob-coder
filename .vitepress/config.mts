@@ -107,6 +107,10 @@ export default defineConfig({
                 text: 'Flutter',
                 items: [
                     {
+                        text: '我开发的库',
+                        link: 'https://pub.dev/publishers/noob-coder.com/packages',
+                    },
+                    {
                         text: '学习参考',
                         items: [
                             {text: 'Awesome Flutter', link: '/flutter/awesome'},
