@@ -451,10 +451,40 @@ head:
 
 源 URL 必须使用 `https://`。`http://` 和其他协议在模式验证时（`composer validate`）和配置加载时都会被拒绝。
 
+`url` 源的查询方式与仓库的 [`api-url`](repositories.md#filter) 相同：Composer 会发送一个 POST 请求，其中包含相关的包 PURL 和自定义依赖策略名称，并期望返回匹配的过滤条目。由于每个请求的请求体各不相同，该请求不会在客户端缓存。实现者应注意，可能会提交大量的包名（几百个是正常情况）。所提交的 PURL 是在依赖解析*之前*收集到的候选包名的完整集合，因此它们仅通过名称来标识包（尚无版本约束），而且并非每个提交的包最终都一定会被求解器选中。
+
+该端点接收如下形式的 JSON 请求体：
+
+```json
+{
+    "packages": ["pkg://composer/vendor/package", "pkg://composer/other/package"],
+    "lists": ["my-policy"]
+}
+```
+
+该请求体复用了 Composer 仓库 [`api-url`](repositories.md#filter) 的传输格式。在那里，单个端点可以提供多个具名过滤列表（例如 `malware` 和 `typosquatting`），因此 `lists` 是一个数组，用于指明 Composer 想要哪些列表，而响应则是一个以列表名称为键的 `filter` 对象。自定义依赖策略没有这种多路复用机制：其 `url` 源仅用于提供那一个策略。因此，Composer 始终将策略名称作为 `lists` 的唯一元素发送（所以此处数组恰好只带一个值），端点应将接收到的任何列表名称都视为指向该策略。
+
+该端点必须返回如下形式的 JSON：
+
+```json
+{
+    "filter": [
+        {
+            "package": "vendor/package",
+            "constraint": ">=1.0.0,<1.2.0",
+            "url": "https://example.org/filters/123",
+            "reason": "Assessed and rejected.",
+            "id": "PKFE-xxxx-xxxx-xxxx"
+        }
+    ]
+}
+```
+
+由于 `url` 源始终只提供这一个策略，其响应省去了仓库 `api-url` 所使用的按列表分键的结构（在那里 `filter` 是一个将每个请求的列表名称映射到其条目的对象）。此处 `filter` 则是一个扁平的条目数组，所有条目都属于该策略。每个条目中 `package` 和 `constraint` 字段是必需的；`url`、`reason` 和 `id` 是可选的。凡是其包名与请求中的包不匹配的条目都会被忽略。
+
 自定义依赖策略名称不得与保留名称 `advisories`、`malware` 或 `abandoned` 冲突，并且不得以 `ignore` 开头（此级别唯一允许的以 `ignore` 为前缀的键是文档化的 `ignore-unreachable` 设置）。
 
 以下名称保留供将来内置依赖策略使用，不能用作自定义依赖策略名称：`package`、`packages`、`license`、`licence`、`licenses`、`licences`、`support`、`maintenance`、`security`、`minimum-release-age`。Composer 会在架构验证时（`composer validate`）和配置加载时拒绝任何冲突的键。
-
 
 ### ignore 格式 {#ignore-format }
 
