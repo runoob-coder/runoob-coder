@@ -929,6 +929,8 @@ head:
 
 目前该目录仅用于存储过去的 composer.phar 文件，以便能够回滚到旧版本。另请参见 [COMPOSER_HOME](cli.md#composer-home)。
 
+由于 `self-update --rollback` 会从该目录恢复此前存储的 `composer.phar`，因此它必须仅对拥有 Composer 安装的用户可写，并且应被视为受信任的位置。如果目录对其他用户可写，他们就可以植入恶意的 phar 文件，而具有特权的回滚操作随后便会将其安装。
+
 ## cache-dir
 
 在 Windows 上默认为 `C:\Users\<user>\AppData\Local\Composer`，在 macOS 上默认为 `/Users/<user>/Library/Caches/composer`，在遵循 XDG Base Directory 规范的 Unix 系统上默认为 `$XDG_CACHE_HOME/composer`，在其他 Unix 系统上默认为 `$COMPOSER_HOME/cache`。

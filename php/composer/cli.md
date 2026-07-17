@@ -625,6 +625,11 @@ sudo -H composer self-update
 
 如果 Composer 不是作为 PHAR 文件安装的，则此命令不可用。（当 Composer 由操作系统包管理器安装时，有时会出现这种情况。）
 
+更新时，如果你当前所在或即将更新到的版本已停止维护（end of life），或是临近停止维护、仅接收关键安全修复的旧版本线，Composer 会发出警告，并指引你前往最新的稳定版本。如果存在更新的 Composer 版本，但其所需的 PHP 版本高于你当前运行的版本，Composer 会告诉你所需的具体 PHP 版本，并提示你被固定在较旧的发布版本线上。
+
+为 `--rollback` 创建的备份存储在 [`data-dir`](config.md#data-dir) 中，用于校验下载内容的公钥则存储在 `COMPOSER_HOME` 中。这两个目录都必须仅对拥有 Composer 安装的用户可写，并且应被视为受信任的位置：如果目录对其他用户可写，就可能被用来植入恶意的 `composer.phar`，而具有特权的 `self-update --rollback` 随后便会将其安装。回滚到某个已打标签的发布版本时，备份在安装前会先与 getcomposer.org 发布的签名进行校验（如果签名不匹配或无法下载签名，回滚将会中止）；快照版/开发版构建无法通过这种方式校验，因此在交互式运行时回滚到此类版本会要求确认。
+
+
 ### 选项
 
 * **--rollback (-r):** 回滚到你之前安装的最后一个版本。
@@ -952,6 +957,10 @@ COMPOSER=composer-other.json php composer.phar install
 
 如果设置为 1，此环境变量将禁用以 root/super 用户身份运行命令时的警告提示。它还会禁用 sudo 会话的自动清除功能，因此只有在你始终以超级用户身份使用 Composer 时（例如在 Docker 容器中）才应该设置此变量。
 
+### COMPOSER_ALLOW_UNSAFE_PHAR_METADATA
+
+该环境变量仅在 PHP 8.0 之前的版本上生效。在这些版本上，Composer 会拒绝读取或解压 `tar`/`phar` 这类分发归档文件，因为在 PHP < 8.0 上使用不可信输入来解析此类归档是不安全的。推荐的解决方法是升级到 PHP 8.0 或更高版本。如果你无法升级并愿意承担相应风险，可将该变量设为 1，以允许 Composer 继续处理这些归档文件。PHP 8.0 及以上版本不受影响，会忽略此设置。
+
 ### COMPOSER_ALLOW_XDEBUG
 
 如果设置为 1，这个环境变量将允许在启用 Xdebug 扩展的情况下运行 Composer，而无需重新启动不带该扩展的 PHP。
@@ -1002,6 +1011,9 @@ Use the `composer fund` command to find out more!
 使用 `composer config --global home` 命令可以查看主目录的位置。
 
 默认情况下，在 Windows 系统上它指向 `C:\Users\<user>\AppData\Roaming\Composer`，在 macOS 上指向 `/Users/<user>/.composer`。在遵循 [XDG Base Directory Specifications](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) 的 *nix 系统上，它指向 `$XDG_CONFIG_HOME/composer`。在其他 *nix 系统上，它指向 `/home/<user>/.composer`。
+
+该目录保存着在 `self-update` 期间用于校验 Composer 下载内容的公钥，因此它必须仅对拥有 Composer 安装的用户可写，并且应被视为受信任的位置。
+
 
 #### COMPOSER_HOME/config.json
 
