@@ -20,7 +20,7 @@ hero:
       link: https://github.com/issues?q=author%3Arunoob-coder
     - theme: brand
       text: 请我喝咖啡 ☕️
-      link: https://ko-fi.com/noob_coder
+      link: /buy-me-a-coffee
 
 features:
   - title: 408圣经
