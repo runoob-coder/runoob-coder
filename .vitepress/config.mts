@@ -268,10 +268,10 @@ export default defineConfig({
         },
         socialLinks: [
             {icon: 'github', link: 'https://github.com/runoob-coder'},
-            {icon: 'kofi', ariaLabel: '请我喝咖啡', link: 'https://ko-fi.com/noob_coder'},
+            {icon: 'kofi', ariaLabel: '请我喝咖啡', link: '/buy-me-a-coffee'},
             // {icon: 'bilibili', link: 'https://space.bilibili.com/1787631752'},
             // {icon: 'juejin', link: 'https://juejin.cn/user/4020229690108109'},
-            {
+            /*{
                 icon: 'alibabacloud',
                 ariaLabel: '阿里云专享特惠',
                 link: 'https://www.aliyun.com/minisite/goods?source=5176.29345612&userCode=xnll3b0k'
@@ -289,7 +289,7 @@ export default defineConfig({
                 },
                 ariaLabel: '宝塔服务器面板，一键全能部署及管理',
                 link: 'https://www.bt.cn/u/1lohGU'
-            },
+            },*/
         ],
         outline: {
             level: 'deep',
