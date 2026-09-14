@@ -1,5 +1,5 @@
 ---
-title: 赞助我
+title: ☕️ Buy Me a Coffee / 请我喝咖啡
 aside: false
 editLink: false
 ---
