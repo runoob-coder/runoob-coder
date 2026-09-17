@@ -8,6 +8,6 @@ editLink: false
 |:------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------:|
 | <a href="https://ko-fi.com/noob_coder" target="_blank"><img src="/public/kofi6.webp" alt="Buy Me a Coffee at ko-fi.com" /></a> | <a href="https://paypal.me/runoobcoder" target="_blank"><img src="/public/paypal-donate-button.avif" alt="Donate with PayPal" /></a> |
 
-|            赞赏码  WeChat            |      支付宝     Alipay       |
-|:------------------------------------:|:----------------------------:|
-| ![appreciate.avif](/appreciate.avif) | ![alipay.avif](/alipay.avif) |
+|              赞赏码  WeChat              |          支付宝     Alipay           |
+|:----------------------------------------:|:------------------------------------:|
+| ![赞赏码WeChat](/public/appreciate.avif) | ![支付宝Alipay](/public/alipay.avif) |
